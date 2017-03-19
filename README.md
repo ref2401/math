@@ -28,7 +28,7 @@ clamp(Vec, Component min, Component max)
 dot(float2/3/4)
 len_squared
 len
-is_normalized
+is_normalized (float abs_diff = 1e-2)
 lerp
 normalize
 rgb
