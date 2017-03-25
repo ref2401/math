@@ -37,8 +37,8 @@ inline Numeric clamp(const Numeric& v, const Numeric& lo, const Numeric& hi) noe
 
 // Linearly interpolates between two values.
 // Params:
-// -	lhs:	The start of the range in which to interpolate.
-// -	rhs:	The end of the range in which to interpolate.
+// -	l:		The start of the range in which to interpolate.
+// -	rh:		The end of the range in which to interpolate.
 // -	factor:	The value to use to interpolate between lhs & rhs.
 //				Factor has to lie within the range [0 .. 1].
 template<typename Numeric>

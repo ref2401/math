@@ -1,11 +1,5 @@
 Tiny 3d math. Move along, there's nothing to see here.
 
-# notes
-- bin_debug/
-- bin_release/
-- include/
-- src/
-- vs_project/
 
 ## vectors
 ```c++

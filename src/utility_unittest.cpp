@@ -1,8 +1,8 @@
-
 #include "math/utility.h"
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
 
 namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 
