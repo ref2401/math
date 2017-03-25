@@ -33,6 +33,17 @@ public:
 		Assert::IsFalse(approx_equal(1.0, 1.001, 0.0009));
 		Assert::IsFalse(approx_equal(1.0, 1.001, 0.0001));
 	}
+
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		Assert::AreEqual(-1, clamp(-24, -1, 1));
+		Assert::AreEqual(-1, clamp(-1, -1, 1));
+		Assert::AreEqual(0, clamp(0, -1, 1));
+		Assert::AreEqual(1, clamp(1, -1, 1));
+		Assert::AreEqual(1, clamp(24, -1, 1));
+	}
 };
 
 } // namespace unittest
