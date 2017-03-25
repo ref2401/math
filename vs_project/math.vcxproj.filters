@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="..\include\math\vector_float.h" />
+    <ClInclude Include="..\include\math\utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\vector_float.cpp" />
