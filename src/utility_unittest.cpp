@@ -4,6 +4,13 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
+
+template<> inline std::wstring ToString<long double>(const long double& t) { RETURN_WIDE_STRING(t); }
+
+}}} // namespace Microsoft::VisualStudio::CppUnitTestFramework
+
+
 namespace unittest {
 
 TEST_CLASS(math_utility) {
@@ -18,8 +25,12 @@ public:
 		Assert::IsTrue(approx_equal(2.0f, 2.0f));
 
 		// double
-		Assert::IsTrue(approx_equal(1.0, 1.0));
-		Assert::IsTrue(approx_equal(2.0, 2.0));
+		Assert::IsTrue(approx_equal(3.0, 3.0));
+		Assert::IsTrue(approx_equal(4.0, 4.0));
+
+		// long double
+		Assert::IsTrue(approx_equal(5.0l, 5.0l));
+		Assert::IsTrue(approx_equal(6.0l, 6.0l));
 
 		// max_abs param
 		Assert::IsTrue(approx_equal(1.0, 1.0, 0.0));
@@ -43,6 +54,18 @@ public:
 		Assert::AreEqual(0, clamp(0, -1, 1));
 		Assert::AreEqual(1, clamp(1, -1, 1));
 		Assert::AreEqual(1, clamp(24, -1, 1));
+	}
+
+	TEST_METHOD(lerp)
+	{
+		using math::lerp;
+
+		Assert::AreEqual(0.0f, lerp(0.0f, 1.0f, 0.0f));
+		Assert::AreEqual(0.6, lerp(0.0, 1.0, 0.6));
+		Assert::AreEqual(1.0l, lerp(0.0l, 1.0l, 1.0l));
+
+		//Assert::AreEqual(24.0f, lerp(24.0f, 24.0f, 0.4f));
+		//Assert::AreEqual(24.0f, lerp(24.0f, 24.0f, 0.7f));
 	}
 };
 
