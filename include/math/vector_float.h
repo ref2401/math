@@ -144,7 +144,7 @@ struct float3 final {
 	float z;
 };
 
-struct float4 {
+struct float4 final {
 	static const float4 unit_x;
 	static const float4 unit_y;
 	static const float4 unit_z;
@@ -225,6 +225,84 @@ struct float4 {
 	float w;
 };
 
+// In mathematics, the quaternions are a number system that extends the complex numbers.
+// Quaternions extends a rotation in three dimensions to a rotation in four dimensions.
+// This avoids "gimbal lock" and allows for smooth continuous rotation.
+// q = xi + yj + zk + a1, where x, y, z, a are real numbers and i, j, k are imaginary units.
+// For any quaternion 'a' is called scalar part and 'xi + yj + zk' is called its vector part.
+struct quat final {
+	static const quat i;
+	static const quat j;
+	static const quat k;
+	static const quat identity;
+	static const quat zero;
+
+
+	quat() noexcept : x(0), y(0), z(0), a(0) {}
+
+	quat(float x, float y, float z, float a) noexcept : x(x), y(y), z(z), a(a) {}
+
+	quat(const float3& v, float a) noexcept : x(v.x), y(v.y), z(v.z), a(a) {}
+
+
+	quat& operator+=(const quat& q) noexcept
+	{
+		x += q.x;
+		y += q.y;
+		z += q.z;
+		a += q.a;
+		return *this;
+	}
+
+	quat& operator-=(const quat& q) noexcept
+	{
+		x -= q.x;
+		y -= q.y;
+		z -= q.z;
+		a -= q.a;
+		return *this;
+	}
+
+	quat& operator*=(float val) noexcept
+	{
+		x *= val;
+		y *= val;
+		z *= val;
+		a *= val;
+
+		return *this;
+	}
+
+	// Calculates the Hamilton product of this and the specified quaterions.
+	// Stores the result in this quaternion.
+	quat& operator*=(const quat& q) noexcept
+	{
+		float xp = (a * q.x) + (x * q.a) + (y * q.z) - (z * q.y);
+		float yp = (a * q.y) + (y * q.a) + (z * q.x) - (x * q.z);
+		float zp = (a * q.z) + (z * q.a) + (x * q.y) - (y * q.x);
+		float ap = (a * q.a) - (x * q.x) - (y * q.y) - (z * q.z);
+
+		x = xp;
+		y = yp;
+		z = zp;
+		a = ap;
+		return *this;
+	}
+
+	quat& operator/=(float val) noexcept
+	{
+		assert(!approx_equal(val, 0.0f));
+
+		x /= val;
+		y /= val;
+		z /= val;
+		a /= val;
+		return *this;
+	}
+
+
+	float x, y, z, a;
+};
 
 inline bool operator==(const float2& l, const float2& r) noexcept
 {
@@ -259,6 +337,19 @@ inline bool operator==(const float4& l, const float4& r) noexcept
 inline bool operator!=(const float4& l, const float4& r) noexcept
 {
 	return !(l == r);
+}
+
+inline bool operator==(const quat& l, const quat& r)
+{
+	return (l.x == r.x)
+		&& (l.y == r.y)
+		&& (l.z == r.z)
+		&& (l.a == r.a);
+}
+
+inline bool operator!=(const quat& lhs, const quat& rhs)
+{
+	return !(lhs == rhs);
 }
 
 inline float2 operator+(const float2& v, float val) noexcept
@@ -304,6 +395,11 @@ inline float4 operator+(float val, const float4& v) noexcept
 inline float4 operator+(const float4& l, const float4& r) noexcept
 {
 	return float4(l.x + r.x, l.y + r.y, l.z + r.z, l.w + r.w);
+}
+
+inline quat operator+(const quat& l, const quat& r) noexcept
+{
+	return quat(l.x + r.x, l.y + r.y, l.z + r.z, l.a + r.a);
 }
 
 inline float2 operator-(const float2& v, float val) noexcept
@@ -366,6 +462,16 @@ inline float4 operator-(const float4& v) noexcept
 	return float4(-v.x, -v.y, -v.z, -v.w);
 }
 
+inline quat operator-(const quat& l, const quat& r) noexcept
+{
+	return quat(l.x - r.x, l.y - r.y, l.z - r.z, l.a - r.a);
+}
+
+inline quat operator-(const quat& q) noexcept
+{
+	return quat(-q.x, -q.y, -q.z, -q.a);
+}
+
 inline float2 operator*(const float2& v, float val) noexcept
 {
 	return float2(v.x * val, v.y * val);
@@ -409,6 +515,27 @@ inline float4 operator*(float val, const float4& v) noexcept
 inline float4 operator*(const float4& l, const float4& r) noexcept
 {
 	return float4(l.x * r.x, l.y * r.y, l.z * r.z, l.w * r.w);
+}
+
+inline quat operator*(const quat& q, float val) noexcept
+{
+	return quat(q.x * val, q.y * val, q.z * val, q.a * val);
+}
+
+inline quat operator*(float val, const quat& q) noexcept
+{
+	return quat(q.x * val, q.y * val, q.z * val, q.a * val);
+}
+
+// Calculates the Hamilton product of lsh and rhs quaternions.
+inline quat operator*(const quat& l, const quat& r) noexcept
+{
+	return quat(
+		(l.a * r.x) + (l.x * r.a) + (l.y * r.z) - (l.z * r.y),
+		(l.a * r.y) + (l.y * r.a) + (l.z * r.x) - (l.x * r.z),
+		(l.a * r.z) + (l.z * r.a) + (l.x * r.y) - (l.y * r.x),
+		(l.a * r.a) - (l.x * r.x) - (l.y * r.y) - (l.z * r.z)
+	);
 }
 
 inline float2 operator/(const float2& v, float val) noexcept
@@ -486,6 +613,23 @@ inline float4 operator/(const float4& l, const float4& r) noexcept
 	return float4(l.x / r.x, l.y / r.y, l.z / r.z, l.w / r.w);
 }
 
+inline quat operator/(const quat& q, float val) noexcept
+{
+	assert(!approx_equal(val, 0.0f));
+
+	return quat(q.x / val, q.y / val, q.z / val, q.a / val);
+}
+
+inline quat operator/(float val, const quat& q) noexcept
+{
+	assert(!approx_equal(q.x, 0.0f));
+	assert(!approx_equal(q.y, 0.0f));
+	assert(!approx_equal(q.z, 0.0f));
+	assert(!approx_equal(q.a, 0.0f));
+
+	return quat(val / q.x, val / q.y, val / q.z, val / q.a);
+}
+
 std::ostream& operator<<(std::ostream& out, const float2& v);
 
 std::wostream& operator<<(std::wostream& out, const float2& v);
@@ -497,6 +641,10 @@ std::wostream& operator<<(std::wostream& out, const float3& v);
 std::ostream& operator<<(std::ostream& out, const float4& v);
 
 std::wostream& operator<<(std::wostream& out, const float4& v);
+
+std::ostream& operator<<(std::ostream& out, const quat& q);
+
+std::wostream& operator<<(std::wostream& out, const quat& q);
 
 
 // Returns true if the (abs(l - r) <= max_abs_diff) condition is true for every comopnent of l and r.
@@ -520,6 +668,15 @@ inline bool approx_equal(const float4& l, const float4& r, float max_abs_diff = 
 		&& approx_equal(l.y, r.y, max_abs_diff)
 		&& approx_equal(l.z, r.z, max_abs_diff)
 		&& approx_equal(l.w, r.w, max_abs_diff);
+}
+
+// Returns true if the (abs(l - r) <= max_abs_diff) condition is true for every comopnent of l and r.
+inline bool approx_equal(const quat& l, const quat& r, float max_abs_diff = 1e-5f) noexcept
+{
+	return approx_equal(l.x, r.x, max_abs_diff)
+		&& approx_equal(l.y, r.y, max_abs_diff)
+		&& approx_equal(l.z, r.z, max_abs_diff)
+		&& approx_equal(l.a, r.a, max_abs_diff);
 }
 
 // Returns the result of v.x / v.y.
@@ -575,6 +732,12 @@ inline float4 clamp(const float4& v, const float4& lo = float4::zero,
 		clamp(v.z, lo.z, hi.z),
 		clamp(v.w, lo.w, hi.w)
 	);
+}
+
+// Gets the conjugation result of the given quaternion.
+inline quat conjugate(const quat& q) noexcept
+{
+	return quat(-q.x, -q.y, -q.z, q.a);
 }
 
 // Calculates the cross product of of the given vectors.
@@ -641,6 +804,22 @@ inline float len_squared(const float4& v) noexcept
 	return (v.x * v.x) + (v.y * v.y) + (v.z * v.z) + (v.w * v.w);
 }
 
+// Calculates the squared length of q.
+inline float len_squared(const quat& q) noexcept
+{
+	return (q.x * q.x) + (q.y * q.y) + (q.z * q.z) + (q.a * q.a);
+}
+
+// Computes the inverse(reciprocal) of the given quaternion. q* / (|q|^2)
+inline quat inverse(const quat& q) noexcept
+{
+	const float l2 = len_squared(q);
+	assert(!approx_equal(l2, 0.0f)); // A quaternion with len = 0 isn't invertible.
+
+	const float scalar = 1.0f / l2;
+	return conjugate(q) * scalar;
+}
+
 // Checks whether the specified vector is normalized.
 inline bool is_normalized(const float2& v, float max_abs_diff = 1e-2f) noexcept
 {
@@ -659,6 +838,12 @@ inline bool is_normalized(const float4& v, float max_abs_diff = 1e-2f) noexcept
 	return approx_equal(len_squared(v), 1.0f, max_abs_diff);
 }
 
+// Checks whether the specified quaternion is normalized.
+inline bool is_normalized(const quat& q, float max_abs_diff = 1e-2f) noexcept
+{
+	return approx_equal(len_squared(q), 1.0f, max_abs_diff);
+}
+
 // Calculates the length of v.
 inline float len(const float2& v) noexcept
 {
@@ -675,6 +860,12 @@ inline float len(const float3& v) noexcept
 inline float len(const float4& v) noexcept
 {
 	return std::sqrt(len_squared(v));
+}
+
+// Calculates the length of q.
+inline float len(const quat& q) noexcept
+{
+	return std::sqrt(len_squared(q));
 }
 
 // Linearly interpolates between two values.
@@ -743,6 +934,16 @@ inline float4 normalize(const float4& v) noexcept
 	return v * factor;
 }
 
+// Returns a new quaternion which is normalized(unit length) copy of the given quaternion.
+inline quat normalize(const quat& q) noexcept
+{
+	const float l2 = len_squared(q);
+	if (approx_equal(l2, 0.0f) || approx_equal(l2, 1.0f)) return q;
+
+	const float factor = 1.0f / sqrt(l2);
+	return q * factor;
+}
+
 // Returns rgb color volor
 // (31 .. 24) bytes are ignored.
 // red: (23 .. 16) bytes. 
@@ -771,6 +972,9 @@ inline float4 rgba(uint32_t val) noexcept
 		(val & 0xFF) / 255.0f
 	);
 }
+
+// Performs spherical-interpolation between unit quaternions (geometrical slerp).
+quat slerp(const quat& q, const quat& r, float factor);
 
 } // namespace math
 

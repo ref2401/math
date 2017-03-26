@@ -6,6 +6,7 @@
 using math::float2;
 using math::float3;
 using math::float4;
+using math::quat;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
@@ -14,6 +15,7 @@ namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 template<> inline std::wstring ToString<math::float2>(const math::float2& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<math::float3>(const math::float3& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<math::float4>(const math::float4& t) { RETURN_WIDE_STRING(t); }
+template<> inline std::wstring ToString<math::quat>(const math::quat& t) { RETURN_WIDE_STRING(t); }
 
 }}} // namespace Microsoft::VisualStudio::CppUnitTestFramework
 
@@ -870,6 +872,264 @@ public:
 
 		Assert::AreEqual(float4(-1, -2, -3, -4), -v);
 		Assert::AreEqual(float4(1, 2, 3, 4), -(-v));
+	}
+};
+
+TEST_CLASS(math_vector_float_quat) {
+public:
+
+	TEST_METHOD(address_of)
+	{
+		quat q(5, 6, 7, 8);
+		float* ptr = &q.x;
+
+		Assert::AreEqual(q.x, ptr[0]);
+		Assert::AreEqual(q.y, ptr[1]);
+		Assert::AreEqual(q.z, ptr[2]);
+		Assert::AreEqual(q.a, ptr[3]);
+	}
+
+	TEST_METHOD(approx_equal)
+	{
+		using math::approx_equal;
+
+		quat q(1, 2, 3, 4);
+		Assert::IsFalse(approx_equal(q, quat(100, 2, 3, 4)));
+		Assert::IsFalse(approx_equal(q, quat(1, 100, 3, 4)));
+		Assert::IsFalse(approx_equal(q, quat(1, 2, 100, 4)));
+		Assert::IsFalse(approx_equal(q, quat(1, 2, 3, 100)));
+		Assert::IsTrue(approx_equal(q, q));
+		Assert::IsTrue(approx_equal(q, quat(1, 2, 3, 4)));
+
+		Assert::IsTrue(approx_equal(q, quat(1, 2, 3, 4), 0.0f));
+		Assert::IsFalse(approx_equal(q, quat(1.0001f, 2, 3, 4), 0.0f));
+		Assert::IsFalse(approx_equal(q, quat(1, 2.0002f, 3, 4), 0.0f));
+		Assert::IsFalse(approx_equal(q, quat(1, 2, 3.0003f, 4), 0.0f));
+		Assert::IsFalse(approx_equal(q, quat(1, 2, 3, 4.0004f), 0.0f));
+	}
+
+	TEST_METHOD(assignments)
+	{
+		quat q(5, 6, 7, 8);
+
+		// copy assignment
+		quat qc;
+		qc = q;
+		Assert::IsTrue((qc.x == q.x) && (qc.y == q.y) && (qc.z == q.z) && (qc.a == q.a));
+
+		// move assignment
+		quat qm;
+		qm = std::move(q);
+		Assert::IsTrue((qm.x == q.x) && (qm.y == q.y) && (qm.z == q.z) && (qm.a == q.a));
+	}
+
+	TEST_METHOD(binary_operator)
+	{
+		quat q(1, 2, 3, 4);
+
+		Assert::AreEqual(quat(1.11f, 2.22f, 3.33f, 4.44f), q + quat(0.11f, 0.22f, 0.33f, 0.44f));
+		Assert::AreEqual(quat(1.11f, 2.22f, 3.33f, 4.44f), quat(0.11f, 0.22f, 0.33f, 0.44f) + q);
+
+		Assert::AreEqual(quat(0, 1, 2, 3), q - quat(1, 1, 1, 1));
+		Assert::AreEqual(quat(0, -1, -2, -3), quat(1, 1, 1, 1) - q);
+
+		Assert::AreEqual(quat(10, 20, 30, 40), q * 10);
+		Assert::AreEqual(quat(10, 20, 30, 40), 10 * q);
+
+		Assert::AreEqual(quat(0.5f, 1, 1.5f, 2), q / 2);
+		Assert::AreEqual(quat(2, 1, 2.f / 3, 0.5f), 2 / q);
+
+		// Hamilton product
+		quat neg_identity(0, 0, 0, -1);
+		Assert::AreEqual(neg_identity, quat::i * quat::i);
+		Assert::AreEqual(neg_identity, quat::j * quat::j);
+		Assert::AreEqual(neg_identity, quat::k * quat::k);
+		Assert::AreEqual(neg_identity, (quat::i * quat::j) * quat::k);
+
+		Assert::AreEqual(quat::k, quat::i * quat::j, L"ij = k");
+		Assert::AreEqual(quat::i, quat::j * quat::k, L"jk = i");
+		Assert::AreEqual(quat::j, quat::k * quat::i, L"ki = j");
+		Assert::AreEqual(-quat::k, quat::j * quat::i, L"ji = -k");
+		Assert::AreEqual(-quat::i, quat::k * quat::j, L"kj = -i");
+		Assert::AreEqual(-quat::j, quat::i * quat::k, L"ik = -j");
+
+		quat p(2, 3, 4, 1);
+		quat r(10, 11, 12, 9);
+
+		Assert::AreEqual(p * (q * r), (p * q) * r);
+		Assert::AreEqual(p*(5 * q + 7 * r), 5 * (p*q) + 7 * (p*r), L"linearity: p(5q + 7r) = 5pq + 7pr");
+		Assert::AreEqual((5 * p + 7 * q)*r, 5 * (p*r) + 7 * (q*r), L"linearity: (5p + 7q)r = 5pr + 7qr");
+
+		Assert::AreEqual(q * 5, q*quat(0, 0, 0, 5));
+
+		// Hamilton product compaund assignment operator
+		quat p1 = p;
+		Assert::AreEqual(p * q * r, (p1 *= q) *= r);
+	}
+
+	TEST_METHOD(compound_assignment_operators)
+	{
+		quat q(5, 6, 7, 8);
+		quat r(1, 2, 3, 4);
+
+		(q += r) += r;
+		Assert::AreEqual(quat(7, 10, 13, 16), q);
+
+		(q -= r) -= r;
+		Assert::AreEqual(quat(5, 6, 7, 8), q);
+
+		(q *= 2) *= 3;
+		Assert::AreEqual(quat(30, 36, 42, 48), q);
+
+		(q /= 3) /= 2;
+		Assert::AreEqual(quat(5, 6, 7, 8), q);
+
+		// NOTE(ref2401): Hamilton product compaund assignment operator 
+		// is tested in the binary_operators test method.
+	}
+
+	TEST_METHOD(ctors)
+	{
+		quat q0;
+		Assert::IsTrue((q0.x == 0) && (q0.y == 0) && (q0.z == 0) && (q0.a == 0));
+
+		quat q1(1, 2, 3, 4);
+		Assert::IsTrue((q1.x == 1) && (q1.y == 2) && (q1.z == 3) && (q1.a == 4));
+
+		quat q2(float3(1, 2, 3), 4);
+		Assert::IsTrue((q2.x == 1) && (q2.y == 2) && (q2.z == 3) && (q2.a == 4));
+
+		// copy ctor.
+		quat qc = q1;
+		Assert::IsTrue((qc.x == q1.x) && (qc.y == q1.y) && (qc.z == q1.z) && (qc.a == q1.a));
+
+		// move ctor.
+		quat qm = std::move(qc);
+		Assert::IsTrue((qm.x == q1.x) && (qm.y == q1.y) && (qm.z == q1.z) && (qm.a == q1.a));
+	}
+
+	TEST_METHOD(conjugate)
+	{
+		using math::approx_equal;
+		using math::conjugate;
+		using math::len;
+
+		quat q(2, 3, 4, 1);
+		quat r(6, 7, 8, 5);
+
+		Assert::IsTrue(approx_equal(len(q), len(conjugate(q))), L"|q*| = |q|");
+		Assert::AreEqual(q, conjugate(conjugate(q)), L"(q*)* = q");
+		Assert::AreEqual(conjugate(q + r), conjugate(q) + conjugate(r), L"(q + r)* = q* + r*");
+		Assert::AreEqual(conjugate(q * r), conjugate(r) * conjugate(q), L"(qr)* = r*q*");
+	}
+
+	TEST_METHOD(equal_operator)
+	{
+		quat q(1, 2, 3, 4);
+
+		Assert::AreNotEqual(q, quat(100, 2, 3, 4));
+		Assert::AreNotEqual(q, quat(1, 100, 3, 4));
+		Assert::AreNotEqual(q, quat(1, 2, 100, 4));
+		Assert::AreNotEqual(q, quat(1, 2, 3, 100));
+
+		Assert::AreEqual(q, q);
+		Assert::AreEqual(q, quat(1, 2, 3, 4));
+	}
+
+	TEST_METHOD(inverse)
+	{
+		using math::inverse;
+
+		Assert::AreEqual(quat::identity, inverse(quat::identity));
+
+		quat q = quat(2, 3, 4, 5);
+
+		Assert::AreEqual(quat::identity, q * inverse(q));
+		Assert::AreEqual(quat::identity, inverse(q) * q);
+	}
+
+	TEST_METHOD(is_normalized)
+	{
+		using math::is_normalized;
+		using math::len;
+
+		Assert::IsTrue(is_normalized(quat::i));
+		Assert::IsTrue(is_normalized(quat::j));
+		Assert::IsTrue(is_normalized(quat::k));
+		Assert::IsTrue(is_normalized(quat::identity));
+
+		quat q(1, 2, 3, 4);
+		Assert::IsTrue(len(q) > 1 && (!is_normalized(q)));
+	}
+
+	TEST_METHOD(len_and_len_squared)
+	{
+		using math::approx_equal;
+		using math::len_squared;
+		using math::len;
+
+		quat q(2, 3, 4, 5);
+		quat r(4, 5, 6, 7);
+
+		Assert::AreEqual(2.0f * 2 + 3 * 3 + 4 * 4 + 5 * 5, len_squared(q));
+		Assert::AreEqual(std::sqrt(2.0f * 2 + 3 * 3 + 4 * 4 + 5 * 5), len(q));
+
+		Assert::AreEqual(2 * len(q), len(2 * q), L"|aQ| = |a| * |Q|");
+
+		Assert::IsTrue(
+			approx_equal(len(q + r),
+			len(q) + len(r), 0.1f),
+			L"|Q + P| <= |Q| + |P|");
+
+		Assert::IsTrue(
+			approx_equal(len(q * r),
+			len(q) * len(r)),
+			L"|QP| = |Q| * |P|");
+	}
+
+	TEST_METHOD(normalize)
+	{
+		using math::approx_equal;
+		using math::len;
+		using math::normalize;
+
+		Assert::AreEqual(quat::zero, normalize(quat::zero));
+		Assert::AreEqual(quat::identity, normalize(quat::identity));
+
+		quat q = quat(6, 7, -8, 0);
+		Assert::IsTrue(approx_equal(1.f, len(normalize(q))));
+	}
+
+	TEST_METHOD(slerp)
+	{
+		using math::is_normalized;
+		using math::normalize;
+		using math::slerp;
+
+		quat q = normalize(quat(1, 2, 3, 4));
+		quat r = normalize(quat(5, 6, 7, 8));
+		Assert::AreEqual(q, slerp(q, r, 0.f));
+		Assert::AreEqual(r, slerp(q, r, 1.f));
+
+		quat qs = slerp(q, r, 0.5f);
+		Assert::IsTrue(is_normalized(qs));
+	}
+
+	TEST_METHOD(static_members)
+	{
+		Assert::AreEqual(quat(1, 0, 0, 0), quat::i);
+		Assert::AreEqual(quat(0, 1, 0, 0), quat::j);
+		Assert::AreEqual(quat(0, 0, 1, 0), quat::k);
+		Assert::AreEqual(quat(0, 0, 0, 1), quat::identity);
+		Assert::AreEqual(quat(0, 0, 0, 0), quat::zero);
+	}
+
+	TEST_METHOD(unary_operators)
+	{
+		quat q(1, 2, 3, 4);
+
+		Assert::AreEqual(quat(-1, -2, -3, -4), -q);
+		Assert::AreEqual(quat(1, 2, 3, 4), -(-q));
 	}
 };
 
