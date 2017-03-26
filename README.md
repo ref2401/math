@@ -20,6 +20,7 @@ aspect_ratio<T>(vec)
 template<Vec, Component = vector_traits<Vec>::component_type> 
 clamp(Vec, Component min, Component max)
 dot(float2/3/4)
+greater_than_all
 len_squared
 len
 is_normalized (float abs_diff = 1e-2)

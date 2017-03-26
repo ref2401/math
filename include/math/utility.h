@@ -9,9 +9,7 @@
 
 namespace math {
 
-// Determines whether lhs is approximately equal to rhs 
-// admitting a maximum absolute difference max_abs.
-// If Numeric is an integral value then max_abs doesn't matter.
+// Determines whether l is approximately equal to r admitting a maximum absolute difference max_abs_diff.
 template<typename Numeric>
 inline bool approx_equal(const Numeric& l, const Numeric& r, const Numeric& max_abs_diff = Numeric(1e-5)) noexcept
 {
