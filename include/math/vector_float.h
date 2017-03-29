@@ -138,6 +138,17 @@ struct float3 final {
 		return *this;
 	}
 
+	explicit operator float2() const noexcept 
+	{
+		return float2(x, y);
+	}
+
+
+	float2 xy() const noexcept
+	{
+		return float2(x, y);
+	}
+
 
 	float x;
 	float y;
@@ -218,12 +229,34 @@ struct float4 final {
 		return *this;
 	}
 
+	explicit operator float2() const noexcept
+	{
+		return float2(x, y);
+	}
+
+	explicit operator float3() const noexcept
+	{
+		return float3(x, y, z);
+	}
+
+
+	float2 xy() const noexcept
+	{
+		return float2(x, y);
+	}
+	
+	float3 xyz() const noexcept
+	{
+		return float3(x, y, z);
+	}
+
 
 	float x;
 	float y;
 	float z;
 	float w;
 };
+
 
 // In mathematics, the quaternions are a number system that extends the complex numbers.
 // Quaternions extends a rotation in three dimensions to a rotation in four dimensions.

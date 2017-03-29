@@ -387,6 +387,13 @@ public:
 		Assert::AreEqual(float3::zero, v);
 	}
 
+	TEST_METHOD(conversion_operators)
+	{
+		float3 v(1, 2, 3);
+		Assert::AreEqual(float2(1, 2), v.xy());
+		Assert::AreEqual(float2(1, 2), static_cast<float2>(v));
+	}
+
 	TEST_METHOD(cross_product)
 	{
 		using math::cross;
@@ -710,6 +717,17 @@ public:
 
 		v -= v;
 		Assert::AreEqual(float4::zero, v);
+	}
+
+	TEST_METHOD(conversion_operators)
+	{
+		float4 v(1, 2, 3, 4);
+
+		Assert::AreEqual(float2(1, 2), v.xy());
+		Assert::AreEqual(float3(1, 2, 3), v.xyz());
+
+		Assert::AreEqual(float2(1, 2), static_cast<float2>(v));
+		Assert::AreEqual(float3(1, 2, 3), static_cast<float3>(v));
 	}
 
 	TEST_METHOD(ctors)
