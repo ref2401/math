@@ -2,8 +2,10 @@ Tiny 3d math. Move along, there's nothing to see here.
 
 
 ## vectors
-```c++
 vector_int.h {ubyte2/3/4 int2/3/4, uint2/3/4}
+vec_int4 operator-
+greater_then -> >, >=
+
 
 ## matrices
 ```c++

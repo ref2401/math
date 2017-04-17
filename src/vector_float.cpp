@@ -1,5 +1,6 @@
 #include "math/vector_float.h"
 
+
 namespace math {
 
 const float2 float2::unit_x(1, 0);

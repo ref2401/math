@@ -257,7 +257,6 @@ struct float4 final {
 	float w;
 };
 
-
 // In mathematics, the quaternions are a number system that extends the complex numbers.
 // Quaternions extends a rotation in three dimensions to a rotation in four dimensions.
 // This avoids "gimbal lock" and allows for smooth continuous rotation.

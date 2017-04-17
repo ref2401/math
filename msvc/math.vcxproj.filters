@@ -4,8 +4,10 @@
     <ClInclude Include="..\include\math\vector_float.h" />
     <ClInclude Include="..\include\math\utility.h" />
     <ClInclude Include="..\include\math\vector_traits.h" />
+    <ClInclude Include="..\include\math\vector_int.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\vector_float.cpp" />
+    <ClCompile Include="..\src\vector_int.cpp" />
   </ItemGroup>
 </Project>
