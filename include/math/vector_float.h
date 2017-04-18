@@ -384,6 +384,66 @@ inline bool operator!=(const quat& lhs, const quat& rhs)
 	return !(lhs == rhs);
 }
 
+inline bool operator<(const float2& v, float val) noexcept
+{
+	return (v.x < val) && (v.y < val);
+}
+
+inline bool operator>(const float2& v, float val) noexcept
+{
+	return (v.x > val) && (v.y > val);
+}
+
+inline bool operator<=(const float2& v, float val) noexcept
+{
+	return (v.x <= val) && (v.y <= val);
+}
+
+inline bool operator>=(const float2& v, float val) noexcept
+{
+	return (v.x >= val) && (v.y >= val);
+}
+
+inline bool operator<(const float3& v, float val) noexcept
+{
+	return (v.x < val) && (v.y < val) && (v.z < val);
+}
+
+inline bool operator>(const float3& v, float val) noexcept
+{
+	return (v.x > val) && (v.y > val) && (v.z > val);
+}
+
+inline bool operator<=(const float3& v, float val) noexcept
+{
+	return (v.x <= val) && (v.y <= val) && (v.z <= val);
+}
+
+inline bool operator>=(const float3& v, float val) noexcept
+{
+	return (v.x >= val) && (v.y >= val) && (v.z >= val);
+}
+
+inline bool operator<(const float4& v, float val) noexcept
+{
+	return (v.x < val) && (v.y < val) && (v.z < val) && (v.w < val);
+}
+
+inline bool operator>(const float4& v, float val) noexcept
+{
+	return (v.x > val) && (v.y > val) && (v.z > val) && (v.w > val);
+}
+
+inline bool operator<=(const float4& v, float val) noexcept
+{
+	return (v.x <= val) && (v.y <= val) && (v.z <= val) && (v.w <= val);
+}
+
+inline bool operator>=(const float4& v, float val) noexcept
+{
+	return (v.x >= val) && (v.y >= val) && (v.z >= val) && (v.w >= val);
+}
+
 inline float2 operator+(const float2& v, float val) noexcept
 {
 	return float2(v.x + val, v.y + val);
@@ -798,24 +858,6 @@ inline float dot(const float3& l, const float3& r) noexcept
 inline float dot(const float4& l, const float4& r) noexcept
 {
 	return (l.x * r.x) + (l.y * r.y) + (l.z * r.z) + (l.w * r.w);
-}
-
-// Returns true if all the components of v are greater than val.
-inline bool greater_than(const float2& v, float val) noexcept
-{
-	return (v.x > val) && (v.y > val);
-}
-
-// Returns true if all the components of v are greater than val.
-inline bool greater_than(const float3& v, float val) noexcept
-{
-	return (v.x > val) && (v.y > val) && (v.z > val);
-}
-
-// Returns true if every component of v is greater than val.
-inline bool greater_than(const float4& v, float val) noexcept
-{
-	return (v.x > val) && (v.y > val) && (v.z > val) && (v.w > val);
 }
 
 // Calculates the squared length of v.

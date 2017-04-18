@@ -188,18 +188,6 @@ public:
 		Assert::AreEqual(v, float2(1, 2));
 	}
 
-	TEST_METHOD(greater_than)
-	{
-		using math::greater_than;
-
-		Assert::IsFalse(greater_than(float2(0, 5), 1));
-		Assert::IsFalse(greater_than(float2(1, 5), 1));
-		Assert::IsFalse(greater_than(float2(4, 0), 1));
-		Assert::IsFalse(greater_than(float2(4, 1), 1));
-
-		Assert::IsTrue(greater_than(float2(4, 5), 1));
-	}
-
 	TEST_METHOD(is_normalized)
 	{
 		using math::is_normalized;
@@ -256,6 +244,37 @@ public:
 
 		float2 u(-8, 6);
 		Assert::IsTrue(approx_equal(1.0f, len(normalize(u))));
+	}
+
+	TEST_METHOD(rational_operators)
+	{
+		// operator <
+		Assert::IsFalse(float2(7, 1) < 6);
+		Assert::IsFalse(float2(6, 1) < 6);
+		Assert::IsFalse(float2(1, 7) < 6);
+		Assert::IsFalse(float2(1, 6) < 6);
+		Assert::IsTrue(float2(1, 1) < 6);
+
+		// operator <=
+		Assert::IsFalse(float2(7, 1) <= 6);
+		Assert::IsFalse(float2(1, 7) <= 6);
+		Assert::IsTrue(float2(1, 1) <= 6);
+		Assert::IsTrue(float2(6, 1) <= 6);
+		Assert::IsTrue(float2(1, 6) <= 6);
+
+		// operator >
+		Assert::IsFalse(float2(0, 5) > 1);
+		Assert::IsFalse(float2(1, 5) > 1);
+		Assert::IsFalse(float2(4, 0) > 1);
+		Assert::IsFalse(float2(4, 1) > 1);
+		Assert::IsTrue(float2(4, 5) > 1);
+
+		// operator >=
+		Assert::IsFalse(float2(0, 5) >= 1);
+		Assert::IsFalse(float2(4, 0) >= 1);
+		Assert::IsTrue(float2(4, 5) >= 1);
+		Assert::IsTrue(float2(1, 5) >= 1);
+		Assert::IsTrue(float2(4, 1) >= 1);
 	}
 
 	TEST_METHOD(static_members)
@@ -497,20 +516,6 @@ public:
 		Assert::AreEqual(v, float3(1, 2, 3));
 	}
 
-	TEST_METHOD(greater_than)
-	{
-		using math::greater_than;
-
-		Assert::IsFalse(greater_than(float3(0, 5, 7), 1));
-		Assert::IsFalse(greater_than(float3(1, 5, 7), 1));
-		Assert::IsFalse(greater_than(float3(4, 0, 7), 1));
-		Assert::IsFalse(greater_than(float3(4, 1, 7), 1));
-		Assert::IsFalse(greater_than(float3(4, 5, 0), 1));
-		Assert::IsFalse(greater_than(float3(4, 5, 1), 1));
-
-		Assert::IsTrue(greater_than(float3(4, 5, 7), 1));
-	}
-
 	TEST_METHOD(is_normalized)
 	{
 		using math::is_normalized;
@@ -570,6 +575,45 @@ public:
 
 		float3 u(-8, 6, 24);
 		Assert::IsTrue(approx_equal(1.f, len(normalize(u))));
+	}
+
+	TEST_METHOD(rational_operators)
+	{
+		// operator <
+		Assert::IsFalse(float3(6, 1, 2) < 6);
+		Assert::IsFalse(float3(7, 1, 2) < 6);
+		Assert::IsFalse(float3(1, 6, 2) < 6);
+		Assert::IsFalse(float3(1, 7, 2) < 6);
+		Assert::IsFalse(float3(1, 2, 6) < 6);
+		Assert::IsFalse(float3(1, 2, 7) < 6);
+		Assert::IsTrue(float3(1, 2, 3) < 6);
+
+		// operator <=
+		Assert::IsFalse(float3(7, 1, 2) <= 6);
+		Assert::IsFalse(float3(1, 7, 2) <= 6);
+		Assert::IsFalse(float3(1, 2, 7) <= 6);
+		Assert::IsTrue(float3(1, 2, 3) <= 6);
+		Assert::IsTrue(float3(6, 1, 2) <= 6);
+		Assert::IsTrue(float3(1, 6, 2) <= 6);
+		Assert::IsTrue(float3(1, 2, 6) <= 6);
+
+		// operator >
+		Assert::IsFalse(float3(0, 5, 7) > 1);
+		Assert::IsFalse(float3(1, 5, 7) > 1);
+		Assert::IsFalse(float3(4, 0, 7) > 1);
+		Assert::IsFalse(float3(4, 1, 7) > 1);
+		Assert::IsFalse(float3(4, 5, 0) > 1);
+		Assert::IsFalse(float3(4, 5, 1) > 1);
+		Assert::IsTrue(float3(4, 5, 7) > 1);
+
+		// operator >=
+		Assert::IsFalse(float3(0, 5, 7) >= 1);
+		Assert::IsFalse(float3(4, 0, 7) >= 1);
+		Assert::IsFalse(float3(4, 5, 0) >= 1);
+		Assert::IsTrue(float3(4, 5, 7) >= 1);
+		Assert::IsTrue(float3(1, 5, 7) >= 1);
+		Assert::IsTrue(float3(4, 1, 7) >= 1);
+		Assert::IsTrue(float3(4, 5, 1) >= 1);
 	}
 
 	TEST_METHOD(rgb)
@@ -780,22 +824,6 @@ public:
 		Assert::AreEqual(v, float4(1, 2, 3, 4));
 	}
 
-	TEST_METHOD(greater_than)
-	{
-		using math::greater_than;
-
-		Assert::IsFalse(greater_than(float4(0, 5, 7, 9), 1));
-		Assert::IsFalse(greater_than(float4(1, 5, 7, 9), 1));
-		Assert::IsFalse(greater_than(float4(4, 0, 7, 9), 1));
-		Assert::IsFalse(greater_than(float4(4, 1, 7, 9), 1));
-		Assert::IsFalse(greater_than(float4(4, 5, 0, 9), 1));
-		Assert::IsFalse(greater_than(float4(4, 5, 1, 9), 1));
-		Assert::IsFalse(greater_than(float4(4, 5, 7, 0), 1));
-		Assert::IsFalse(greater_than(float4(4, 5, 7, 1), 1));
-
-		Assert::IsTrue(greater_than(float4(4, 5, 7, 9), 1));
-	}
-
 	TEST_METHOD(is_normalized)
 	{
 		using math::is_normalized;
@@ -858,6 +886,53 @@ public:
 
 		float4 u(-8, 6, 24, -0.1f);
 		Assert::IsTrue(approx_equal(1.f, len(normalize(u))));
+	}
+
+	TEST_METHOD(rational_operators)
+	{
+		// operator <
+		Assert::IsFalse(float4(6, 1, 2, 3) < 6);
+		Assert::IsFalse(float4(7, 1, 2, 3) < 6);
+		Assert::IsFalse(float4(1, 6, 2, 3) < 6);
+		Assert::IsFalse(float4(1, 7, 2, 3) < 6);
+		Assert::IsFalse(float4(1, 2, 6, 3) < 6);
+		Assert::IsFalse(float4(1, 2, 7, 3) < 6);
+		Assert::IsFalse(float4(1, 2, 3, 6) < 6);
+		Assert::IsFalse(float4(1, 2, 3, 7) < 6);
+		Assert::IsTrue(float4(1, 2, 3, 4) < 6);
+
+		// operator <=
+		Assert::IsFalse(float4(7, 1, 2, 3) <= 6);
+		Assert::IsFalse(float4(1, 7, 2, 3) <= 6);
+		Assert::IsFalse(float4(1, 2, 7, 3) <= 6);
+		Assert::IsFalse(float4(1, 2, 3, 7) <= 6);
+		Assert::IsTrue(float4(1, 2, 3, 4) <= 6);
+		Assert::IsTrue(float4(6, 1, 2, 3) <= 6);
+		Assert::IsTrue(float4(1, 6, 2, 3) <= 6);
+		Assert::IsTrue(float4(1, 2, 6, 3) <= 6);
+		Assert::IsTrue(float4(1, 2, 3, 6) <= 6);
+
+		// operator >
+		Assert::IsFalse(float4(0, 5, 7, 9) > 1);
+		Assert::IsFalse(float4(1, 5, 7, 9) > 1);
+		Assert::IsFalse(float4(4, 0, 7, 9) > 1);
+		Assert::IsFalse(float4(4, 1, 7, 9) > 1);
+		Assert::IsFalse(float4(4, 5, 0, 9) > 1);
+		Assert::IsFalse(float4(4, 5, 1, 9) > 1);
+		Assert::IsFalse(float4(4, 5, 7, 0) > 1);
+		Assert::IsFalse(float4(4, 5, 7, 1) > 1);
+		Assert::IsTrue(float4(4, 5, 7, 9) > 1);
+
+		// operator >=
+		Assert::IsFalse(float4(0, 5, 7, 9) >= 1);
+		Assert::IsFalse(float4(4, 0, 7, 9) >= 1);
+		Assert::IsFalse(float4(4, 5, 0, 9) >= 1);
+		Assert::IsFalse(float4(4, 5, 7, 0) >= 1);
+		Assert::IsTrue(float4(4, 5, 7, 9) >= 1);
+		Assert::IsTrue(float4(1, 5, 7, 9) >= 1);
+		Assert::IsTrue(float4(4, 1, 7, 9) >= 1);
+		Assert::IsTrue(float4(4, 5, 1, 9) >= 1);
+		Assert::IsTrue(float4(4, 5, 7, 1) >= 1);
 	}
 
 	TEST_METHOD(rgba)
