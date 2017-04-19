@@ -110,6 +110,7 @@ template<typename T> const vec_int_4<T> vec_int_4<T>::unit_xyzw(1, 1, 1, 1);
 template<typename T> const vec_int_4<T> vec_int_4<T>::zero(0, 0, 0, 0);
 
 using ubyte4 = vec_int_4<uint8_t>;
+using int4 = vec_int_4<int32_t>;
 using uint4 = vec_int_4<uint32_t>;
 
 
@@ -174,6 +175,14 @@ inline vec_int_4<T> operator-(const vec_int_4<T>& l, const vec_int_4<T>& r) noex
 	assert(l.z >= r.z);
 	assert(l.w >= r.w);
 	return vec_int_4<T>(l.x - r.x, l.y - r.y, l.z - r.z, l.w - r.w);
+}
+
+template<typename T>
+inline 
+typename std::enable_if<std::is_signed<T>::value, vec_int_4<T>>::type 
+operator-(const const vec_int_4<T>& v) noexcept
+{
+	return vec_int_4<T>(-v.x, -v.y, -v.z, -v.w);
 }
 
 template<typename T>
