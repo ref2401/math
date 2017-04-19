@@ -461,6 +461,18 @@ std::wostream& operator<<(std::wostream& out, const vec_int_4<T>& v)
 	return out;
 }
 
+template<typename T>
+inline float aspect_ratio(const vec_int_2<T>& v) noexcept
+{
+	assert(v.y != 0);
+	return float(v.x) / v.y;
+}
+
+template<typename T>
+inline T square(const vec_int_2<T>& v) noexcept
+{
+	return v.x * v.y;
+}
 
 } // namespace math
 
