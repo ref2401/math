@@ -6,6 +6,8 @@ vector_int.h {ubyte2/3/4 int2/3/4, uint2/3/4}
 vec_int4 operator-
 greater_then -> >, >=
 
+vec_int_2 aspect_ration, square, cast
+
 
 ## matrices
 ```c++

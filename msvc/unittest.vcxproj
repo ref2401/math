@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\utility_unittest.cpp" />
     <ClCompile Include="..\src\vector_float_unittest.cpp" />
+    <ClCompile Include="..\src\vector_int_unittest.cpp" />
     <ClCompile Include="..\src\vectot_traits_unittest.cpp" />
   </ItemGroup>
   <ItemGroup>
