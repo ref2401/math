@@ -14,6 +14,13 @@ struct vec_int_4 final {
 
 	static_assert(std::is_integral<T>::value, "T must be an integral type.");
 
+	static const vec_int_4<T> unit_x;
+	static const vec_int_4<T> unit_y;
+	static const vec_int_4<T> unit_z;
+	static const vec_int_4<T> unit_w;
+	static const vec_int_4<T> unit_xyzw;
+	static const vec_int_4<T> zero;
+
 
 	vec_int_4() noexcept = default;
 
@@ -94,6 +101,17 @@ struct vec_int_4 final {
 	T z = 0;
 	T w = 0;
 };
+
+template<typename T> const vec_int_4<T> vec_int_4<T>::unit_x(1, 0, 0, 0);
+template<typename T> const vec_int_4<T> vec_int_4<T>::unit_y(0, 1, 0, 0);
+template<typename T> const vec_int_4<T> vec_int_4<T>::unit_z(0, 0, 1, 0);
+template<typename T> const vec_int_4<T> vec_int_4<T>::unit_w(0, 0, 0, 1);
+template<typename T> const vec_int_4<T> vec_int_4<T>::unit_xyzw(1, 1, 1, 1);
+template<typename T> const vec_int_4<T> vec_int_4<T>::zero(0, 0, 0, 0);
+
+using ubyte4 = vec_int_4<uint8_t>;
+using uint4 = vec_int_4<uint32_t>;
+
 
 template<typename T>
 inline bool operator==(const vec_int_4<T>& l, const vec_int_4<T>& r) noexcept
@@ -188,10 +206,42 @@ inline vec_int_4<T> operator/(T val, const vec_int_4<T>& v) noexcept
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& out, const vec_int_4<T>& v);
+inline bool operator<(const vec_int_4<T>& l, T val) noexcept
+{
+	return (l.x < val) && (l.y < val) && (l.z < val) && (l.w < val);
+}
 
 template<typename T>
-std::wostream& operator<<(std::wostream& out, const vec_int_4<T>& v);
+inline bool operator>(const vec_int_4<T>& l, T val) noexcept
+{
+	return (l.x > val) && (l.y > val) && (l.z > val) && (l.w > val);
+}
+
+template<typename T>
+inline bool operator<=(const vec_int_4<T>& l, T val) noexcept
+{
+	return (l.x <= val) && (l.y <= val) && (l.z <= val) && (l.w <= val);
+}
+
+template<typename T>
+inline bool operator>=(const vec_int_4<T>& l, T val) noexcept
+{
+	return (l.x >= val) && (l.y >= val) && (l.z >= val) && (l.w >= val);
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& out, const vec_int_4<T>& v)
+{
+	out << "vec_int_4<T>(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
+	return out;
+}
+
+template<typename T>
+std::wostream& operator<<(std::wostream& out, const vec_int_4<T>& v)
+{
+	out << "vec_int_4<T>(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
+	return out;
+}
 
 } // namespace math
 
