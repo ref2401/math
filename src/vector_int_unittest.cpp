@@ -3,6 +3,7 @@
 #include <utility>
 #include "CppUnitTest.h"
 
+using math::int2;
 using math::int4;
 using math::uint2;
 using math::uint4;
@@ -11,6 +12,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 
+template<> inline std::wstring ToString<int2>(const int2& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<int4>(const int4& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<uint2>(const uint2& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<uint4>(const uint4& t) { RETURN_WIDE_STRING(t); }
@@ -19,6 +21,125 @@ template<> inline std::wstring ToString<uint4>(const uint4& t) { RETURN_WIDE_STR
 
 
 namespace unittest {
+
+TEST_CLASS(math_vector_int_int2) {
+public:
+
+	TEST_METHOD(assignment_operators)
+	{
+		int2 v(5, 6);
+
+		// copy assignment
+		int2 vc;
+		vc = v;
+		Assert::IsTrue((vc.x == v.x) && (vc.y == v.y));
+
+		// move assignment
+		int2 vm;
+		vm = std::move(v);
+		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y));
+	}
+
+	TEST_METHOD(compound_assignment_operators)
+	{
+		int2 v(1, 2);
+		(v += 5) += 5;
+		Assert::AreEqual(int2(11, 12), v);
+
+		(v -= 7) -= 3;
+		Assert::AreEqual(int2(1, 2), v);
+
+		(v *= 2) *= 3;
+		Assert::AreEqual(int2(6, 12), v);
+
+		(v /= 3) /= 2;
+		Assert::AreEqual(int2(1, 2), v);
+
+		(v += v) += v;
+		Assert::AreEqual(int2(4, 8), v);
+
+		v -= v;
+		Assert::AreEqual(int2::zero, v);
+	}
+
+	TEST_METHOD(ctors)
+	{
+		int2 v0;
+		Assert::IsTrue((v0.x == 0) && (v0.y == 0));
+
+		int2 v1(24);
+		Assert::IsTrue((v1.x == 24) && (v1.y == 24));
+
+		int2 v4(1, 2);
+		Assert::IsTrue((v4.x == 1) && (v4.y == 2));
+
+		// copy ctor
+		int2 vc = v4;
+		Assert::IsTrue((vc.x == v4.x) && (vc.y == v4.y));
+
+		// move ctor
+		int2 vm = std::move(v4);
+		Assert::IsTrue((vm.x == vc.x) && (vm.y == vc.y));
+	}
+
+	TEST_METHOD(equal_operator)
+	{
+		int2 v(1, 2);
+
+		Assert::AreNotEqual(v, int2(100, 2));
+		Assert::AreNotEqual(v, int2(1, 100));
+
+		Assert::AreEqual(v, v);
+		Assert::AreEqual(v, int2(1, 2));
+	}
+
+	TEST_METHOD(rational_operators)
+	{
+		// operator <
+		Assert::IsFalse(int2(6, 1) < int32_t(6));
+		Assert::IsFalse(int2(7, 1) < int32_t(6));
+		Assert::IsFalse(int2(1, 6) < int32_t(6));
+		Assert::IsFalse(int2(1, 7) < int32_t(6));
+		Assert::IsTrue(int2(1, 2) < int32_t(6));
+
+		// operator <=
+		Assert::IsFalse(int2(7, 1) <= int32_t(6));
+		Assert::IsFalse(int2(1, 7) <= int32_t(6));
+		Assert::IsTrue(int2(1, 2) <= int32_t(6));
+		Assert::IsTrue(int2(6, 1) <= int32_t(6));
+		Assert::IsTrue(int2(1, 6) <= int32_t(6));
+
+		// operator >
+		Assert::IsFalse(int2(0, 4) > int32_t(1));
+		Assert::IsFalse(int2(1, 4) > int32_t(1));
+		Assert::IsFalse(int2(4, 0) > int32_t(1));
+		Assert::IsFalse(int2(4, 1) > int32_t(1));
+		Assert::IsTrue(int2(4, 5) > int32_t(1));
+
+		// operator >=
+		Assert::IsFalse(int2(0, 4) >= int32_t(1));
+		Assert::IsFalse(int2(4, 0) >= int32_t(1));
+		Assert::IsTrue(int2(4, 5) >= int32_t(1));
+		Assert::IsTrue(int2(1, 4) >= int32_t(1));
+		Assert::IsTrue(int2(4, 1) >= int32_t(1));
+	}
+
+	TEST_METHOD(static_members)
+	{
+		Assert::AreEqual(int2(1, 0), int2::unit_x);
+		Assert::AreEqual(int2(0, 1), int2::unit_y);
+		Assert::AreEqual(int2(1, 1), int2::unit_xy);
+		Assert::AreEqual(int2(0, 0), int2::zero);
+	}
+
+	TEST_METHOD(unary_minus_operator)
+	{
+		Assert::AreEqual(int2(0), -(-int2(0)));
+		Assert::AreEqual(int2(1), -(-int2(1)));
+		Assert::AreEqual(int2(1, -2), -int2(-1, 2));
+		Assert::AreEqual(int2(-1, 2), -int2(1, -2));
+	}
+};
 
 TEST_CLASS(math_vector_int_uint2) {
 public:
