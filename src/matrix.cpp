@@ -3,9 +3,38 @@
 
 namespace math {
 
+const float3x3 float3x3::identity(1, 0, 0, 0, 1, 0, 0, 0, 1);
+const float3x3 float3x3::zero;
+
 const float4x4 float4x4::identity(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 const float4x4 float4x4::zero;
 
+
+// ----- mat3 ----
+
+float3x3& float3x3::operator*=(const float3x3& m) noexcept
+{
+	float mp00, mp01, mp02;
+	float mp10, mp11, mp12;
+	float mp20, mp21, mp22;
+
+	mp00 = m00 * m.m00 + m01 * m.m10 + m02 * m.m20;
+	mp01 = m00 * m.m01 + m01 * m.m11 + m02 * m.m21;
+	mp02 = m00 * m.m02 + m01 * m.m12 + m02 * m.m22;
+
+	mp10 = m10 * m.m00 + m11 * m.m10 + m12 * m.m20;
+	mp11 = m10 * m.m01 + m11 * m.m11 + m12 * m.m21;
+	mp12 = m10 * m.m02 + m11 * m.m12 + m12 * m.m22;
+
+	mp20 = m20 * m.m00 + m21 * m.m10 + m22 * m.m20;
+	mp21 = m20 * m.m01 + m21 * m.m11 + m22 * m.m21;
+	mp22 = m20 * m.m02 + m21 * m.m12 + m22 * m.m22;
+
+	m00 = mp00; m01 = mp01; m02 = mp02;
+	m10 = mp10; m11 = mp11; m12 = mp12;
+	m20 = mp20; m21 = mp21; m22 = mp22;
+	return *this;
+}
 
 // ----- mat4 -----
 
@@ -46,6 +75,21 @@ float4x4& float4x4::operator*=(const float4x4& m) noexcept
 
 // ----- funcs -----
 
+bool operator==(const float3x3& l, const float3x3& r) noexcept
+{
+	return approx_equal(l.m00, r.m00)
+		&& approx_equal(l.m10, r.m10)
+		&& approx_equal(l.m20, r.m20)
+
+		&& approx_equal(l.m01, r.m01)
+		&& approx_equal(l.m11, r.m11)
+		&& approx_equal(l.m21, r.m21)
+
+		&& approx_equal(l.m02, r.m02)
+		&& approx_equal(l.m12, r.m12)
+		&& approx_equal(l.m22, r.m22);
+}
+
 bool operator==(const float4x4& l, const float4x4& r) noexcept
 {
 	return approx_equal(l.m00, r.m00)
@@ -67,6 +111,25 @@ bool operator==(const float4x4& l, const float4x4& r) noexcept
 		&& approx_equal(l.m13, r.m13)
 		&& approx_equal(l.m23, r.m23)
 		&& approx_equal(l.m33, r.m33);
+}
+
+float3x3 operator*(const float3x3& l, const float3x3& r) noexcept
+{
+	float3x3 product;
+
+	product.m00 = l.m00 * r.m00 + l.m01 * r.m10 + l.m02 * r.m20;
+	product.m01 = l.m00 * r.m01 + l.m01 * r.m11 + l.m02 * r.m21;
+	product.m02 = l.m00 * r.m02 + l.m01 * r.m12 + l.m02 * r.m22;
+
+	product.m10 = l.m10 * r.m00 + l.m11 * r.m10 + l.m12 * r.m20;
+	product.m11 = l.m10 * r.m01 + l.m11 * r.m11 + l.m12 * r.m21;
+	product.m12 = l.m10 * r.m02 + l.m11 * r.m12 + l.m12 * r.m22;
+
+	product.m20 = l.m20 * r.m00 + l.m21 * r.m10 + l.m22 * r.m20;
+	product.m21 = l.m20 * r.m01 + l.m21 * r.m11 + l.m22 * r.m21;
+	product.m22 = l.m20 * r.m02 + l.m21 * r.m12 + l.m22 * r.m22;
+
+	return product;
 }
 
 float4x4 operator*(const float4x4& l, const float4x4& r) noexcept
@@ -91,6 +154,26 @@ float4x4 operator*(const float4x4& l, const float4x4& r) noexcept
 	product.m33 = l.m30 * r.m03 + l.m31 * r.m13 + l.m32 * r.m23 + l.m33 * r.m33;
 
 	return product;
+}
+
+std::ostream& operator<<(std::ostream& out, const float3x3& m)
+{
+	out << "float3x3("
+		<< m.m00 << ", " << m.m01 << ", " << m.m02 << ",  "
+		<< m.m10 << ", " << m.m11 << ", " << m.m12 << ",  "
+		<< m.m20 << ", " << m.m21 << ", " << m.m22 << ")";
+
+	return out;
+}
+
+std::wostream& operator<<(std::wostream& out, const float3x3& m)
+{
+	out << "float3x3("
+		<< m.m00 << ", " << m.m01 << ", " << m.m02 << ",  "
+		<< m.m10 << ", " << m.m11 << ", " << m.m12 << ",  "
+		<< m.m20 << ", " << m.m21 << ", " << m.m22 << ")";
+
+	return out;
 }
 
 std::ostream& operator<<(std::ostream& out, const float4x4& m)
@@ -128,6 +211,35 @@ float det(const float4x4& m) noexcept
 		- m.m12*m.m21*m.m30 - m.m11*m.m20*m.m32 - m.m10*m.m22*m.m31;
 
 	return m.m00 * minor00 - m.m01 * minor01 + m.m02 * minor02 - m.m03 * minor03;
+}
+
+float3x3 inverse(const float3x3& m)
+{
+	// inverse is found by Cramer’s rule.
+
+	// Check whether m is a singular matix
+	const float d = det(m);
+	assert(!approx_equal(d, 0.0f));
+
+	// construct the adjugate matrix.
+	// cofactor00 cofactor10 cofactor20
+	// cofactor01 cofactor11 cofactor21
+	// cofactor02 cofactor12 cofactor22
+	float3x3 adj;
+	adj.m00 = m.m11*m.m22 - m.m12*m.m21;
+	adj.m01 = -(m.m01*m.m22 - m.m02*m.m21);
+	adj.m02 = m.m01*m.m12 - m.m02*m.m11;
+
+	adj.m10 = -(m.m10*m.m22 - m.m12*m.m20);
+	adj.m11 = m.m00*m.m22 - m.m02*m.m20;
+	adj.m12 = -(m.m00*m.m12 - m.m02*m.m10);
+
+	adj.m20 = m.m10*m.m21 - m.m11*m.m20;
+	adj.m21 = -(m.m00*m.m21 - m.m01*m.m20);
+	adj.m22 = m.m00*m.m11 - m.m01*m.m10;
+
+	const float inv_d = 1.0f / d;
+	return adj * inv_d;
 }
 
 float4x4 inverse(const float4x4& m) noexcept
