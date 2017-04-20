@@ -6,5 +6,6 @@
     <ClCompile Include="..\src\vectot_traits_unittest.cpp" />
     <ClCompile Include="..\src\vector_int_unittest.cpp" />
     <ClCompile Include="..\src\matrix_unittest.cpp" />
+    <ClCompile Include="..\src\transform_unittest.cpp" />
   </ItemGroup>
 </Project>
