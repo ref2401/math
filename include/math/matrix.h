@@ -7,6 +7,7 @@
 
 namespace math {
 
+// fields are defined in column major order.
 struct float3x3 {
 	static const float3x3 identity;
 	static const float3x3 zero;
@@ -64,11 +65,12 @@ struct float3x3 {
 	}
 
 
-	float m00, m01, m02;
-	float m10, m11, m12;
-	float m20, m21, m22;
+	float m00, m10, m20; // column 0
+	float m01, m11, m21; // column 1
+	float m02, m12, m22; // column 2
 };
 
+// fields are defined in column major order.
 struct float4x4 {
 	static const float4x4 identity;
 	static const float4x4 zero;
@@ -134,11 +136,10 @@ struct float4x4 {
 	}
 
 
-
-	float m00, m01, m02, m03;
-	float m10, m11, m12, m13;
-	float m20, m21, m22, m23;
-	float m30, m31, m32, m33;
+	float m00, m10, m20, m30; // column 0
+	float m01, m11, m21, m31; // column 1
+	float m02, m12, m22, m32; // column 2
+	float m03, m13, m23, m33; // column 3
 };
 
 
