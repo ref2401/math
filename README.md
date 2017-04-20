@@ -6,6 +6,10 @@ Tiny 3d math. Move along, there's nothing to see here.
 float3x3, float4x4
 ```
 
+
+ox, oy, oz
+cast float4x4 <-> float3x3
+
 ## transform
 ```c++
 ox(float3x3 / float4x4)

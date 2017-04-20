@@ -5,9 +5,11 @@
     <ClInclude Include="..\include\math\utility.h" />
     <ClInclude Include="..\include\math\vector_traits.h" />
     <ClInclude Include="..\include\math\vector_int.h" />
+    <ClInclude Include="..\include\math\matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\vector_float.cpp" />
     <ClCompile Include="..\src\vector_int.cpp" />
+    <ClCompile Include="..\src\matrix.cpp" />
   </ItemGroup>
 </Project>
