@@ -456,22 +456,22 @@ public:
 		Assert::AreEqual(expectedAB, mA * mB);
 	}
 
-	/*TEST_METHOD(cast_operator_mat3)
+	TEST_METHOD(cast_operator_mat3)
 	{
-		mat4 m4(
+		float4x4 m4(
 			1, 2, 3, 4,
 			5, 6, 7, 8,
 			9, 10, 11, 12,
 			13, 14, 15, 16);
 
-		mat3 expected_m3(
+		float3x3 expected_m3(
 			1, 2, 3,
 			5, 6, 7,
 			9, 10, 11);
 
-		mat3 m3 = static_cast<mat3>(m4);
+		float3x3 m3 = static_cast<float3x3>(m4);
 		Assert::AreEqual(expected_m3, m3);
-	}*/
+	}
 
 	TEST_METHOD(ctors)
 	{

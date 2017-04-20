@@ -135,6 +135,11 @@ struct float4x4 {
 		return *this;
 	}
 
+	explicit operator float3x3() const noexcept
+	{
+		return float3x3(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+	}
+
 
 	float m00, m10, m20, m30; // column 0
 	float m01, m11, m21, m31; // column 1
