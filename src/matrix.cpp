@@ -77,40 +77,40 @@ float4x4& float4x4::operator*=(const float4x4& m) noexcept
 
 bool operator==(const float3x3& l, const float3x3& r) noexcept
 {
-	return approx_equal(l.m00, r.m00)
-		&& approx_equal(l.m10, r.m10)
-		&& approx_equal(l.m20, r.m20)
+	return (l.m00 == r.m00)
+		&& (l.m10 == r.m10)
+		&& (l.m20 == r.m20)
 
-		&& approx_equal(l.m01, r.m01)
-		&& approx_equal(l.m11, r.m11)
-		&& approx_equal(l.m21, r.m21)
+		&& (l.m01 == r.m01)
+		&& (l.m11 == r.m11)
+		&& (l.m21 == r.m21)
 
-		&& approx_equal(l.m02, r.m02)
-		&& approx_equal(l.m12, r.m12)
-		&& approx_equal(l.m22, r.m22);
+		&& (l.m02 == r.m02)
+		&& (l.m12 == r.m12)
+		&& (l.m22 == r.m22);
 }
 
 bool operator==(const float4x4& l, const float4x4& r) noexcept
 {
-	return approx_equal(l.m00, r.m00)
-		&& approx_equal(l.m10, r.m10)
-		&& approx_equal(l.m20, r.m20)
-		&& approx_equal(l.m30, r.m30)
+	return (l.m00 == r.m00)
+		&& (l.m10 == r.m10)
+		&& (l.m20 == r.m20)
+		&& (l.m30 == r.m30)
 
-		&& approx_equal(l.m01, r.m01)
-		&& approx_equal(l.m11, r.m11)
-		&& approx_equal(l.m21, r.m21)
-		&& approx_equal(l.m31, r.m31)
+		&& (l.m01 == r.m01)
+		&& (l.m11 == r.m11)
+		&& (l.m21 == r.m21)
+		&& (l.m31 == r.m31)
 
-		&& approx_equal(l.m02, r.m02)
-		&& approx_equal(l.m12, r.m12)
-		&& approx_equal(l.m22, r.m22)
-		&& approx_equal(l.m32, r.m32)
+		&& (l.m02 == r.m02)
+		&& (l.m12 == r.m12)
+		&& (l.m22 == r.m22)
+		&& (l.m32 == r.m32)
 
-		&& approx_equal(l.m03, r.m03)
-		&& approx_equal(l.m13, r.m13)
-		&& approx_equal(l.m23, r.m23)
-		&& approx_equal(l.m33, r.m33);
+		&& (l.m03 == r.m03)
+		&& (l.m13 == r.m13)
+		&& (l.m23 == r.m23)
+		&& (l.m33 == r.m33);
 }
 
 float3x3 operator*(const float3x3& l, const float3x3& r) noexcept
@@ -196,6 +196,44 @@ std::wostream& operator<<(std::wostream& out, const float4x4& m)
 		<< m.m30 << ", " << m.m31 << ", " << m.m32 << ", " << m.m33 << ")";
 
 	return out;
+}
+
+bool approx_equal(const float3x3& l, const float3x3& r, float max_abs_diff) noexcept
+{
+	return approx_equal(l.m00, r.m00, max_abs_diff)
+		&& approx_equal(l.m10, r.m10, max_abs_diff)
+		&& approx_equal(l.m20, r.m20, max_abs_diff)
+
+		&& approx_equal(l.m01, r.m01, max_abs_diff)
+		&& approx_equal(l.m11, r.m11, max_abs_diff)
+		&& approx_equal(l.m21, r.m21, max_abs_diff)
+
+		&& approx_equal(l.m02, r.m02, max_abs_diff)
+		&& approx_equal(l.m12, r.m12, max_abs_diff)
+		&& approx_equal(l.m22, r.m22, max_abs_diff);
+}
+
+bool approx_equal(const float4x4& l, const float4x4& r, float max_abs_diff) noexcept
+{
+	return approx_equal(l.m00, r.m00, max_abs_diff)
+		&& approx_equal(l.m10, r.m10, max_abs_diff)
+		&& approx_equal(l.m20, r.m20, max_abs_diff)
+		&& approx_equal(l.m30, r.m30, max_abs_diff)
+
+		&& approx_equal(l.m01, r.m01, max_abs_diff)
+		&& approx_equal(l.m11, r.m11, max_abs_diff)
+		&& approx_equal(l.m21, r.m21, max_abs_diff)
+		&& approx_equal(l.m31, r.m31, max_abs_diff)
+
+		&& approx_equal(l.m02, r.m02, max_abs_diff)
+		&& approx_equal(l.m12, r.m12, max_abs_diff)
+		&& approx_equal(l.m22, r.m22, max_abs_diff)
+		&& approx_equal(l.m32, r.m32, max_abs_diff)
+
+		&& approx_equal(l.m03, r.m03, max_abs_diff)
+		&& approx_equal(l.m13, r.m13, max_abs_diff)
+		&& approx_equal(l.m23, r.m23, max_abs_diff)
+		&& approx_equal(l.m33, r.m33, max_abs_diff);
 }
 
 float det(const float4x4& m) noexcept

@@ -269,6 +269,10 @@ std::ostream& operator<<(std::ostream& out, const float4x4& m);
 
 std::wostream& operator<<(std::wostream& out, const float4x4& m);
 
+bool approx_equal(const float3x3& l, const float3x3& r, float max_abs_diff = 1e-5f) noexcept;
+
+bool approx_equal(const float4x4& l, const float4x4& r, float max_abs_diff = 1e-5f) noexcept;
+
 //  Calculates the determinant of the matrix m.
 inline float det(const float3x3& m) noexcept
 {

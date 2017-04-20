@@ -25,6 +25,36 @@ namespace unittest {
 TEST_CLASS(math_matrix_float3x3) {
 public:
 
+	TEST_METHOD(approx_equal)
+	{
+		using math::approx_equal;
+
+		float3x3 m(0, 1, 2, 3, 4, 5, 6, 7, 8);
+
+		Assert::IsFalse(approx_equal(m, float3x3(100, 1, 2, 3, 4, 5, 6, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 100, 2, 3, 4, 5, 6, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 100, 3, 4, 5, 6, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 100, 4, 5, 6, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 100, 5, 6, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 100, 6, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 100, 7, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6, 100, 8)));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6, 7, 100)));
+		
+		Assert::IsTrue(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6, 7, 8)));
+		Assert::IsTrue(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6, 7, 8), 0.0f));
+
+		Assert::IsFalse(approx_equal(m, float3x3(0.0001f, 1, 2, 3, 4, 5, 6, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1.0001f, 2, 3, 4, 5, 6, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2.0001f, 3, 4, 5, 6, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3.0001f, 4, 5, 6, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4.0001f, 5, 6, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5.0001f, 6, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6.0001f, 7, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6, 7.0001f, 8), 0.0f));
+		Assert::IsFalse(approx_equal(m, float3x3(0, 1, 2, 3, 4, 5, 6, 7, 8.0001f), 0.0f));
+	}
+
 	TEST_METHOD(assignments)
 	{
 		float3x3 m(0, 1, 2, 3, 4, 5, 6, 7, 8);
@@ -186,18 +216,19 @@ public:
 
 	TEST_METHOD(inverse)
 	{
+		using math::approx_equal;
 		using math::inverse;
 		using math::transpose;
 
-		Assert::AreEqual(float3x3::identity, inverse(float3x3::identity));
+		Assert::IsTrue(approx_equal(float3x3::identity, inverse(float3x3::identity)));
 
 		float3x3 m(5, 7, -9, 0, 3, 4, 4, 3, 9);
 		float3x3 n(4, 5, 6, 7, 9, 8, -7, 6, 1);
 
-		Assert::AreEqual(float3x3::identity, m * inverse(m));
-		Assert::AreEqual(m, inverse(inverse(m)));
-		Assert::AreEqual(transpose(inverse(m)), inverse(transpose(m)));
-		Assert::AreEqual(inverse(m * n), inverse(n) * inverse(m));
+		Assert::IsTrue(approx_equal(float3x3::identity, m * inverse(m)));
+		Assert::IsTrue(approx_equal(m, inverse(inverse(m))));
+		Assert::IsTrue(approx_equal(transpose(inverse(m)), inverse(transpose(m))));
+		Assert::IsTrue(approx_equal(inverse(m * n), inverse(n) * inverse(m)));
 	}
 
 	TEST_METHOD(is_orthogonal)
@@ -306,6 +337,50 @@ public:
 
 TEST_CLASS(math_matrix_float4x4) {
 public:
+
+	TEST_METHOD(approx_equal)
+	{
+		using math::approx_equal;
+
+		float4x4 m(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+
+		Assert::IsFalse(approx_equal(m, float4x4(100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 100, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 100, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 100, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 100, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 100, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 100, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 100, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 100, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 100, 10, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 100, 11, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 12, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 100, 13, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 100, 14, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 100, 15)));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 100)));
+
+		Assert::IsTrue(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)));
+		Assert::IsTrue(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+
+		Assert::IsFalse(approx_equal(m, float4x4(0.0001f, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1.0001f, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2.0001f, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3.0001f, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4.0001f, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5.0001f, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6.0001f, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7.0001f, 8, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8.0001f, 9, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9.0001f, 10, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.0001f, 11, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11.0001f, 12, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12.0001f, 13, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13.0001f, 14, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14.0001f, 15), 0.0f));
+		Assert::IsFalse(approx_equal(m, float4x4(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15.0001f), 0.0f));
+	}
 
 	TEST_METHOD(assignments)
 	{
@@ -501,18 +576,19 @@ public:
 
 	TEST_METHOD(inverse)
 	{
+		using math::approx_equal;
 		using math::inverse;
 		using math::transpose;
 
-		Assert::AreEqual(float4x4::identity, inverse(float4x4::identity));
+		Assert::IsTrue(approx_equal(float4x4::identity, inverse(float4x4::identity)));
 
 		float4x4 m(5, 7, -9, 0, 3, 4, 4, 3, 9, 8, 7, 6, 1, 2, 1, 2);
 		float4x4 n(4, 5, 6, 7, 9, 8, -7, 6, 1, 2, 3, 4, 0, 0, -3, -4);
 
-		Assert::AreEqual(float4x4::identity, m * inverse(m));
-		Assert::AreEqual(m, inverse(inverse(m)));
-		Assert::AreEqual(transpose(inverse(m)), inverse(transpose(m)));
-		Assert::AreEqual(inverse(m * n), inverse(n) * inverse(m));
+		Assert::IsTrue(approx_equal(float4x4::identity, m * inverse(m)));
+		Assert::IsTrue(approx_equal(m, inverse(inverse(m))));
+		Assert::IsTrue(approx_equal(transpose(inverse(m)), inverse(transpose(m))));
+		Assert::IsTrue(approx_equal(inverse(m * n), inverse(n) * inverse(m)));
 	}
 
 	TEST_METHOD(is_orthogonal)
