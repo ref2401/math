@@ -14,6 +14,9 @@ struct vec_int_2 final {
 
 	static_assert(std::is_integral<T>::value, "T must be an integral type.");
 
+	using component_type = T;
+
+
 	static const vec_int_2<T> unit_x;
 	static const vec_int_2<T> unit_y;
 	static const vec_int_2<T> unit_xy;
@@ -86,6 +89,9 @@ template<typename T>
 struct vec_int_4 final {
 
 	static_assert(std::is_integral<T>::value, "T must be an integral type.");
+
+	using component_type = T;
+
 
 	static const vec_int_4<T> unit_x;
 	static const vec_int_4<T> unit_y;

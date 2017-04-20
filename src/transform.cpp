@@ -18,7 +18,7 @@ quat from_axis_angle_rotation(const float3& axis, float angle) noexcept
 template<typename M>
 quat from_rotation_matrix(const M& m) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix.");
+	static_assert(is_matrix<M>(), "M must be a matrix.");
 
 	if (m == M::zero) return quat::zero;
 	assert(is_orthogonal(m));
@@ -220,7 +220,7 @@ float4x4 perspective_matrix_opengl(float vert_fov, float wh_ratio, float near_z,
 template<typename M>
 M rotation_matrix(const quat& q) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix.");
+	static_assert(is_matrix<M>(), "M must be a matrix.");
 
 	const float l = len(q);
 	if (approx_equal(l, 0.0f)) return M::zero;
@@ -258,7 +258,7 @@ template float4x4 rotation_matrix(const quat& q) noexcept;
 template<typename M>
 M rotation_matrix(const float3& axis, float angle) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix.");
+	static_assert(is_matrix<M>(), "M must be a matrix.");
 	assert(is_normalized(axis));
 
 	const float cos_a = std::cos(angle);
@@ -293,7 +293,7 @@ template float4x4 rotation_matrix(const float3& axis, float angle) noexcept;
 template<typename M>
 M rotation_matrix(const float3& position, const float3& target, const float3& up) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix.");
+	static_assert(is_matrix<M>(), "M must be a matrix.");
 	assert(position != target);
 	assert(is_normalized(up));
 
@@ -314,7 +314,7 @@ template float4x4 rotation_matrix(const float3& position, const float3& target, 
 template<typename M>
 M rotation_matrix_ox(float angle) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix.");
+	static_assert(is_matrix<M>(), "M must be a matrix.");
 
 	if (approx_equal(angle, 0.0f)) return M::identity;
 
@@ -336,7 +336,7 @@ template float4x4 rotation_matrix_ox(float angle) noexcept;
 template<typename M>
 M rotation_matrix_oy(float angle) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix");
+	static_assert(is_matrix<M>(), "M must be a matrix");
 
 	if (approx_equal(angle, 0.0f)) return M::identity;
 
@@ -358,7 +358,7 @@ template float4x4 rotation_matrix_oy(float angle) noexcept;
 template<typename M>
 M rotation_matrix_oz(float angle) noexcept
 {
-	static_assert(is_matrix<M>::value, "TRetMat must be a matrix.");
+	static_assert(is_matrix<M>(), "TRetMat must be a matrix.");
 
 	if (approx_equal(angle, 0.0f)) return M::identity;
 
@@ -380,7 +380,7 @@ template float4x4 rotation_matrix_oz(float angle) noexcept;
 template<typename M>
 M scale_matrix(const float3& s) noexcept
 {
-	static_assert(is_matrix<M>::value, "M must be a matrix.");
+	static_assert(is_matrix<M>(), "M must be a matrix.");
 	assert(s > 0);
 
 	M m = M::identity;

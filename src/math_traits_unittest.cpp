@@ -1,4 +1,4 @@
-#include "math/vector_traits.h"
+#include "math/math_traits.h"
 
 #include <type_traits>
 #include "CppUnitTest.h"
@@ -25,37 +25,37 @@ public:
 	{
 		using math::is_floating_point_vector;
 
-		Assert::IsTrue(is_floating_point_vector<float2>::value);
-		Assert::IsTrue(is_floating_point_vector<float3>::value);
-		Assert::IsTrue(is_floating_point_vector<float4>::value);
+		Assert::IsTrue(is_floating_point_vector<float2>());
+		Assert::IsTrue(is_floating_point_vector<float3>());
+		Assert::IsTrue(is_floating_point_vector<float4>());
 
-		Assert::IsFalse(is_floating_point_vector<int>::value);
-		Assert::IsFalse(is_floating_point_vector<float>::value);
+		Assert::IsFalse(is_floating_point_vector<int>());
+		Assert::IsFalse(is_floating_point_vector<float>());
 	}
 
 	TEST_METHOD(is_integral_vector)
 	{
 		using math::is_integral_vector;
 
-		Assert::IsTrue(is_integral_vector<int2>::value);
-		Assert::IsTrue(is_integral_vector<int4>::value);
-		Assert::IsTrue(is_integral_vector<ubyte4>::value);
-		Assert::IsTrue(is_integral_vector<uint2>::value);
-		Assert::IsTrue(is_integral_vector<uint4>::value);
+		Assert::IsTrue(is_integral_vector<int2>());
+		Assert::IsTrue(is_integral_vector<int4>());
+		Assert::IsTrue(is_integral_vector<ubyte4>());
+		Assert::IsTrue(is_integral_vector<uint2>());
+		Assert::IsTrue(is_integral_vector<uint4>());
 
-		Assert::IsFalse(is_integral_vector<int>::value);
-		Assert::IsFalse(is_integral_vector<float>::value);
+		Assert::IsFalse(is_integral_vector<int>());
+		Assert::IsFalse(is_integral_vector<float>());
 	}
 
 	TEST_METHOD(is_matrix)
 	{
 		using math::is_matrix;
 
-		Assert::IsTrue(is_matrix<float3x3>::value);
-		Assert::IsTrue(is_matrix<float4x4>::value);
+		Assert::IsTrue(is_matrix<float3x3>());
+		Assert::IsTrue(is_matrix<float4x4>());
 
-		Assert::IsFalse(is_matrix<int>::value);
-		Assert::IsFalse(is_matrix<float3>::value);
+		Assert::IsFalse(is_matrix<int>());
+		Assert::IsFalse(is_matrix<float3>());
 	}
 
 	TEST_METHOD(vector_traits_floating_point_vector)

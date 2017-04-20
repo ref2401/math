@@ -1,8 +1,8 @@
 #ifndef MATH_TRANSFORM_H_
 #define MATH_TRANSFORM_H_
 
+#include "math/math_traits.h"
 #include "math/matrix.h"
-#include "math/vector_traits.h"
 
 
 namespace math {
