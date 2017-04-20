@@ -10,7 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\vector_float.cpp" />
-    <ClCompile Include="..\src\vector_int.cpp" />
     <ClCompile Include="..\src\matrix.cpp" />
     <ClCompile Include="..\src\transform.cpp" />
   </ItemGroup>

@@ -6,6 +6,13 @@
 using math::float2;
 using math::float3;
 using math::float4;
+using math::float3x3;
+using math::float4x4;
+using math::int2;
+using math::int4;
+using math::ubyte4;
+using math::uint2;
+using math::uint4;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
@@ -21,6 +28,34 @@ public:
 		Assert::IsTrue(is_floating_point_vector<float2>::value);
 		Assert::IsTrue(is_floating_point_vector<float3>::value);
 		Assert::IsTrue(is_floating_point_vector<float4>::value);
+
+		Assert::IsFalse(is_floating_point_vector<int>::value);
+		Assert::IsFalse(is_floating_point_vector<float>::value);
+	}
+
+	TEST_METHOD(is_integral_vector)
+	{
+		using math::is_integral_vector;
+
+		Assert::IsTrue(is_integral_vector<int2>::value);
+		Assert::IsTrue(is_integral_vector<int4>::value);
+		Assert::IsTrue(is_integral_vector<ubyte4>::value);
+		Assert::IsTrue(is_integral_vector<uint2>::value);
+		Assert::IsTrue(is_integral_vector<uint4>::value);
+
+		Assert::IsFalse(is_integral_vector<int>::value);
+		Assert::IsFalse(is_integral_vector<float>::value);
+	}
+
+	TEST_METHOD(is_matrix)
+	{
+		using math::is_matrix;
+
+		Assert::IsTrue(is_matrix<float3x3>::value);
+		Assert::IsTrue(is_matrix<float4x4>::value);
+
+		Assert::IsFalse(is_matrix<int>::value);
+		Assert::IsFalse(is_matrix<float3>::value);
 	}
 
 	TEST_METHOD(vector_traits_floating_point_vector)

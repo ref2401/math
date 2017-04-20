@@ -314,7 +314,7 @@ inline vec_int_4<T> operator-(const vec_int_4<T>& l, const vec_int_4<T>& r) noex
 template<typename T>
 inline
 typename std::enable_if<std::is_signed<T>::value, vec_int_2<T>>::type
-operator-(const const vec_int_2<T>& v) noexcept
+operator-(const vec_int_2<T>& v) noexcept
 {
 	return vec_int_2<T>(-v.x, -v.y);
 }
@@ -322,7 +322,7 @@ operator-(const const vec_int_2<T>& v) noexcept
 template<typename T>
 inline 
 typename std::enable_if<std::is_signed<T>::value, vec_int_4<T>>::type 
-operator-(const const vec_int_4<T>& v) noexcept
+operator-(const vec_int_4<T>& v) noexcept
 {
 	return vec_int_4<T>(-v.x, -v.y, -v.z, -v.w);
 }

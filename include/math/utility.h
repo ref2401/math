@@ -9,6 +9,17 @@
 
 namespace math {
 
+constexpr float pi = 3.1415926535897932384626433832f;
+constexpr float pi_2 = pi / 2.0f;
+constexpr float pi_3 = pi / 3.0f;
+constexpr float pi_4 = pi / 4.0f;
+constexpr float pi_8 = pi / 8.0f;
+constexpr float pi_16 = pi / 16.0f;
+constexpr float pi_32 = pi / 32.0f;
+constexpr float pi_64 = pi / 64.0f;
+constexpr float pi_128 = pi / 128.0f;
+
+
 // Determines whether l is approximately equal to r admitting a maximum absolute difference max_abs_diff.
 template<typename Numeric>
 inline bool approx_equal(const Numeric& l, const Numeric& r, const Numeric& max_abs_diff = Numeric(1e-5)) noexcept
