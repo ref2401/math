@@ -7,6 +7,7 @@
     <ClInclude Include="..\include\math\matrix.h" />
     <ClInclude Include="..\include\math\transform.h" />
     <ClInclude Include="..\include\math\math_traits.h" />
+    <ClInclude Include="..\include\math\math.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\vector_float.cpp" />

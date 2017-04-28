@@ -259,8 +259,6 @@ inline float4x4 ts_matrix(const float3& p, const float3& s) noexcept
 //		up:			the direction that is considered to be upward.
 float4x4 view_matrix(const float3& position, const float3& target, const float3& up = float3::unit_y) noexcept;
 
-
-
 } // namespace math
 
 #endif // MATH_TRANSFORM_H_

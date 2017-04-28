@@ -27,17 +27,6 @@ constexpr bool is_integral_vector()
 		|| std::is_same<V, uint2>::value
 		|| std::is_same<V, uint4>::value;
 }
-//template<typename V, bool is_vec = 
-//	std::is_same<V, int2>::value 
-//	|| std::is_same<V, int4>::value
-//	|| std::is_same<V, ubyte4>::value
-//	|| std::is_same<V, uint2>::value
-//	|| std::is_same<V, uint4>::value
-//>
-//struct is_integral_vector;
-//
-//template<typename V> struct is_integral_vector<V, true> final : std::true_type {};
-//template<typename V> struct is_integral_vector<V, false> final : std::false_type {};
 
 // Checks whether M is a matrix;
 template<typename M>
@@ -67,6 +56,18 @@ template<>
 struct vector_traits<float4> final {
 	static constexpr size_t component_count = 4;
 	using component_type = float;
+};
+
+template<typename T>
+struct vector_traits<vec_int_2<T>> final {
+	static constexpr size_t component_count = 2;
+	using component_type = T;
+};
+
+template<typename T>
+struct vector_traits<vec_int_4<T>> final {
+	static constexpr size_t component_count = 4;
+	using component_type = T;
 };
 
 } // namespace math

@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\math\math.h" />
     <ClInclude Include="..\include\math\matrix.h" />
     <ClInclude Include="..\include\math\transform.h" />
     <ClInclude Include="..\include\math\utility.h" />

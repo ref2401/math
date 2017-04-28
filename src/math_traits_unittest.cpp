@@ -61,19 +61,51 @@ public:
 	TEST_METHOD(vector_traits_floating_point_vector)
 	{
 		using math::vector_traits;
-		using float2_traits = vector_traits<float2>;
-		using float3_traits = vector_traits<float3>;
-		using float4_traits = vector_traits<float4>;
-
+		
 		// float2
+		using float2_traits = vector_traits<float2>;
 		Assert::AreEqual<size_t>(2, float2_traits::component_count);
 		Assert::IsTrue(std::is_same<float, float2_traits::component_type>::value);
+
 		// float3
+		using float3_traits = vector_traits<float3>;
 		Assert::AreEqual<size_t>(3, float3_traits::component_count);
 		Assert::IsTrue(std::is_same<float, float3_traits::component_type>::value);
+
 		// float4
+		using float4_traits = vector_traits<float4>;
 		Assert::AreEqual<size_t>(4, float4_traits::component_count);
 		Assert::IsTrue(std::is_same<float, float4_traits::component_type>::value);
+	}
+
+	TEST_METHOD(vector_traits_integer_vector)
+	{
+		using math::vector_traits;
+
+		// int2
+		using int2_traits = vector_traits<int2>;
+		Assert::AreEqual<size_t>(2, int2_traits::component_count);
+		Assert::IsTrue(std::is_same<int32_t, int2_traits::component_type>::value);
+		
+		// int4
+		using int4_traits = vector_traits<int4>;
+		Assert::AreEqual<size_t>(4, int4_traits::component_count);
+		Assert::IsTrue(std::is_same<int32_t, int4_traits::component_type>::value);
+
+		// ubyte
+		using ubyte4_traits = vector_traits<ubyte4>;
+		Assert::AreEqual<size_t>(4, ubyte4_traits::component_count);
+		Assert::IsTrue(std::is_same<uint8_t, ubyte4_traits::component_type>::value);
+
+		// uint2
+		using uint2_traits = vector_traits<uint2>;
+		Assert::AreEqual<size_t>(2, uint2_traits::component_count);
+		Assert::IsTrue(std::is_same<uint32_t, uint2_traits::component_type>::value);
+
+		// uint4
+		using uint4_traits = vector_traits<uint4>;
+		Assert::AreEqual<size_t>(4, uint4_traits::component_count);
+		Assert::IsTrue(std::is_same<uint32_t, uint4_traits::component_type>::value);
 	}
 
 };
