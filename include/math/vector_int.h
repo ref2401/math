@@ -46,8 +46,10 @@ struct vec_int_2 final {
 
 	vec_int_2<T>& operator-=(T val) noexcept
 	{
-		assert(x >= val);
-		assert(y >= val);
+		if (std::is_signed<T>::value) {
+			assert(x >= val);
+			assert(y >= val);
+		}
 
 		x -= val;
 		y -= val;
@@ -56,8 +58,10 @@ struct vec_int_2 final {
 
 	vec_int_2<T>& operator-=(const vec_int_2<T>& v) noexcept
 	{
-		assert(x >= v.x);
-		assert(y >= v.y);
+		if (std::is_signed<T>::value) {
+			assert(x >= v.x);
+			assert(y >= v.y);
+		}
 
 		x -= v.x;
 		y -= v.y;
@@ -125,9 +129,11 @@ struct vec_int_3 final {
 
 	vec_int_3<T>& operator-=(T val) noexcept
 	{
-		assert(x >= val);
-		assert(y >= val);
-		assert(z >= val);
+		if (std::is_signed<T>::value) {
+			assert(x >= val);
+			assert(y >= val);
+			assert(z >= val);
+		}
 
 		x -= val;
 		y -= val;
@@ -137,9 +143,11 @@ struct vec_int_3 final {
 
 	vec_int_3<T>& operator-=(const vec_int_3<T>& v) noexcept
 	{
-		assert(x >= v.x);
-		assert(y >= v.y);
-		assert(z >= v.z);
+		if (std::is_signed<T>::value) {
+			assert(x >= v.x);
+			assert(y >= v.y);
+			assert(z >= v.z);
+		}
 
 		x -= v.x;
 		y -= v.y;
@@ -214,10 +222,12 @@ struct vec_int_4 final {
 
 	vec_int_4<T>& operator-=(T val) noexcept
 	{
-		assert(x >= val);
-		assert(y >= val);
-		assert(z >= val);
-		assert(w >= val);
+		if (std::is_signed<T>::value) {
+			assert(x >= val);
+			assert(y >= val);
+			assert(z >= val);
+			assert(w >= val);
+		}
 
 		x -= val;
 		y -= val;
@@ -228,10 +238,12 @@ struct vec_int_4 final {
 
 	vec_int_4<T>& operator-=(const vec_int_4<T>& v) noexcept
 	{
-		assert(x >= v.x);
-		assert(y >= v.y);
-		assert(z >= v.z);
-		assert(w >= v.w);
+		if (std::is_signed<T>::value) {
+			assert(x >= v.x);
+			assert(y >= v.y);
+			assert(z >= v.z);
+			assert(w >= v.w);
+		}
 
 		x -= v.x;
 		y -= v.y;
@@ -391,81 +403,108 @@ inline vec_int_4<T> operator+(const vec_int_4<T>& l, const vec_int_4<T>& r) noex
 template<typename T>
 inline vec_int_2<T> operator-(const vec_int_2<T>& v, T val) noexcept
 {
-	assert(v.x >= val);
-	assert(v.y >= val);
+	if (std::is_signed<T>::value) {
+		assert(v.x >= val);
+		assert(v.y >= val);
+	}
+
 	return vec_int_2<T>(v.x - val, v.y - val);
 }
 
 template<typename T>
 inline vec_int_2<T> operator-(T val, const vec_int_2<T>& v) noexcept
 {
-	assert(val >= v.x);
-	assert(val >= v.y);
+	if (std::is_signed<T>::value) {
+		assert(val >= v.x);
+		assert(val >= v.y);
+	}
+
 	return vec_int_2<T>(val - v.x, val - v.y);
 }
 
 template<typename T>
 inline vec_int_2<T> operator-(const vec_int_2<T>& l, const vec_int_2<T>& r) noexcept
 {
-	assert(l.x >= r.x);
-	assert(l.y >= r.y);
+	if (std::is_signed<T>::value) {
+		assert(l.x >= r.x);
+		assert(l.y >= r.y);
+	}
+
 	return vec_int_2<T>(l.x - r.x, l.y - r.y);
 }
 
 template<typename T>
 inline vec_int_3<T> operator-(const vec_int_3<T>& v, T val) noexcept
 {
-	assert(v.x >= val);
-	assert(v.y >= val);
-	assert(v.z >= val);
+	if (std::is_signed<T>::value) {
+		assert(v.x >= val);
+		assert(v.y >= val);
+		assert(v.z >= val);
+	}
+
 	return vec_int_3<T>(v.x - val, v.y - val, v.z - val);
 }
 
 template<typename T>
 inline vec_int_3<T> operator-(T val, const vec_int_3<T>& v) noexcept
 {
-	assert(val >= v.x);
-	assert(val >= v.y);
-	assert(val >= v.z);
+	if (std::is_signed<T>::value) {
+		assert(val >= v.x);
+		assert(val >= v.y);
+		assert(val >= v.z);
+	}
+
 	return vec_int_3<T>(val - v.x, val - v.y, val - v.z);
 }
 
 template<typename T>
 inline vec_int_3<T> operator-(const vec_int_3<T>& l, const vec_int_3<T>& r) noexcept
 {
-	assert(l.x >= r.x);
-	assert(l.y >= r.y);
-	assert(l.z >= r.z);
+	if (std::is_signed<T>::value) {
+		assert(l.x >= r.x);
+		assert(l.y >= r.y);
+		assert(l.z >= r.z);
+	}
+
 	return vec_int_3<T>(l.x - r.x, l.y - r.y, l.z - r.z);
 }
 
 template<typename T>
 inline vec_int_4<T> operator-(const vec_int_4<T>& v, T val) noexcept
 {
-	assert(v.x >= val);
-	assert(v.y >= val);
-	assert(v.z >= val);
-	assert(v.w >= val);
+	if (std::is_signed<T>::value) {
+		assert(v.x >= val);
+		assert(v.y >= val);
+		assert(v.z >= val);
+		assert(v.w >= val);
+	}
+
 	return vec_int_4<T>(v.x - val, v.y - val, v.z - val, v.w - val);
 }
 
 template<typename T>
 inline vec_int_4<T> operator-(T val, const vec_int_4<T>& v) noexcept
 {
-	assert(val >= v.x);
-	assert(val >= v.y);
-	assert(val >= v.z);
-	assert(val >= v.w);
+	if (std::is_signed<T>::value) {
+		assert(val >= v.x);
+		assert(val >= v.y);
+		assert(val >= v.z);
+		assert(val >= v.w);
+	}
+
 	return vec_int_4<T>(val - v.x, val - v.y, val - v.z, val - v.w);
 }
 
 template<typename T>
 inline vec_int_4<T> operator-(const vec_int_4<T>& l, const vec_int_4<T>& r) noexcept
 {
-	assert(l.x >= r.x);
-	assert(l.y >= r.y);
-	assert(l.z >= r.z);
-	assert(l.w >= r.w);
+	if (std::is_signed<T>::value) {
+		assert(l.x >= r.x);
+		assert(l.y >= r.y);
+		assert(l.z >= r.z);
+		assert(l.w >= r.w);
+	}
+
 	return vec_int_4<T>(l.x - r.x, l.y - r.y, l.z - r.z, l.w - r.w);
 }
 
