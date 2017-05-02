@@ -4,8 +4,10 @@
 #include "CppUnitTest.h"
 
 using math::int2;
+using math::int3;
 using math::int4;
 using math::uint2;
+using math::uint3;
 using math::uint4;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -13,8 +15,10 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 
 template<> inline std::wstring ToString<int2>(const int2& t) { RETURN_WIDE_STRING(t); }
+template<> inline std::wstring ToString<int3>(const int3& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<int4>(const int4& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<uint2>(const uint2& t) { RETURN_WIDE_STRING(t); }
+template<> inline std::wstring ToString<uint3>(const uint3& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<uint4>(const uint4& t) { RETURN_WIDE_STRING(t); }
 
 }}} // namespace Microsoft::VisualStudio::CppUnitTestFramework
@@ -153,6 +157,137 @@ public:
 		Assert::AreEqual(int2(1), -(-int2(1)));
 		Assert::AreEqual(int2(1, -2), -int2(-1, 2));
 		Assert::AreEqual(int2(-1, 2), -int2(1, -2));
+	}
+};
+
+TEST_CLASS(math_vector_int_int3) {
+public:
+
+	TEST_METHOD(assignment_operators)
+	{
+		int3 v(5, 6, 7);
+
+		// copy assignment
+		int3 vc;
+		vc = v;
+		Assert::IsTrue((vc.x == v.x) && (vc.y == v.y) && (vc.z == v.z));
+
+		// move assignment
+		int3 vm;
+		vm = std::move(v);
+		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y) && (vm.z == v.z));
+	}
+
+	TEST_METHOD(compound_assignment_operators)
+	{
+		int3 v(1, 2, 3);
+		(v += 5) += 5;
+		Assert::AreEqual(int3(11, 12, 13), v);
+
+		(v -= 7) -= 3;
+		Assert::AreEqual(int3(1, 2, 3), v);
+
+		(v *= 2) *= 3;
+		Assert::AreEqual(int3(6, 12, 18), v);
+
+		(v /= 3) /= 2;
+		Assert::AreEqual(int3(1, 2, 3), v);
+
+		(v += v) += v;
+		Assert::AreEqual(int3(4, 8, 12), v);
+
+		v -= v;
+		Assert::AreEqual(int3::zero, v);
+	}
+
+	TEST_METHOD(ctors)
+	{
+		int3 v0;
+		Assert::IsTrue((v0.x == 0) && (v0.y == 0) && (v0.z == 0));
+
+		int3 v1(24);
+		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24));
+
+		int3 v4(1, 2, 3);
+		Assert::IsTrue((v4.x == 1) && (v4.y == 2) && (v4.z == 3));
+
+		// copy ctor
+		int3 vc = v4;
+		Assert::IsTrue((vc.x == v4.x) && (vc.y == v4.y) && (vc.z == v4.z));
+
+		// move ctor
+		int3 vm = std::move(v4);
+		Assert::IsTrue((vm.x == vc.x) && (vm.y == vc.y) && (vm.z == vc.z));
+	}
+
+	TEST_METHOD(equal_operator)
+	{
+		int3 v(1, 2, 3);
+
+		Assert::AreNotEqual(v, int3(100, 2, 3));
+		Assert::AreNotEqual(v, int3(1, 100, 3));
+		Assert::AreNotEqual(v, int3(1, 2, 100));
+
+		Assert::AreEqual(v, v);
+		Assert::AreEqual(v, int3(1, 2, 3));
+	}
+
+	TEST_METHOD(rational_operators)
+	{
+		// operator <
+		Assert::IsFalse(int3(6, 1, 2) < int32_t(6));
+		Assert::IsFalse(int3(7, 1, 2) < int32_t(6));
+		Assert::IsFalse(int3(1, 6, 2) < int32_t(6));
+		Assert::IsFalse(int3(1, 7, 2) < int32_t(6));
+		Assert::IsFalse(int3(1, 2, 6) < int32_t(6));
+		Assert::IsFalse(int3(1, 2, 7) < int32_t(6));
+		Assert::IsTrue(int3(1, 2, 3) < int32_t(6));
+
+		// operator <=
+		Assert::IsFalse(int3(7, 1, 2) <= int32_t(6));
+		Assert::IsFalse(int3(1, 7, 2) <= int32_t(6));
+		Assert::IsFalse(int3(1, 2, 7) <= int32_t(6));
+		Assert::IsTrue(int3(1, 2, 3) <= int32_t(6));
+		Assert::IsTrue(int3(6, 1, 2) <= int32_t(6));
+		Assert::IsTrue(int3(1, 6, 2) <= int32_t(6));
+		Assert::IsTrue(int3(1, 2, 6) <= int32_t(6));
+
+		// operator >
+		Assert::IsFalse(int3(0, 4, 5) > int32_t(1));
+		Assert::IsFalse(int3(1, 4, 5) > int32_t(1));
+		Assert::IsFalse(int3(4, 0, 5) > int32_t(1));
+		Assert::IsFalse(int3(4, 1, 5) > int32_t(1));
+		Assert::IsFalse(int3(4, 5, 0) > int32_t(1));
+		Assert::IsFalse(int3(4, 5, 1) > int32_t(1));
+		Assert::IsTrue(int3(4, 5, 6) > int32_t(1));
+
+		// operator >=
+		Assert::IsFalse(int3(0, 4, 5) >= int32_t(1));
+		Assert::IsFalse(int3(4, 0, 5) >= int32_t(1));
+		Assert::IsFalse(int3(4, 5, 0) >= int32_t(1));
+		Assert::IsTrue(int3(1, 4, 5) >= int32_t(1));
+		Assert::IsTrue(int3(4, 1, 5) >= int32_t(1));
+		Assert::IsTrue(int3(4, 5, 1) >= int32_t(1));
+		Assert::IsTrue(int3(4, 5, 6) >= int32_t(1));
+	}
+
+	TEST_METHOD(static_members)
+	{
+		Assert::AreEqual(int3(1, 0, 0), int3::unit_x);
+		Assert::AreEqual(int3(0, 1, 0), int3::unit_y);
+		Assert::AreEqual(int3(0, 0, 1), int3::unit_z);
+		Assert::AreEqual(int3(1, 1, 1), int3::unit_xyz);
+		Assert::AreEqual(int3(0, 0, 0), int3::zero);
+	}
+
+	TEST_METHOD(unary_minus_operator)
+	{
+		Assert::AreEqual(int3(0), -(-int3(0)));
+		Assert::AreEqual(int3(1), -(-int3(1)));
+		Assert::AreEqual(int3(1, -2, -3), -int3(-1, 2, 3));
+		Assert::AreEqual(int3(-1, 2, -3), -int3(1, -2, 3));
+		Assert::AreEqual(int3(-1, -2, 3), -int3(1, 2, -3));
+		Assert::AreEqual(int3(-1, -2, -3), -int3(1, 2, 3));
 	}
 };
 
@@ -420,6 +555,127 @@ public:
 		Assert::AreEqual(uint2(0, 1), uint2::unit_y);
 		Assert::AreEqual(uint2(1, 1), uint2::unit_xy);
 		Assert::AreEqual(uint2(0, 0), uint2::zero);
+	}
+};
+
+TEST_CLASS(math_vector_int_uint3) {
+public:
+
+	TEST_METHOD(assignment_operators)
+	{
+		uint3 v(5, 6, 7);
+
+		// copy assignment
+		uint3 vc;
+		vc = v;
+		Assert::IsTrue((vc.x == v.x) && (vc.y == v.y) && (vc.z == v.z));
+
+		// move assignment
+		uint3 vm;
+		vm = std::move(v);
+		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y) && (vm.z == v.z));
+	}
+
+	TEST_METHOD(compound_assignment_operators)
+	{
+		uint3 v(1, 2, 3);
+		(v += 5) += 5;
+		Assert::AreEqual(uint3(11, 12, 13), v);
+
+		(v -= 7) -= 3;
+		Assert::AreEqual(uint3(1, 2, 3), v);
+
+		(v *= 2) *= 3;
+		Assert::AreEqual(uint3(6, 12, 18), v);
+
+		(v /= 3) /= 2;
+		Assert::AreEqual(uint3(1, 2, 3), v);
+
+		(v += v) += v;
+		Assert::AreEqual(uint3(4, 8, 12), v);
+
+		v -= v;
+		Assert::AreEqual(uint3::zero, v);
+	}
+
+	TEST_METHOD(ctors)
+	{
+		uint3 v0;
+		Assert::IsTrue((v0.x == 0) && (v0.y == 0) && (v0.z == 0));
+
+		uint3 v1(24);
+		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24));
+
+		uint3 v4(1, 2, 3);
+		Assert::IsTrue((v4.x == 1) && (v4.y == 2) && (v4.z == 3));
+
+		// copy ctor
+		uint3 vc = v4;
+		Assert::IsTrue((vc.x == v4.x) && (vc.y == v4.y) && (vc.z == v4.z));
+
+		// move ctor
+		uint3 vm = std::move(v4);
+		Assert::IsTrue((vm.x == vc.x) && (vm.y == vc.y) && (vm.z == vc.z));
+	}
+
+	TEST_METHOD(equal_operator)
+	{
+		uint3 v(1, 2, 3);
+
+		Assert::AreNotEqual(v, uint3(100, 2, 3));
+		Assert::AreNotEqual(v, uint3(1, 100, 3));
+		Assert::AreNotEqual(v, uint3(1, 2, 100));
+
+		Assert::AreEqual(v, v);
+		Assert::AreEqual(v, uint3(1, 2, 3));
+	}
+
+	TEST_METHOD(rational_operators)
+	{
+		// operator <
+		Assert::IsFalse(uint3(6, 1, 2) < uint32_t(6));
+		Assert::IsFalse(uint3(7, 1, 2) < uint32_t(6));
+		Assert::IsFalse(uint3(1, 6, 2) < uint32_t(6));
+		Assert::IsFalse(uint3(1, 7, 2) < uint32_t(6));
+		Assert::IsFalse(uint3(1, 2, 6) < uint32_t(6));
+		Assert::IsFalse(uint3(1, 2, 7) < uint32_t(6));
+		Assert::IsTrue(uint3(1, 2, 3) < uint32_t(6));
+
+		// operator <=
+		Assert::IsFalse(uint3(7, 1, 2) <= uint32_t(6));
+		Assert::IsFalse(uint3(1, 7, 2) <= uint32_t(6));
+		Assert::IsFalse(uint3(1, 2, 7) <= uint32_t(6));
+		Assert::IsTrue(uint3(1, 2, 3) <= uint32_t(6));
+		Assert::IsTrue(uint3(6, 1, 2) <= uint32_t(6));
+		Assert::IsTrue(uint3(1, 6, 2) <= uint32_t(6));
+		Assert::IsTrue(uint3(1, 2, 6) <= uint32_t(6));
+
+		// operator >
+		Assert::IsFalse(uint3(0, 4, 5) > uint32_t(1));
+		Assert::IsFalse(uint3(1, 4, 5) > uint32_t(1));
+		Assert::IsFalse(uint3(4, 0, 5) > uint32_t(1));
+		Assert::IsFalse(uint3(4, 1, 5) > uint32_t(1));
+		Assert::IsFalse(uint3(4, 5, 0) > uint32_t(1));
+		Assert::IsFalse(uint3(4, 5, 1) > uint32_t(1));
+		Assert::IsTrue(uint3(4, 5, 6) > uint32_t(1));
+
+		// operator >=
+		Assert::IsFalse(uint3(0, 4, 5) >= uint32_t(1));
+		Assert::IsFalse(uint3(4, 0, 5) >= uint32_t(1));
+		Assert::IsFalse(uint3(4, 5, 0) >= uint32_t(1));
+		Assert::IsTrue(uint3(4, 5, 6) >= uint32_t(1));
+		Assert::IsTrue(uint3(1, 4, 5) >= uint32_t(1));
+		Assert::IsTrue(uint3(4, 1, 5) >= uint32_t(1));
+		Assert::IsTrue(uint3(4, 5, 1) >= uint32_t(1));
+	}
+
+	TEST_METHOD(static_members)
+	{
+		Assert::AreEqual(uint3(1, 0, 0), uint3::unit_x);
+		Assert::AreEqual(uint3(0, 1, 0), uint3::unit_y);
+		Assert::AreEqual(uint3(0, 0, 1), uint3::unit_z);
+		Assert::AreEqual(uint3(1, 1, 1), uint3::unit_xyz);
+		Assert::AreEqual(uint3(0, 0, 0), uint3::zero);
 	}
 };
 
