@@ -618,76 +618,112 @@ inline vec_int_4<T> operator/(T val, const vec_int_4<T>& v) noexcept
 	return vec_int_4<T>(val / v.x, val / v.y, val / v.z, val / v.w);
 }
 
-template<typename T>
-inline bool operator<(const vec_int_2<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator<(const vec_int_2<T>& l, U val) noexcept
 {
-	return (l.x < val) && (l.y < val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x < tmp) && (l.y < tmp);
 }
 
-template<typename T>
-inline bool operator>(const vec_int_2<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator>(const vec_int_2<T>& l, U val) noexcept
 {
-	return (l.x > val) && (l.y > val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x > tmp) && (l.y > tmp);
 }
 
-template<typename T>
-inline bool operator<=(const vec_int_2<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator<=(const vec_int_2<T>& l, U val) noexcept
 {
-	return (l.x <= val) && (l.y <= val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x <= tmp) && (l.y <= tmp);
 }
 
-template<typename T>
-inline bool operator>=(const vec_int_2<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator>=(const vec_int_2<T>& l, U val) noexcept
 {
-	return (l.x >= val) && (l.y >= val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x >= tmp) && (l.y >= tmp);
 }
 
-template<typename T>
-inline bool operator<(const vec_int_3<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator<(const vec_int_3<T>& l, U val) noexcept
 {
-	return (l.x < val) && (l.y < val) && (l.z < val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x < tmp) && (l.y < tmp) && (l.z < tmp);
 }
 
-template<typename T>
-inline bool operator>(const vec_int_3<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator>(const vec_int_3<T>& l, U val) noexcept
 {
-	return (l.x > val) && (l.y > val) && (l.z > val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x > tmp) && (l.y > tmp) && (l.z > tmp);
 }
 
-template<typename T>
-inline bool operator<=(const vec_int_3<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator<=(const vec_int_3<T>& l, U val) noexcept
 {
-	return (l.x <= val) && (l.y <= val) && (l.z <= val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x <= tmp) && (l.y <= tmp) && (l.z <= tmp);
 }
 
-template<typename T>
-inline bool operator>=(const vec_int_3<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator>=(const vec_int_3<T>& l, U val) noexcept
 {
-	return (l.x >= val) && (l.y >= val) && (l.z >= val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x >= tmp) && (l.y >= tmp) && (l.z >= tmp);
 }
 
-template<typename T>
-inline bool operator<(const vec_int_4<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator<(const vec_int_4<T>& l, U val) noexcept
 {
-	return (l.x < val) && (l.y < val) && (l.z < val) && (l.w < val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x < tmp) && (l.y < tmp) && (l.z < tmp) && (l.w < tmp);
 }
 
-template<typename T>
-inline bool operator>(const vec_int_4<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator>(const vec_int_4<T>& l, U val) noexcept
 {
-	return (l.x > val) && (l.y > val) && (l.z > val) && (l.w > val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x > tmp) && (l.y > tmp) && (l.z > tmp) && (l.w > tmp);
 }
 
-template<typename T>
-inline bool operator<=(const vec_int_4<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator<=(const vec_int_4<T>& l, U val) noexcept
 {
-	return (l.x <= val) && (l.y <= val) && (l.z <= val) && (l.w <= val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x <= tmp) && (l.y <= tmp) && (l.z <= tmp) && (l.w <= tmp);
 }
 
-template<typename T>
-inline bool operator>=(const vec_int_4<T>& l, T val) noexcept
+template<typename T, typename U>
+inline bool operator>=(const vec_int_4<T>& l, U val) noexcept
 {
-	return (l.x >= val) && (l.y >= val) && (l.z >= val) && (l.w >= val);
+	static_assert(std::is_integral<U>::value, "U must be an integral type.");
+	const T tmp(val);
+
+	return (l.x >= tmp) && (l.y >= tmp) && (l.z >= tmp) && (l.w >= tmp);
 }
 
 template<typename T>

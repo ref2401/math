@@ -9,9 +9,11 @@ using math::float4;
 using math::float3x3;
 using math::float4x4;
 using math::int2;
+using math::int3;
 using math::int4;
 using math::ubyte4;
 using math::uint2;
+using math::uint3;
 using math::uint4;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -86,6 +88,11 @@ public:
 		using int2_traits = vector_traits<int2>;
 		Assert::AreEqual<size_t>(2, int2_traits::component_count);
 		Assert::IsTrue(std::is_same<int32_t, int2_traits::component_type>::value);
+
+		// int3
+		using int3_traits = vector_traits<int3>;
+		Assert::AreEqual<size_t>(3, int3_traits::component_count);
+		Assert::IsTrue(std::is_same<int32_t, int3_traits::component_type>::value);
 		
 		// int4
 		using int4_traits = vector_traits<int4>;
@@ -101,6 +108,11 @@ public:
 		using uint2_traits = vector_traits<uint2>;
 		Assert::AreEqual<size_t>(2, uint2_traits::component_count);
 		Assert::IsTrue(std::is_same<uint32_t, uint2_traits::component_type>::value);
+
+		// uint3
+		using uint3_traits = vector_traits<uint3>;
+		Assert::AreEqual<size_t>(3, uint3_traits::component_count);
+		Assert::IsTrue(std::is_same<uint32_t, uint3_traits::component_type>::value);
 
 		// uint4
 		using uint4_traits = vector_traits<uint4>;

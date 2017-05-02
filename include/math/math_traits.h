@@ -65,6 +65,12 @@ struct vector_traits<vec_int_2<T>> final {
 };
 
 template<typename T>
+struct vector_traits<vec_int_3<T>> final {
+	static constexpr size_t component_count = 3;
+	using component_type = T;
+};
+
+template<typename T>
 struct vector_traits<vec_int_4<T>> final {
 	static constexpr size_t component_count = 4;
 	using component_type = T;

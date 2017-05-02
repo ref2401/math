@@ -107,32 +107,32 @@ public:
 	TEST_METHOD(rational_operators)
 	{
 		// operator <
-		Assert::IsFalse(int2(6, 1) < int32_t(6));
-		Assert::IsFalse(int2(7, 1) < int32_t(6));
-		Assert::IsFalse(int2(1, 6) < int32_t(6));
-		Assert::IsFalse(int2(1, 7) < int32_t(6));
-		Assert::IsTrue(int2(1, 2) < int32_t(6));
+		Assert::IsFalse(int2(6, 1) < 6);
+		Assert::IsFalse(int2(7, 1) < 6);
+		Assert::IsFalse(int2(1, 6) < 6);
+		Assert::IsFalse(int2(1, 7) < 6);
+		Assert::IsTrue(int2(1, 2) < 6);
 
 		// operator <=
-		Assert::IsFalse(int2(7, 1) <= int32_t(6));
-		Assert::IsFalse(int2(1, 7) <= int32_t(6));
-		Assert::IsTrue(int2(1, 2) <= int32_t(6));
-		Assert::IsTrue(int2(6, 1) <= int32_t(6));
-		Assert::IsTrue(int2(1, 6) <= int32_t(6));
+		Assert::IsFalse(int2(7, 1) <= 6);
+		Assert::IsFalse(int2(1, 7) <= 6);
+		Assert::IsTrue(int2(1, 2) <= 6);
+		Assert::IsTrue(int2(6, 1) <= 6);
+		Assert::IsTrue(int2(1, 6) <= 6);
 
 		// operator >
-		Assert::IsFalse(int2(0, 4) > int32_t(1));
-		Assert::IsFalse(int2(1, 4) > int32_t(1));
-		Assert::IsFalse(int2(4, 0) > int32_t(1));
-		Assert::IsFalse(int2(4, 1) > int32_t(1));
-		Assert::IsTrue(int2(4, 5) > int32_t(1));
+		Assert::IsFalse(int2(0, 4) > 1);
+		Assert::IsFalse(int2(1, 4) > 1);
+		Assert::IsFalse(int2(4, 0) > 1);
+		Assert::IsFalse(int2(4, 1) > 1);
+		Assert::IsTrue(int2(4, 5) > 1);
 
 		// operator >=
-		Assert::IsFalse(int2(0, 4) >= int32_t(1));
-		Assert::IsFalse(int2(4, 0) >= int32_t(1));
-		Assert::IsTrue(int2(4, 5) >= int32_t(1));
-		Assert::IsTrue(int2(1, 4) >= int32_t(1));
-		Assert::IsTrue(int2(4, 1) >= int32_t(1));
+		Assert::IsFalse(int2(0, 4) >= 1);
+		Assert::IsFalse(int2(4, 0) >= 1);
+		Assert::IsTrue(int2(4, 5) >= 1);
+		Assert::IsTrue(int2(1, 4) >= 1);
+		Assert::IsTrue(int2(4, 1) >= 1);
 	}
 
 	TEST_METHOD(square)
@@ -235,40 +235,40 @@ public:
 	TEST_METHOD(rational_operators)
 	{
 		// operator <
-		Assert::IsFalse(int3(6, 1, 2) < int32_t(6));
-		Assert::IsFalse(int3(7, 1, 2) < int32_t(6));
-		Assert::IsFalse(int3(1, 6, 2) < int32_t(6));
-		Assert::IsFalse(int3(1, 7, 2) < int32_t(6));
-		Assert::IsFalse(int3(1, 2, 6) < int32_t(6));
-		Assert::IsFalse(int3(1, 2, 7) < int32_t(6));
-		Assert::IsTrue(int3(1, 2, 3) < int32_t(6));
+		Assert::IsFalse(int3(6, 1, 2) < 6);
+		Assert::IsFalse(int3(7, 1, 2) < 6);
+		Assert::IsFalse(int3(1, 6, 2) < 6);
+		Assert::IsFalse(int3(1, 7, 2) < 6);
+		Assert::IsFalse(int3(1, 2, 6) < 6);
+		Assert::IsFalse(int3(1, 2, 7) < 6);
+		Assert::IsTrue(int3(1, 2, 3) < 6);
 
 		// operator <=
-		Assert::IsFalse(int3(7, 1, 2) <= int32_t(6));
-		Assert::IsFalse(int3(1, 7, 2) <= int32_t(6));
-		Assert::IsFalse(int3(1, 2, 7) <= int32_t(6));
-		Assert::IsTrue(int3(1, 2, 3) <= int32_t(6));
-		Assert::IsTrue(int3(6, 1, 2) <= int32_t(6));
-		Assert::IsTrue(int3(1, 6, 2) <= int32_t(6));
-		Assert::IsTrue(int3(1, 2, 6) <= int32_t(6));
+		Assert::IsFalse(int3(7, 1, 2) <= 6);
+		Assert::IsFalse(int3(1, 7, 2) <= 6);
+		Assert::IsFalse(int3(1, 2, 7) <= 6);
+		Assert::IsTrue(int3(1, 2, 3) <= 6);
+		Assert::IsTrue(int3(6, 1, 2) <= 6);
+		Assert::IsTrue(int3(1, 6, 2) <= 6);
+		Assert::IsTrue(int3(1, 2, 6) <= 6);
 
 		// operator >
-		Assert::IsFalse(int3(0, 4, 5) > int32_t(1));
-		Assert::IsFalse(int3(1, 4, 5) > int32_t(1));
-		Assert::IsFalse(int3(4, 0, 5) > int32_t(1));
-		Assert::IsFalse(int3(4, 1, 5) > int32_t(1));
-		Assert::IsFalse(int3(4, 5, 0) > int32_t(1));
-		Assert::IsFalse(int3(4, 5, 1) > int32_t(1));
-		Assert::IsTrue(int3(4, 5, 6) > int32_t(1));
+		Assert::IsFalse(int3(0, 4, 5) > 1);
+		Assert::IsFalse(int3(1, 4, 5) > 1);
+		Assert::IsFalse(int3(4, 0, 5) > 1);
+		Assert::IsFalse(int3(4, 1, 5) > 1);
+		Assert::IsFalse(int3(4, 5, 0) > 1);
+		Assert::IsFalse(int3(4, 5, 1) > 1);
+		Assert::IsTrue(int3(4, 5, 6) > 1);
 
 		// operator >=
-		Assert::IsFalse(int3(0, 4, 5) >= int32_t(1));
-		Assert::IsFalse(int3(4, 0, 5) >= int32_t(1));
-		Assert::IsFalse(int3(4, 5, 0) >= int32_t(1));
-		Assert::IsTrue(int3(1, 4, 5) >= int32_t(1));
-		Assert::IsTrue(int3(4, 1, 5) >= int32_t(1));
-		Assert::IsTrue(int3(4, 5, 1) >= int32_t(1));
-		Assert::IsTrue(int3(4, 5, 6) >= int32_t(1));
+		Assert::IsFalse(int3(0, 4, 5) >= 1);
+		Assert::IsFalse(int3(4, 0, 5) >= 1);
+		Assert::IsFalse(int3(4, 5, 0) >= 1);
+		Assert::IsTrue(int3(1, 4, 5) >= 1);
+		Assert::IsTrue(int3(4, 1, 5) >= 1);
+		Assert::IsTrue(int3(4, 5, 1) >= 1);
+		Assert::IsTrue(int3(4, 5, 6) >= 1);
 	}
 
 	TEST_METHOD(static_members)
@@ -367,48 +367,48 @@ public:
 	TEST_METHOD(rational_operators)
 	{
 		// operator <
-		Assert::IsFalse(int4(6, 1, 2, 3) < int32_t(6));
-		Assert::IsFalse(int4(7, 1, 2, 3) < int32_t(6));
-		Assert::IsFalse(int4(1, 6, 2, 3) < int32_t(6));
-		Assert::IsFalse(int4(1, 7, 2, 3) < int32_t(6));
-		Assert::IsFalse(int4(1, 2, 6, 3) < int32_t(6));
-		Assert::IsFalse(int4(1, 2, 7, 3) < int32_t(6));
-		Assert::IsFalse(int4(1, 2, 3, 6) < int32_t(6));
-		Assert::IsFalse(int4(1, 2, 3, 7) < int32_t(6));
-		Assert::IsTrue(int4(1, 2, 3, 4) < int32_t(6));
+		Assert::IsFalse(int4(6, 1, 2, 3) < 6);
+		Assert::IsFalse(int4(7, 1, 2, 3) < 6);
+		Assert::IsFalse(int4(1, 6, 2, 3) < 6);
+		Assert::IsFalse(int4(1, 7, 2, 3) < 6);
+		Assert::IsFalse(int4(1, 2, 6, 3) < 6);
+		Assert::IsFalse(int4(1, 2, 7, 3) < 6);
+		Assert::IsFalse(int4(1, 2, 3, 6) < 6);
+		Assert::IsFalse(int4(1, 2, 3, 7) < 6);
+		Assert::IsTrue(int4(1, 2, 3, 4) < 6);
 
 		// operator <=
-		Assert::IsFalse(int4(7, 1, 2, 3) <= int32_t(6));
-		Assert::IsFalse(int4(1, 7, 2, 3) <= int32_t(6));
-		Assert::IsFalse(int4(1, 2, 7, 3) <= int32_t(6));
-		Assert::IsFalse(int4(1, 2, 3, 7) <= int32_t(6));
-		Assert::IsTrue(int4(1, 2, 3, 4) <= int32_t(6));
-		Assert::IsTrue(int4(6, 1, 2, 3) <= int32_t(6));
-		Assert::IsTrue(int4(1, 6, 2, 3) <= int32_t(6));
-		Assert::IsTrue(int4(1, 2, 6, 3) <= int32_t(6));
-		Assert::IsTrue(int4(1, 2, 3, 6) <= int32_t(6));
+		Assert::IsFalse(int4(7, 1, 2, 3) <= 6);
+		Assert::IsFalse(int4(1, 7, 2, 3) <= 6);
+		Assert::IsFalse(int4(1, 2, 7, 3) <= 6);
+		Assert::IsFalse(int4(1, 2, 3, 7) <= 6);
+		Assert::IsTrue(int4(1, 2, 3, 4) <= 6);
+		Assert::IsTrue(int4(6, 1, 2, 3) <= 6);
+		Assert::IsTrue(int4(1, 6, 2, 3) <= 6);
+		Assert::IsTrue(int4(1, 2, 6, 3) <= 6);
+		Assert::IsTrue(int4(1, 2, 3, 6) <= 6);
 
 		// operator >
-		Assert::IsFalse(int4(0, 4, 5, 6) > int32_t(1));
-		Assert::IsFalse(int4(1, 4, 5, 6) > int32_t(1));
-		Assert::IsFalse(int4(4, 0, 5, 6) > int32_t(1));
-		Assert::IsFalse(int4(4, 1, 5, 6) > int32_t(1));
-		Assert::IsFalse(int4(4, 5, 0, 6) > int32_t(1));
-		Assert::IsFalse(int4(4, 5, 1, 6) > int32_t(1));
-		Assert::IsFalse(int4(4, 5, 6, 0) > int32_t(1));
-		Assert::IsFalse(int4(4, 5, 6, 1) > int32_t(1));
-		Assert::IsTrue(int4(4, 5, 6, 7) > int32_t(1));
+		Assert::IsFalse(int4(0, 4, 5, 6) > 1);
+		Assert::IsFalse(int4(1, 4, 5, 6) > 1);
+		Assert::IsFalse(int4(4, 0, 5, 6) > 1);
+		Assert::IsFalse(int4(4, 1, 5, 6) > 1);
+		Assert::IsFalse(int4(4, 5, 0, 6) > 1);
+		Assert::IsFalse(int4(4, 5, 1, 6) > 1);
+		Assert::IsFalse(int4(4, 5, 6, 0) > 1);
+		Assert::IsFalse(int4(4, 5, 6, 1) > 1);
+		Assert::IsTrue(int4(4, 5, 6, 7) > 1);
 
 		// operator >=
-		Assert::IsFalse(int4(0, 4, 5, 6) >= int32_t(1));
-		Assert::IsFalse(int4(4, 0, 5, 6) >= int32_t(1));
-		Assert::IsFalse(int4(4, 5, 0, 6) >= int32_t(1));
-		Assert::IsFalse(int4(4, 5, 6, 0) >= int32_t(1));
-		Assert::IsTrue(int4(4, 5, 6, 7) >= int32_t(1));
-		Assert::IsTrue(int4(1, 4, 5, 6) >= int32_t(1));
-		Assert::IsTrue(int4(4, 1, 5, 6) >= int32_t(1));
-		Assert::IsTrue(int4(4, 5, 1, 6) >= int32_t(1));
-		Assert::IsTrue(int4(4, 5, 6, 1) >= int32_t(1));
+		Assert::IsFalse(int4(0, 4, 5, 6) >= 1);
+		Assert::IsFalse(int4(4, 0, 5, 6) >= 1);
+		Assert::IsFalse(int4(4, 5, 0, 6) >= 1);
+		Assert::IsFalse(int4(4, 5, 6, 0) >= 1);
+		Assert::IsTrue(int4(4, 5, 6, 7) >= 1);
+		Assert::IsTrue(int4(1, 4, 5, 6) >= 1);
+		Assert::IsTrue(int4(4, 1, 5, 6) >= 1);
+		Assert::IsTrue(int4(4, 5, 1, 6) >= 1);
+		Assert::IsTrue(int4(4, 5, 6, 1) >= 1);
 	}
 
 	TEST_METHOD(static_members)
@@ -513,32 +513,32 @@ public:
 	TEST_METHOD(rational_operators)
 	{
 		// operator <
-		Assert::IsFalse(uint2(6, 1) < uint32_t(6));
-		Assert::IsFalse(uint2(7, 1) < uint32_t(6));
-		Assert::IsFalse(uint2(1, 6) < uint32_t(6));
-		Assert::IsFalse(uint2(1, 7) < uint32_t(6));
-		Assert::IsTrue(uint2(1, 2) < uint32_t(6));
+		Assert::IsFalse(uint2(6, 1) < 6);
+		Assert::IsFalse(uint2(7, 1) < 6);
+		Assert::IsFalse(uint2(1, 6) < 6);
+		Assert::IsFalse(uint2(1, 7) < 6);
+		Assert::IsTrue(uint2(1, 2) < 6);
 
 		// operator <=
-		Assert::IsFalse(uint2(7, 1) <= uint32_t(6));
-		Assert::IsFalse(uint2(1, 7) <= uint32_t(6));
-		Assert::IsTrue(uint2(1, 2) <= uint32_t(6));
-		Assert::IsTrue(uint2(6, 1) <= uint32_t(6));
-		Assert::IsTrue(uint2(1, 6) <= uint32_t(6));
+		Assert::IsFalse(uint2(7, 1) <= 6);
+		Assert::IsFalse(uint2(1, 7) <= 6);
+		Assert::IsTrue(uint2(1, 2) <= 6);
+		Assert::IsTrue(uint2(6, 1) <= 6);
+		Assert::IsTrue(uint2(1, 6) <= 6);
 
 		// operator >
-		Assert::IsFalse(uint2(0, 4) > uint32_t(1));
-		Assert::IsFalse(uint2(1, 4) > uint32_t(1));
-		Assert::IsFalse(uint2(4, 0) > uint32_t(1));
-		Assert::IsFalse(uint2(4, 1) > uint32_t(1));
-		Assert::IsTrue(uint2(4, 5) > uint32_t(1));
+		Assert::IsFalse(uint2(0, 4) > 1);
+		Assert::IsFalse(uint2(1, 4) > 1);
+		Assert::IsFalse(uint2(4, 0) > 1);
+		Assert::IsFalse(uint2(4, 1) > 1);
+		Assert::IsTrue(uint2(4, 5) > 1);
 
 		// operator >=
-		Assert::IsFalse(uint2(0, 4) >= uint32_t(1));
-		Assert::IsFalse(uint2(4, 0) >= uint32_t(1));
-		Assert::IsTrue(uint2(4, 5) >= uint32_t(1));
-		Assert::IsTrue(uint2(1, 4) >= uint32_t(1));
-		Assert::IsTrue(uint2(4, 1) >= uint32_t(1));
+		Assert::IsFalse(uint2(0, 4) >= 1);
+		Assert::IsFalse(uint2(4, 0) >= 1);
+		Assert::IsTrue(uint2(4, 5) >= 1);
+		Assert::IsTrue(uint2(1, 4) >= 1);
+		Assert::IsTrue(uint2(4, 1) >= 1);
 	}
 
 	TEST_METHOD(square)
@@ -633,40 +633,40 @@ public:
 	TEST_METHOD(rational_operators)
 	{
 		// operator <
-		Assert::IsFalse(uint3(6, 1, 2) < uint32_t(6));
-		Assert::IsFalse(uint3(7, 1, 2) < uint32_t(6));
-		Assert::IsFalse(uint3(1, 6, 2) < uint32_t(6));
-		Assert::IsFalse(uint3(1, 7, 2) < uint32_t(6));
-		Assert::IsFalse(uint3(1, 2, 6) < uint32_t(6));
-		Assert::IsFalse(uint3(1, 2, 7) < uint32_t(6));
-		Assert::IsTrue(uint3(1, 2, 3) < uint32_t(6));
+		Assert::IsFalse(uint3(6, 1, 2) < 6);
+		Assert::IsFalse(uint3(7, 1, 2) < 6);
+		Assert::IsFalse(uint3(1, 6, 2) < 6);
+		Assert::IsFalse(uint3(1, 7, 2) < 6);
+		Assert::IsFalse(uint3(1, 2, 6) < 6);
+		Assert::IsFalse(uint3(1, 2, 7) < 6);
+		Assert::IsTrue(uint3(1, 2, 3) < 6);
 
 		// operator <=
-		Assert::IsFalse(uint3(7, 1, 2) <= uint32_t(6));
-		Assert::IsFalse(uint3(1, 7, 2) <= uint32_t(6));
-		Assert::IsFalse(uint3(1, 2, 7) <= uint32_t(6));
-		Assert::IsTrue(uint3(1, 2, 3) <= uint32_t(6));
-		Assert::IsTrue(uint3(6, 1, 2) <= uint32_t(6));
-		Assert::IsTrue(uint3(1, 6, 2) <= uint32_t(6));
-		Assert::IsTrue(uint3(1, 2, 6) <= uint32_t(6));
+		Assert::IsFalse(uint3(7, 1, 2) <= 6);
+		Assert::IsFalse(uint3(1, 7, 2) <= 6);
+		Assert::IsFalse(uint3(1, 2, 7) <= 6);
+		Assert::IsTrue(uint3(1, 2, 3) <= 6);
+		Assert::IsTrue(uint3(6, 1, 2) <= 6);
+		Assert::IsTrue(uint3(1, 6, 2) <= 6);
+		Assert::IsTrue(uint3(1, 2, 6) <= 6);
 
 		// operator >
-		Assert::IsFalse(uint3(0, 4, 5) > uint32_t(1));
-		Assert::IsFalse(uint3(1, 4, 5) > uint32_t(1));
-		Assert::IsFalse(uint3(4, 0, 5) > uint32_t(1));
-		Assert::IsFalse(uint3(4, 1, 5) > uint32_t(1));
-		Assert::IsFalse(uint3(4, 5, 0) > uint32_t(1));
-		Assert::IsFalse(uint3(4, 5, 1) > uint32_t(1));
-		Assert::IsTrue(uint3(4, 5, 6) > uint32_t(1));
+		Assert::IsFalse(uint3(0, 4, 5) > 1);
+		Assert::IsFalse(uint3(1, 4, 5) > 1);
+		Assert::IsFalse(uint3(4, 0, 5) > 1);
+		Assert::IsFalse(uint3(4, 1, 5) > 1);
+		Assert::IsFalse(uint3(4, 5, 0) > 1);
+		Assert::IsFalse(uint3(4, 5, 1) > 1);
+		Assert::IsTrue(uint3(4, 5, 6) > 1);
 
 		// operator >=
-		Assert::IsFalse(uint3(0, 4, 5) >= uint32_t(1));
-		Assert::IsFalse(uint3(4, 0, 5) >= uint32_t(1));
-		Assert::IsFalse(uint3(4, 5, 0) >= uint32_t(1));
-		Assert::IsTrue(uint3(4, 5, 6) >= uint32_t(1));
-		Assert::IsTrue(uint3(1, 4, 5) >= uint32_t(1));
-		Assert::IsTrue(uint3(4, 1, 5) >= uint32_t(1));
-		Assert::IsTrue(uint3(4, 5, 1) >= uint32_t(1));
+		Assert::IsFalse(uint3(0, 4, 5) >= 1);
+		Assert::IsFalse(uint3(4, 0, 5) >= 1);
+		Assert::IsFalse(uint3(4, 5, 0) >= 1);
+		Assert::IsTrue(uint3(4, 5, 6) >= 1);
+		Assert::IsTrue(uint3(1, 4, 5) >= 1);
+		Assert::IsTrue(uint3(4, 1, 5) >= 1);
+		Assert::IsTrue(uint3(4, 5, 1) >= 1);
 	}
 
 	TEST_METHOD(static_members)
@@ -755,48 +755,48 @@ public:
 	TEST_METHOD(rational_operators)
 	{
 		// operator <
-		Assert::IsFalse(uint4(6, 1, 2, 3) < uint32_t(6));
-		Assert::IsFalse(uint4(7, 1, 2, 3) < uint32_t(6));
-		Assert::IsFalse(uint4(1, 6, 2, 3) < uint32_t(6));
-		Assert::IsFalse(uint4(1, 7, 2, 3) < uint32_t(6));
-		Assert::IsFalse(uint4(1, 2, 6, 3) < uint32_t(6));
-		Assert::IsFalse(uint4(1, 2, 7, 3) < uint32_t(6));
-		Assert::IsFalse(uint4(1, 2, 3, 6) < uint32_t(6));
-		Assert::IsFalse(uint4(1, 2, 3, 7) < uint32_t(6));
-		Assert::IsTrue(uint4(1, 2, 3, 4) < uint32_t(6));
+		Assert::IsFalse(uint4(6, 1, 2, 3) < 6);
+		Assert::IsFalse(uint4(7, 1, 2, 3) < 6);
+		Assert::IsFalse(uint4(1, 6, 2, 3) < 6);
+		Assert::IsFalse(uint4(1, 7, 2, 3) < 6);
+		Assert::IsFalse(uint4(1, 2, 6, 3) < 6);
+		Assert::IsFalse(uint4(1, 2, 7, 3) < 6);
+		Assert::IsFalse(uint4(1, 2, 3, 6) < 6);
+		Assert::IsFalse(uint4(1, 2, 3, 7) < 6);
+		Assert::IsTrue(uint4(1, 2, 3, 4) < 6);
 
 		// operator <=
-		Assert::IsFalse(uint4(7, 1, 2, 3) <= uint32_t(6));
-		Assert::IsFalse(uint4(1, 7, 2, 3) <= uint32_t(6));
-		Assert::IsFalse(uint4(1, 2, 7, 3) <= uint32_t(6));
-		Assert::IsFalse(uint4(1, 2, 3, 7) <= uint32_t(6));
-		Assert::IsTrue(uint4(1, 2, 3, 4) <= uint32_t(6));
-		Assert::IsTrue(uint4(6, 1, 2, 3) <= uint32_t(6));
-		Assert::IsTrue(uint4(1, 6, 2, 3) <= uint32_t(6));
-		Assert::IsTrue(uint4(1, 2, 6, 3) <= uint32_t(6));
-		Assert::IsTrue(uint4(1, 2, 3, 6) <= uint32_t(6));
+		Assert::IsFalse(uint4(7, 1, 2, 3) <= 6);
+		Assert::IsFalse(uint4(1, 7, 2, 3) <= 6);
+		Assert::IsFalse(uint4(1, 2, 7, 3) <= 6);
+		Assert::IsFalse(uint4(1, 2, 3, 7) <= 6);
+		Assert::IsTrue(uint4(1, 2, 3, 4) <= 6);
+		Assert::IsTrue(uint4(6, 1, 2, 3) <= 6);
+		Assert::IsTrue(uint4(1, 6, 2, 3) <= 6);
+		Assert::IsTrue(uint4(1, 2, 6, 3) <= 6);
+		Assert::IsTrue(uint4(1, 2, 3, 6) <= 6);
 
 		// operator >
-		Assert::IsFalse(uint4(0, 4, 5, 6) > uint32_t(1));
-		Assert::IsFalse(uint4(1, 4, 5, 6) > uint32_t(1));
-		Assert::IsFalse(uint4(4, 0, 5, 6) > uint32_t(1));
-		Assert::IsFalse(uint4(4, 1, 5, 6) > uint32_t(1));
-		Assert::IsFalse(uint4(4, 5, 0, 6) > uint32_t(1));
-		Assert::IsFalse(uint4(4, 5, 1, 6) > uint32_t(1));
-		Assert::IsFalse(uint4(4, 5, 6, 0) > uint32_t(1));
-		Assert::IsFalse(uint4(4, 5, 6, 1) > uint32_t(1));
-		Assert::IsTrue(uint4(4, 5, 6, 7) > uint32_t(1));
+		Assert::IsFalse(uint4(0, 4, 5, 6) > 1);
+		Assert::IsFalse(uint4(1, 4, 5, 6) > 1);
+		Assert::IsFalse(uint4(4, 0, 5, 6) > 1);
+		Assert::IsFalse(uint4(4, 1, 5, 6) > 1);
+		Assert::IsFalse(uint4(4, 5, 0, 6) > 1);
+		Assert::IsFalse(uint4(4, 5, 1, 6) > 1);
+		Assert::IsFalse(uint4(4, 5, 6, 0) > 1);
+		Assert::IsFalse(uint4(4, 5, 6, 1) > 1);
+		Assert::IsTrue(uint4(4, 5, 6, 7) > 1);
 
 		// operator >=
-		Assert::IsFalse(uint4(0, 4, 5, 6) >= uint32_t(1));
-		Assert::IsFalse(uint4(4, 0, 5, 6) >= uint32_t(1));
-		Assert::IsFalse(uint4(4, 5, 0, 6) >= uint32_t(1));
-		Assert::IsFalse(uint4(4, 5, 6, 0) >= uint32_t(1));
-		Assert::IsTrue(uint4(4, 5, 6, 7) >= uint32_t(1));
-		Assert::IsTrue(uint4(1, 4, 5, 6) >= uint32_t(1));
-		Assert::IsTrue(uint4(4, 1, 5, 6) >= uint32_t(1));
-		Assert::IsTrue(uint4(4, 5, 1, 6) >= uint32_t(1));
-		Assert::IsTrue(uint4(4, 5, 6, 1) >= uint32_t(1));
+		Assert::IsFalse(uint4(0, 4, 5, 6) >= 1);
+		Assert::IsFalse(uint4(4, 0, 5, 6) >= 1);
+		Assert::IsFalse(uint4(4, 5, 0, 6) >= 1);
+		Assert::IsFalse(uint4(4, 5, 6, 0) >= 1);
+		Assert::IsTrue(uint4(4, 5, 6, 7) >= 1);
+		Assert::IsTrue(uint4(1, 4, 5, 6) >= 1);
+		Assert::IsTrue(uint4(4, 1, 5, 6) >= 1);
+		Assert::IsTrue(uint4(4, 5, 1, 6) >= 1);
+		Assert::IsTrue(uint4(4, 5, 6, 1) >= 1);
 	}
 
 	TEST_METHOD(static_members)
