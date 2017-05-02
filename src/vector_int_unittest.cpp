@@ -200,6 +200,15 @@ public:
 		Assert::AreEqual(int3::zero, v);
 	}
 
+	TEST_METHOD(conversion_operators)
+	{
+		int3 v(1, 2, 3);
+
+		Assert::AreEqual(int2(1, 2), v.xy());
+
+		Assert::AreEqual(int2(1, 2), static_cast<int2>(v));
+	}
+
 	TEST_METHOD(ctors)
 	{
 		int3 v0;
@@ -207,6 +216,10 @@ public:
 
 		int3 v1(24);
 		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24));
+
+		int2 v2(1, 2);
+		int3 v1_2(v2, 4);
+		Assert::IsTrue((v1_2.x == 1) && (v1_2.y == 2) && (v1_2.z == 3));
 
 		int3 v4(1, 2, 3);
 		Assert::IsTrue((v4.x == 1) && (v4.y == 2) && (v4.z == 3));
@@ -331,6 +344,17 @@ public:
 		Assert::AreEqual(int4::zero, v);
 	}
 
+	TEST_METHOD(conversion_operators)
+	{
+		int4 v(1, 2, 3, 4);
+
+		Assert::AreEqual(int2(1, 2), v.xy());
+		Assert::AreEqual(int3(1, 2, 3), v.xyz());
+
+		Assert::AreEqual(int2(1, 2), static_cast<int2>(v));
+		Assert::AreEqual(int3(1, 2, 3), static_cast<int3>(v));
+	}
+
 	TEST_METHOD(ctors)
 	{
 		int4 v0;
@@ -338,6 +362,14 @@ public:
 
 		int4 v1(24);
 		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24) && (v1.w == 24));
+
+		int2 v2(1, 2);
+		int4 v1_2(v2, 3, 4);
+		Assert::IsTrue((v1_2.x == 1) && (v1_2.y == 2) && (v1_2.z == 3) && (v1_2.w == 4));
+
+		int3 v3(1, 2, 3);
+		int4 v1_3(v3, 4);
+		Assert::IsTrue((v1_3.x == 1) && (v1_3.y == 2) && (v1_3.z == 3) && (v1_3.w == 4));
 
 		int4 v4(1, 2, 3, 4);
 		Assert::IsTrue((v4.x == 1) && (v4.y == 2) && (v4.z == 3) && (v4.w == 4));
@@ -598,6 +630,15 @@ public:
 		Assert::AreEqual(uint3::zero, v);
 	}
 
+	TEST_METHOD(conversion_operators)
+	{
+		uint3 v(1, 2, 3);
+
+		Assert::AreEqual(uint2(1, 2), v.xy());
+
+		Assert::AreEqual(uint2(1, 2), static_cast<uint2>(v));
+	}
+
 	TEST_METHOD(ctors)
 	{
 		uint3 v0;
@@ -605,6 +646,10 @@ public:
 
 		uint3 v1(24);
 		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24));
+
+		uint2 v2(1, 2);
+		uint3 v1_2(v2, 4);
+		Assert::IsTrue((v1_2.x == 1) && (v1_2.y == 2) && (v1_2.z == 3));
 
 		uint3 v4(1, 2, 3);
 		Assert::IsTrue((v4.x == 1) && (v4.y == 2) && (v4.z == 3));
@@ -719,6 +764,17 @@ public:
 		Assert::AreEqual(uint4::zero, v);
 	}
 
+	TEST_METHOD(conversion_operators)
+	{
+		uint4 v(1, 2, 3, 4);
+
+		Assert::AreEqual(uint2(1, 2), v.xy());
+		Assert::AreEqual(uint3(1, 2, 3), v.xyz());
+
+		Assert::AreEqual(uint2(1, 2), static_cast<uint2>(v));
+		Assert::AreEqual(uint3(1, 2, 3), static_cast<uint3>(v));
+	}
+
 	TEST_METHOD(ctors)
 	{
 		uint4 v0;
@@ -726,6 +782,14 @@ public:
 
 		uint4 v1(24);
 		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24) && (v1.w == 24));
+
+		uint2 v2(1, 2);
+		uint4 v1_2(v2, 3, 4);
+		Assert::IsTrue((v1_2.x == 1) && (v1_2.y == 2) && (v1_2.z == 3) && (v1_2.w == 4));
+
+		uint3 v3(1, 2, 3);
+		uint4 v1_3(v3, 4);
+		Assert::IsTrue((v1_3.x == 1) && (v1_3.y == 2) && (v1_3.z == 3) && (v1_3.w == 4));
 
 		uint4 v4(1, 2, 3, 4);
 		Assert::IsTrue((v4.x == 1) && (v4.y == 2) && (v4.z == 3) && (v4.w == 4));

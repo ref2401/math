@@ -108,6 +108,8 @@ struct vec_int_3 final {
 
 	explicit vec_int_3(T v) noexcept : x(v), y(v), z(v) {}
 
+	explicit vec_int_3(const vec_int_2<T>& v, T z = 0) noexcept : x(v.x), y(v.y), z(z) {}
+
 	vec_int_3(T x, T y, T z) noexcept : x(x), y(y), z(z) {}
 
 
@@ -173,6 +175,17 @@ struct vec_int_3 final {
 		return *this;
 	}
 
+	explicit operator vec_int_2<T>() const noexcept
+	{
+		return vec_int_2<T>(x, y);
+	}
+
+
+	vec_int_2<T> xy() const noexcept
+	{
+		return vec_int_2<T>(x, y);
+	}
+
 
 	T x = 0;
 	T y = 0;
@@ -198,6 +211,14 @@ struct vec_int_4 final {
 	vec_int_4() noexcept = default;
 
 	explicit vec_int_4(T val) noexcept : x(val), y(val), z(val), w(val) {}
+
+	explicit vec_int_4(const vec_int_2<T>& v, T z = 0, T w = 1) noexcept 
+		: x(v.x), y(v.y), z(z), w(w)
+	{}
+
+	explicit vec_int_4(const vec_int_3<T>& v, T w = 1) noexcept
+		: x(v.x), y(v.y), z(v.z), w(w)
+	{}
 
 	vec_int_4(T x, T y, T z, T w) noexcept : x(x), y(y), z(z), w(w) {}
 
@@ -270,6 +291,27 @@ struct vec_int_4 final {
 		z /= val;
 		w /= val;
 		return *this;
+	}
+
+	explicit operator vec_int_2<T>() const noexcept
+	{
+		return vec_int_2<T>(x, y);
+	}
+
+	explicit operator vec_int_3<T>() const noexcept
+	{
+		return vec_int_3<T>(x, y, z);
+	}
+
+
+	vec_int_2<T> xy() const noexcept
+	{
+		return vec_int_2<T>(x, y);
+	}
+
+	vec_int_3<T> xyz() const noexcept
+	{
+		return vec_int_3<T>(x, y, z);
 	}
 
 
