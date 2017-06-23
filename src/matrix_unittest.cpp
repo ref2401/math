@@ -1,5 +1,6 @@
 #include "math/matrix.h"
 
+#include <Windows.h>
 #include "CppUnitTest.h"
 
 using math::float2;
@@ -504,6 +505,10 @@ public:
 
 	TEST_METHOD(compound_assignment_operators)
 	{
+		// NOTE(ref2401): The test fails on Relase build (x86 & x64).
+
+		using math::approx_equal;
+
 		float4x4 m(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 		float4x4 r(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
 

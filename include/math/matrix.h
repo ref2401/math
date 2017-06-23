@@ -76,12 +76,7 @@ struct float4x4 {
 	static const float4x4 zero;
 
 
-	float4x4() noexcept
-		: m00(0), m01(0), m02(0), m03(0),
-		m10(0), m11(0), m12(0), m13(0),
-		m20(0), m21(0), m22(0), m23(0),
-		m30(0), m31(0), m32(0), m33(0)
-	{}
+	float4x4() noexcept = default;
 
 	float4x4(float m00, float m01, float m02, float m03,
 		float m10, float m11, float m12, float m13,
@@ -141,10 +136,10 @@ struct float4x4 {
 	}
 
 
-	float m00, m10, m20, m30; // column 0
-	float m01, m11, m21, m31; // column 1
-	float m02, m12, m22, m32; // column 2
-	float m03, m13, m23, m33; // column 3
+	float m00 = 0, m10 = 0, m20 = 0, m30 = 0; // column 0
+	float m01 = 0, m11 = 0, m21 = 0, m31 = 0; // column 1
+	float m02 = 0, m12 = 0, m22 = 0, m32 = 0; // column 2
+	float m03 = 0, m13 = 0, m23 = 0, m33 = 0; // column 3
 };
 
 

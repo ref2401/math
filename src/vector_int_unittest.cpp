@@ -218,7 +218,7 @@ public:
 		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24));
 
 		int2 v2(1, 2);
-		int3 v1_2(v2, 4);
+		int3 v1_2(v2, 3);
 		Assert::IsTrue((v1_2.x == 1) && (v1_2.y == 2) && (v1_2.z == 3));
 
 		int3 v4(1, 2, 3);
@@ -648,7 +648,7 @@ public:
 		Assert::IsTrue((v1.x == 24) && (v1.y == 24) && (v1.z == 24));
 
 		uint2 v2(1, 2);
-		uint3 v1_2(v2, 4);
+		uint3 v1_2(v2, 3);
 		Assert::IsTrue((v1_2.x == 1) && (v1_2.y == 2) && (v1_2.z == 3));
 
 		uint3 v4(1, 2, 3);
