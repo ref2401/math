@@ -7,5 +7,6 @@
 #include "math/utility.h"
 #include "math/vector_float.h"
 #include "math/vector_int.h"
+#include "math/vector_utility.h"
 
 #endif // MATH_MATH_H_
