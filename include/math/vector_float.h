@@ -1018,37 +1018,15 @@ inline quat normalize(const quat& q) noexcept
 	return q * factor;
 }
 
-// Returns rgb color volor
-// (31 .. 24) bytes are ignored.
-// red: (23 .. 16) bytes. 
-// green: (15 .. 8) bytes. 
-// blue: (7 .. 1) bytes.
-inline float3 rgb(uint32_t val) noexcept
+// Applies std::round to each component of the specified vector.
+inline float4 round(const float4& v) noexcept
 {
-	return float3(
-		((val >> 16) & 0xFF) / 255.f,
-		((val >> 8) & 0xFF) / 255.f,
-		(val & 0xFF) / 255.f
-	);
-}
-
-// Returns rgb color volor
-// red: (32..24) bytes, 
-// green : (23..16) bytes,
-// blue : (15..8) bytes,
-// alpha : (7..0) bytes
-inline float4 rgba(uint32_t val) noexcept
-{
-	return float4(
-		((val >> 24) & 0xFF) / 255.0f,
-		((val >> 16) & 0xFF) / 255.0f,
-		((val >> 8) & 0xFF) / 255.0f,
-		(val & 0xFF) / 255.0f
-	);
+	return float4(std::round(v.x), std::round(v.y), std::round(v.z), std::round(v.w));
 }
 
 // Performs spherical-interpolation between unit quaternions (geometrical slerp).
 quat slerp(const quat& q, const quat& r, float factor);
+
 
 } // namespace math
 

@@ -137,6 +137,7 @@
     <ClInclude Include="..\include\math\vector_float.h" />
     <ClInclude Include="..\include\math\vector_int.h" />
     <ClInclude Include="..\include\math\math_traits.h" />
+    <ClInclude Include="..\include\math\vector_utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\matrix.cpp" />

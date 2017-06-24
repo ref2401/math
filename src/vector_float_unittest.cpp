@@ -616,19 +616,6 @@ public:
 		Assert::IsTrue(float3(4, 5, 1) >= 1);
 	}
 
-	TEST_METHOD(rgb)
-	{
-		using math::rgb;
-
-		Assert::AreEqual(float3::zero, rgb(0));
-		Assert::AreEqual(float3::unit_x, rgb(0xff'00'00));
-		Assert::AreEqual(float3::unit_y, rgb(0x00'ff'00));
-		Assert::AreEqual(float3::unit_z, rgb(0x00'00'ff));
-		Assert::AreEqual(float3::unit_xyz, rgb(0xffffff));
-
-		Assert::AreEqual(float3(0xa1 / 255.0f, 0xb2 / 255.0f, 0xe3 / 255.0f), rgb(0xa1'b2'e3));
-	}
-
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(float3(0, 0, 0), float3::zero);
@@ -935,18 +922,14 @@ public:
 		Assert::IsTrue(float4(4, 5, 7, 1) >= 1);
 	}
 
-	TEST_METHOD(rgba)
+	TEST_METHOD(round)
 	{
-		using math::rgba;
+		using math::approx_equal;
+		using math::round;
 
-		Assert::AreEqual(float4::zero, rgba(0));
-		Assert::AreEqual(float4::unit_x, rgba(0xff'00'00'00));
-		Assert::AreEqual(float4::unit_y, rgba(0x00'ff'00'00));
-		Assert::AreEqual(float4::unit_z, rgba(0x00'00'ff'00));
-		Assert::AreEqual(float4::unit_w, rgba(0x00'00'00'ff));
-		Assert::AreEqual(float4::unit_xyzw, rgba(0xffffffff));
-
-		Assert::AreEqual(float4(0xA1 / 255.0f, 0xB2 / 255.0f, 0xE3 / 255.0f, 0x18 / 255.0f), rgba(0xa1'b2'e3'18));
+		const float4 v(-2.5f, -1.1f, 1.1f, 2.5f);
+		const float4 v_expected(std::round(v.x), std::round(v.y), std::round(v.z), std::round(v.w));
+		Assert::AreEqual(v_expected, round(v));
 	}
 
 	TEST_METHOD(static_members)

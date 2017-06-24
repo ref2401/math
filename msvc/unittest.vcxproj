@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\vector_float_unittest.cpp" />
     <ClCompile Include="..\src\vector_int_unittest.cpp" />
     <ClCompile Include="..\src\math_traits_unittest.cpp" />
+    <ClCompile Include="..\src\vector_utility_unittest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="math.vcxproj">
