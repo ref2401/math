@@ -284,6 +284,14 @@ public:
 		Assert::IsTrue(int3(4, 5, 6) >= 1);
 	}
 
+	TEST_METHOD(square)
+	{
+		using math::square;
+
+		Assert::AreEqual<int32_t>(0, square(int3::zero));
+		Assert::AreEqual<int32_t>(20, square(int3(4, 5, 6)));
+	}
+
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(int3(1, 0, 0), int3::unit_x);
@@ -301,6 +309,14 @@ public:
 		Assert::AreEqual(int3(-1, 2, -3), -int3(1, -2, 3));
 		Assert::AreEqual(int3(-1, -2, 3), -int3(1, 2, -3));
 		Assert::AreEqual(int3(-1, -2, -3), -int3(1, 2, 3));
+	}
+
+	TEST_METHOD(volume)
+	{
+		using math::volume;
+
+		Assert::AreEqual<int32_t>(0, volume(int3::zero));
+		Assert::AreEqual<int32_t>(120, volume(int3(4, 5, 6)));
 	}
 };
 
@@ -443,6 +459,14 @@ public:
 		Assert::IsTrue(int4(4, 5, 6, 1) >= 1);
 	}
 
+	TEST_METHOD(square)
+	{
+		using math::square;
+
+		Assert::AreEqual<int32_t>(0, square(int4::zero));
+		Assert::AreEqual<int32_t>(20, square(int4(4, 5, 6, 7)));
+	}
+
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(int4(1, 0, 0, 0), int4::unit_x);
@@ -461,6 +485,14 @@ public:
 		Assert::AreEqual(int4(-1, 2, -3, -4), -int4(1, -2, 3, 4));
 		Assert::AreEqual(int4(-1, -2, 3, -4), -int4(1, 2, -3, 4));
 		Assert::AreEqual(int4(-1, -2, -3, 4), -int4(1, 2, 3, -4));
+	}
+
+	TEST_METHOD(volume)
+	{
+		using math::volume;
+
+		Assert::AreEqual<int32_t>(0, volume(int4::zero));
+		Assert::AreEqual<int32_t>(120, volume(int4(4, 5, 6, 7)));
 	}
 };
 
@@ -714,6 +746,14 @@ public:
 		Assert::IsTrue(uint3(4, 5, 1) >= 1);
 	}
 
+	TEST_METHOD(square)
+	{
+		using math::square;
+
+		Assert::AreEqual<uint32_t>(0, square(uint3::zero));
+		Assert::AreEqual<uint32_t>(20, square(uint3(4, 5, 6)));
+	}
+
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(uint3(1, 0, 0), uint3::unit_x);
@@ -721,6 +761,14 @@ public:
 		Assert::AreEqual(uint3(0, 0, 1), uint3::unit_z);
 		Assert::AreEqual(uint3(1, 1, 1), uint3::unit_xyz);
 		Assert::AreEqual(uint3(0, 0, 0), uint3::zero);
+	}
+
+	TEST_METHOD(volume)
+	{
+		using math::volume;
+
+		Assert::AreEqual<uint32_t>(0, volume(uint3::zero));
+		Assert::AreEqual<uint32_t>(120, volume(uint3(4, 5, 6)));
 	}
 };
 
@@ -863,6 +911,14 @@ public:
 		Assert::IsTrue(uint4(4, 5, 6, 1) >= 1);
 	}
 
+	TEST_METHOD(square)
+	{
+		using math::square;
+
+		Assert::AreEqual<uint32_t>(0, square(uint4::zero));
+		Assert::AreEqual<uint32_t>(20, square(uint4(4, 5, 6, 7)));
+	}
+
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(uint4(1, 0, 0, 0), uint4::unit_x);
@@ -871,6 +927,14 @@ public:
 		Assert::AreEqual(uint4(0, 0, 0, 1), uint4::unit_w);
 		Assert::AreEqual(uint4(1, 1, 1, 1), uint4::unit_xyzw);
 		Assert::AreEqual(uint4(0, 0, 0, 0), uint4::zero);
+	}
+	
+	TEST_METHOD(volume)
+	{
+		using math::volume;
+
+		Assert::AreEqual<uint32_t>(0, volume(uint4::zero));
+		Assert::AreEqual<uint32_t>(120, volume(uint4(4, 5, 6, 7)));
 	}
 };
 

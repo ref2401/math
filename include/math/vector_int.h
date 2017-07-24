@@ -823,6 +823,30 @@ inline T square(const vec_int_2<T>& v) noexcept
 	return v.x * v.y;
 }
 
+template<typename T>
+inline T square(const vec_int_3<T>& v) noexcept
+{
+	return v.x * v.y;
+}
+
+template<typename T>
+inline T square(const vec_int_4<T>& v) noexcept
+{
+	return v.x * v.y;
+}
+
+template<typename T>
+inline T volume(const vec_int_3<T>& v) noexcept
+{
+	return v.x * v.y * v.z;
+}
+
+template<typename T>
+inline T volume(const vec_int_4<T>& v) noexcept
+{
+	return v.x * v.y * v.z;
+}
+
 } // namespace math
 
 #endif // MATH_VECTOR_INT_H_
