@@ -1,6 +1,7 @@
 #ifndef MATH_VECTOR_UTILITY_H_
 #define MATH_VECTOR_UTILITY_H_
 
+#include <cassert>
 #include "math/vector_float.h"
 
 
@@ -12,7 +13,6 @@ namespace intrinsic {
 #pragma warning(disable:4201) // Warning C4201 nonstandard extension used : nameless struct / union
 
 struct int_10_10_10_2 final {
-
 	int_10_10_10_2() noexcept = default;
 
 	explicit int_10_10_10_2(uint32_t raw) noexcept : raw_data(raw) {}
@@ -30,6 +30,31 @@ struct int_10_10_10_2 final {
 			int y : 10;
 			int z : 10;
 			int w : 2;
+		};
+
+		uint32_t raw_data;
+	};
+};
+
+struct uint_10_10_10_2 final {
+	uint_10_10_10_2() noexcept = default;
+
+	explicit uint_10_10_10_2(uint32_t raw) noexcept : raw_data(raw) {}
+
+	explicit uint_10_10_10_2(const float4& v) noexcept
+		: x(unsigned int(v.x)),
+		y(unsigned int(v.y)),
+		z(unsigned int(v.z)),
+		w(unsigned int(v.w))
+	{}
+
+
+	union {
+		struct {
+			unsigned int x : 10;
+			unsigned int y : 10;
+			unsigned int z : 10;
+			unsigned int w : 2;
 		};
 
 		uint32_t raw_data;
@@ -73,10 +98,19 @@ inline float4 unpack_unorm_8_8_8_8(uint32_t val) noexcept
 
 inline uint32_t pack_snorm_10_10_10_2(const float4& vo) noexcept
 {
-	const float4 v = float4(511.0f, 511.0f, 511.0f, 1.0f) 
+	const float4 v = float4(511.0f, 511.0f, 511.0f, 1.0f)
 		* clamp(vo, -float4::unit_xyzw, float4::unit_xyzw);
 
 	const intrinsic::int_10_10_10_2 packed(round(v));
+	return packed.raw_data;
+}
+
+inline uint32_t pack_unorm_10_10_10_2(const float4& vo) noexcept
+{
+	const float4 v = float4(1023.0f, 1023.0f, 1023.0f, 3.0f)
+		* clamp(vo, float4::zero, float4::unit_xyzw);
+
+	const intrinsic::uint_10_10_10_2 packed(round(v));
 	return packed.raw_data;
 }
 
@@ -84,6 +118,13 @@ inline float4 unpack_snorm_10_10_10_2(uint32_t p) noexcept
 {
 	const intrinsic::int_10_10_10_2 packed(p);
 	return float4(1.0f / 511.0f, 1.0f / 511.0f, 1.0f / 511.0f, 1.0f) 
+		* float4(float(packed.x), float(packed.y), float(packed.z), float(packed.w));
+}
+
+inline float4 unpack_unorm_10_10_10_2(uint32_t p) noexcept
+{
+	const intrinsic::uint_10_10_10_2 packed(p);
+	return float4(1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 3.0f)
 		* float4(float(packed.x), float(packed.y), float(packed.z), float(packed.w));
 }
 

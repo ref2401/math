@@ -81,6 +81,38 @@ public:
 		const float4 vu = unpack_snorm_10_10_10_2(packed);
 		Assert::IsTrue(approx_equal(v_expected, vu, 0.01f));
 	}
+
+	TEST_METHOD(pack_unpack_unorm_10_10_10_2)
+	{
+		using math::approx_equal;
+		using math::clamp;
+		using math::pack_unorm_10_10_10_2;
+		using math::unpack_unorm_10_10_10_2;
+
+
+		const float4 vectors[4] = {
+			float4::zero,
+			float4::unit_xyzw,
+			float4(0.7f, 0.0f, 0.4f, 1.0f)
+		};
+
+		for (size_t i = 0; i < std::extent<decltype(vectors)>::value; ++i) {
+			const float4 v = vectors[i];
+
+			const uint32_t packed = pack_unorm_10_10_10_2(v);
+			const float4 vu = unpack_unorm_10_10_10_2(packed);
+
+			Assert::IsTrue(approx_equal(v, vu, 0.01f));
+		}
+
+
+		// The original vector's components are out of range [0.0f, 1.0f]
+		const float4 v(-10.0f, 10.0f, 0.0f, 10.0f);
+		const float4 v_expected = clamp(v, float4::zero, float4::unit_xyzw);
+		const uint32_t packed = pack_unorm_10_10_10_2(v);
+		const float4 vu = unpack_unorm_10_10_10_2(packed);
+		Assert::IsTrue(approx_equal(v_expected, vu, 0.01f));
+	}
 };
 
 } // namespace unittest
