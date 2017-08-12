@@ -172,25 +172,6 @@ public:
 		Assert::IsTrue(mm.m20 == m1.m20 && mm.m21 == m1.m21 && mm.m22 == m1.m22);
 	}
 
-	/*TEST_METHOD(ox_oy_oz)
-	{
-		using cg::float3;
-
-		mat3 m(
-			0, 1, 2,
-			3, 4, 5,
-			6, 7, 8);
-
-		Assert::AreEqual(float3(0, 3, 6), m.ox());
-		Assert::AreEqual(float3(1, 4, 7), m.oy());
-		Assert::AreEqual(float3(2, 5, 8), m.oz());
-
-		m.set_ox(float3(21, 22, 23));
-		m.set_oy(float3(24, 25, 26));
-		m.set_oz(float3(27, 28, 29));
-		Assert::AreEqual(mat3(21, 24, 27, 22, 25, 28, 23, 26, 29), m);
-	}*/
-
 	TEST_METHOD(det)
 	{
 		using math::det;
@@ -274,6 +255,30 @@ public:
 
 		float2 u = v.xy();
 		Assert::AreEqual(mul(m, v), mul(m, u, v.z));
+	}
+
+	TEST_METHOD(ox_oy_oz_and_setters)
+	{
+		// test getters
+		float3x3 m(
+			0, 1, 2,
+			3, 4, 5,
+			6, 7, 8);
+
+		Assert::AreEqual(float3(0, 3, 6), ox(m));
+		Assert::AreEqual(float3(1, 4, 7), oy(m));
+		Assert::AreEqual(float3(2, 5, 8), oz(m));
+
+		// test setters
+		const float3x3 expected_m(
+			21, 24, 27,
+			22, 25, 28,
+			23, 26, 29);
+
+		set_ox(m, float3(21, 22, 23));
+		set_oy(m, float3(24, 25, 26));
+		set_oz(m, float3(27, 28, 29));
+		Assert::AreEqual(expected_m, m);
 	}
 
 	TEST_METHOD(static_members)
@@ -539,26 +544,6 @@ public:
 		Assert::AreEqual(expectedAB, (mA *= mB));
 	}
 
-	/*TEST_METHOD(ox_oy_oz)
-	{
-		using cg::float3;
-
-		mat4 m(
-			0, 1, 2, 3,
-			4, 5, 6, 7,
-			8, 9, 10, 11,
-			12, 13, 14, 15);
-
-		Assert::AreEqual(float3(0, 4, 8), m.ox());
-		Assert::AreEqual(float3(1, 5, 9), m.oy());
-		Assert::AreEqual(float3(2, 6, 10), m.oz());
-
-		m.set_ox(float3(21, 22, 23));
-		m.set_oy(float3(24, 25, 26));
-		m.set_oz(float3(27, 28, 29));
-		Assert::AreEqual(mat4(21, 24, 27, 3, 22, 25, 28, 7, 23, 26, 29, 11, 12, 13, 14, 15), m);
-	}*/
-
 	TEST_METHOD(det)
 	{
 		using math::det;
@@ -653,6 +638,32 @@ public:
 		auto res3 = mul(m, u3, v.w);
 		auto res4 = mul(m, v);
 		Assert::IsTrue(res2 == res3 && res3 == res4);
+	}
+
+	TEST_METHOD(ox_oy_oz_and_setters)
+	{
+		// test getters
+		float4x4 m(
+			0, 1, 2, 3,
+			4, 5, 6, 7,
+			8, 9, 10, 11,
+			12, 13, 14, 15);
+
+		Assert::AreEqual(float3(0, 4, 8), ox(m));
+		Assert::AreEqual(float3(1, 5, 9), oy(m));
+		Assert::AreEqual(float3(2, 6, 10), oz(m));
+
+		// test setters
+		const float4x4 expected_m(
+			21, 24, 27, 3, 
+			22, 25, 28, 7, 
+			23, 26, 29, 11, 
+			12, 13, 14, 15);
+
+		set_ox(m, float3(21, 22, 23));
+		set_oy(m, float3(24, 25, 26));
+		set_oz(m, float3(27, 28, 29));
+		Assert::AreEqual(expected_m, m);
 	}
 
 	TEST_METHOD(put_in_column_major_row_major_order)

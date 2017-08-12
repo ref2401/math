@@ -7,7 +7,7 @@
 
 namespace math {
 
-// fields are defined in column major order.
+// Constructor takes ars in row-major order but fields are defined in column-major order.
 struct float3x3 {
 	static const float3x3 identity;
 	static const float3x3 zero;
@@ -70,7 +70,7 @@ struct float3x3 {
 	float m02, m12, m22; // column 2
 };
 
-// fields are defined in column major order.
+// Constructor takes ars in row-major order but fields are defined in column-major order.
 struct float4x4 {
 	static const float4x4 identity;
 	static const float4x4 zero;
@@ -341,6 +341,54 @@ inline float4 mul(const float4x4& m, const float2& v, float z = 0.0f, float w = 
 inline float4 mul(const float4x4& m, const float3& v, float w = 1.0f) noexcept
 {
 	return mul(m, float4(v.x, v.y, v.z, w));
+}
+
+// Returns the first column of the matrix.
+template<typename M>
+inline float3 ox(const M& matrix) noexcept
+{
+	return float3(matrix.m00, matrix.m10, matrix.m20);
+}
+
+// Returns the second column of the matrix.
+template<typename M>
+inline float3 oy(const M& matrix) noexcept
+{
+	return float3(matrix.m01, matrix.m11, matrix.m21);
+}
+
+// Returns the third column of the matrix.
+template<typename M>
+inline float3 oz(const M& matrix) noexcept
+{
+	return float3(matrix.m02, matrix.m12, matrix.m22);
+}
+
+// Sets the specified vector as the first matrix's column.
+template<typename M>
+inline void set_ox(M& matrix, const float3& v) noexcept
+{
+	matrix.m00 = v.x;
+	matrix.m10 = v.y;
+	matrix.m20 = v.z;
+}
+
+// Sets the specified vector as the second matrix's column.
+template<typename M>
+inline void set_oy(M& matrix, const float3& v) noexcept
+{
+	matrix.m01 = v.x;
+	matrix.m11 = v.y;
+	matrix.m21 = v.z;
+}
+
+// Sets the specified vector as the third matrix's column.
+template<typename M>
+inline void set_oz(M& matrix, const float3& v) noexcept
+{
+	matrix.m02 = v.x;
+	matrix.m12 = v.y;
+	matrix.m22 = v.z;
 }
 
 // Puts the matrix m into a float array in a column major order.
