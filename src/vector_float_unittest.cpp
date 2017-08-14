@@ -409,7 +409,6 @@ public:
 	TEST_METHOD(conversion_operators)
 	{
 		float3 v(1, 2, 3);
-		Assert::AreEqual(float2(1, 2), v.xy());
 		Assert::AreEqual(float2(1, 2), static_cast<float2>(v));
 	}
 
@@ -753,9 +752,6 @@ public:
 	TEST_METHOD(conversion_operators)
 	{
 		float4 v(1, 2, 3, 4);
-
-		Assert::AreEqual(float2(1, 2), v.xy());
-		Assert::AreEqual(float3(1, 2, 3), v.xyz());
 
 		Assert::AreEqual(float2(1, 2), static_cast<float2>(v));
 		Assert::AreEqual(float3(1, 2, 3), static_cast<float3>(v));

@@ -242,7 +242,7 @@ public:
 		float3 v3 = mul(m, -5.f * v);
 		Assert::IsTrue(v1 == v2 && v2 == v3);
 
-		float2 u = v.xy();
+		float2 u = static_cast<float2>(v);
 		Assert::AreEqual(mul(m, v), mul(m, u, v.z));
 	}
 
@@ -610,8 +610,8 @@ public:
 		float4 v3 = mul(m, -5.f * v);
 		Assert::IsTrue(v1 == v2 && v2 == v3);
 
-		float2 u2 = v.xy();
-		float3 u3 = v.xyz();
+		float2 u2 = static_cast<float2>(v);
+		float3 u3 = static_cast<float3>(v);
 		auto res2 = mul(m, u2, v.z, v.w);
 		auto res3 = mul(m, u3, v.w);
 		auto res4 = mul(m, v);

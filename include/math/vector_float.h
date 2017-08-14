@@ -144,12 +144,6 @@ struct float3 final {
 	}
 
 
-	float2 xy() const noexcept
-	{
-		return float2(x, y);
-	}
-
-
 	float x;
 	float y;
 	float z;
@@ -235,17 +229,6 @@ struct float4 final {
 	}
 
 	explicit operator float3() const noexcept
-	{
-		return float3(x, y, z);
-	}
-
-
-	float2 xy() const noexcept
-	{
-		return float2(x, y);
-	}
-	
-	float3 xyz() const noexcept
 	{
 		return float3(x, y, z);
 	}
