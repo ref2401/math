@@ -7,7 +7,6 @@
 
 namespace math {
 
-// Constructor takes ars in row-major order but fields are defined in column-major order.
 struct float3x3 {
 	static const float3x3 identity;
 	static const float3x3 zero;
@@ -65,9 +64,9 @@ struct float3x3 {
 	}
 
 
-	float m00, m10, m20; // column 0
-	float m01, m11, m21; // column 1
-	float m02, m12, m22; // column 2
+	float m00 = 0, m01 = 0, m02 = 0;
+	float m10 = 0, m11 = 0, m12 = 0;
+	float m20 = 0, m21 = 0, m22 = 0;
 };
 
 // Constructor takes ars in row-major order but fields are defined in column-major order.
@@ -136,10 +135,10 @@ struct float4x4 {
 	}
 
 
-	float m00 = 0, m10 = 0, m20 = 0, m30 = 0; // column 0
-	float m01 = 0, m11 = 0, m21 = 0, m31 = 0; // column 1
-	float m02 = 0, m12 = 0, m22 = 0, m32 = 0; // column 2
-	float m03 = 0, m13 = 0, m23 = 0, m33 = 0; // column 3
+	float m00 = 0, m01 = 0, m02 = 0, m03 = 0;
+	float m10 = 0, m11 = 0, m12 = 0, m13 = 0;
+	float m20 = 0, m21 = 0, m22 = 0, m23 = 0;
+	float m30 = 0, m31 = 0, m32 = 0, m33 = 0;
 };
 
 

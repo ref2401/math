@@ -26,17 +26,6 @@ namespace unittest {
 TEST_CLASS(math_matrix_float3x3) {
 public:
 
-	TEST_METHOD(address_of)
-	{
-		using math::to_array_column_major_order;
-
-		float arr[9];
-		float3x3 m(0, 1, 2,  3, 4, 5,  6, 7, 8);
-		to_array_column_major_order(m, arr);
-
-		Assert::IsTrue(std::equal(arr, arr + 9, &m.m00));
-	}
-
 	TEST_METHOD(approx_equal)
 	{
 		using math::approx_equal;
@@ -354,17 +343,6 @@ public:
 
 TEST_CLASS(math_matrix_float4x4) {
 public:
-
-	TEST_METHOD(address_of)
-	{
-		using math::to_array_column_major_order;
-
-		float arr[16];
-		float4x4 m(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-		to_array_column_major_order(m, arr);
-
-		Assert::IsTrue(std::equal(arr, arr + 16, &m.m00));
-	}
 
 	TEST_METHOD(approx_equal)
 	{
