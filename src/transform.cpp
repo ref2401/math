@@ -90,10 +90,6 @@ float4x4 orthographic_matrix_directx(float width, float height, float near_z, fl
 
 float4x4 orthographic_matrix_directx(float left, float right, float bottom, float top, float near_z, float far_z) noexcept
 {
-	assert(left < right);
-	assert(bottom < top);
-	assert(near_z < far_z);
-
 	const float far_minus_near = far_z - near_z;
 	const float right_minus_left = right - left;
 	const float top_minus_bottom = top - bottom;
