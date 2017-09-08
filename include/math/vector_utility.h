@@ -37,29 +37,28 @@ inline float4 unpack_unorm_8_8_8_8(uint32_t val) noexcept
 	);
 }
 
-template<typename T>
-inline vec_int_3<T> unpack_unorm_8_8_8(uint32_t val) noexcept
+template<typename V>
+inline V unpack_unorm_8_8_8(uint32_t val) noexcept
 {
-	static_assert(std::is_same<T, uint8_t>:: value || std::is_same<T, uint32_t>::value,
-		"T may be uint8_t or uint32_t");
+	static_assert(std::is_same<V, uint3>::value, "V may be uint3");
 
-	return vec_int_3<T>(
-		T((val >> 16) & 0xFF),
-		T((val >> 8) & 0xFF),
-		T(val & 0xFF));
+	return V(
+		V::component_type((val >> 16) & 0xFF),
+		V::component_type((val >> 8) & 0xFF),
+		V::component_type(val & 0xFF));
 }
 
-template<typename T>
-inline vec_int_4<T> unpack_unorm_8_8_8_8(uint32_t val) noexcept
+template<typename V>
+inline V unpack_unorm_8_8_8_8(uint32_t val) noexcept
 {
-	static_assert(std::is_same<T, uint8_t>::value || std::is_same<T, uint32_t>::value,
-		"T may be uint8_t or uint32_t");
+	static_assert(std::is_same<V, ubyte4>::value || std::is_same<V, uint4>::value,
+		"V may be ubyte4 or uint4");
 
-	return vec_int_4<T>(
-		T((val >> 24) & 0xFF),
-		T((val >> 16) & 0xFF),
-		T((val >> 8) & 0xFF),
-		T(val & 0xFF)
+	return V(
+		V::component_type((val >> 24) & 0xFF),
+		V::component_type((val >> 16) & 0xFF),
+		V::component_type((val >> 8) & 0xFF),
+		V::component_type(val & 0xFF)
 	);
 }
 
