@@ -6,6 +6,9 @@
 
 using math::float3;
 using math::float4;
+using math::ubyte4;
+using math::uint3;
+using math::uint4;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
@@ -13,6 +16,9 @@ namespace Microsoft { namespace VisualStudio { namespace CppUnitTestFramework {
 
 template<> inline std::wstring ToString<math::float3>(const math::float3& t) { RETURN_WIDE_STRING(t); }
 template<> inline std::wstring ToString<math::float4>(const math::float4& t) { RETURN_WIDE_STRING(t); }
+template<> inline std::wstring ToString<math::ubyte4>(const math::ubyte4& t) { RETURN_WIDE_STRING(t); }
+template<> inline std::wstring ToString<math::uint3>(const math::uint3& t) { RETURN_WIDE_STRING(t); }
+template<> inline std::wstring ToString<math::uint4>(const math::uint4& t) { RETURN_WIDE_STRING(t); }
 
 }}} // namespace Microsoft::VisualStudio::CppUnitTestFramework
 
@@ -33,6 +39,12 @@ public:
 		Assert::AreEqual(float3::unit_xyz, unpack_unorm_8_8_8(0xffffff));
 
 		Assert::AreEqual(float3(0xa1 / 255.0f, 0xb2 / 255.0f, 0xe3 / 255.0f), unpack_unorm_8_8_8(0xa1'b2'e3));
+
+		Assert::AreEqual(uint3::zero, unpack_unorm_8_8_8<uint32_t>(0));
+		Assert::AreEqual(uint3(0xff, 0, 0), unpack_unorm_8_8_8<uint32_t>(0xff'00'00));
+		Assert::AreEqual(uint3(0, 0xff, 0), unpack_unorm_8_8_8<uint32_t>(0x00'ff'00));
+		Assert::AreEqual(uint3(0, 0, 0xff), unpack_unorm_8_8_8<uint32_t>(0x00'00'ff));
+		Assert::AreEqual(uint3(0xA1, 0xB2, 0xE3), unpack_unorm_8_8_8<uint32_t>(0xA1'B2'E3));
 	}
 
 	TEST_METHOD(unpack_unorm_8_8_8_8)
@@ -47,6 +59,21 @@ public:
 		Assert::AreEqual(float4::unit_xyzw, unpack_unorm_8_8_8_8(0xffffffff));
 
 		Assert::AreEqual(float4(0xA1 / 255.0f, 0xB2 / 255.0f, 0xE3 / 255.0f, 0x18 / 255.0f), unpack_unorm_8_8_8_8(0xa1'b2'e3'18));
+
+
+		Assert::AreEqual(ubyte4::zero, unpack_unorm_8_8_8_8<uint8_t>(0));
+		Assert::AreEqual(ubyte4(0xff, 0, 0, 0), unpack_unorm_8_8_8_8<uint8_t>(0xff'00'00'00));
+		Assert::AreEqual(ubyte4(0, 0xff, 0, 0), unpack_unorm_8_8_8_8<uint8_t>(0x00'ff'00'00));
+		Assert::AreEqual(ubyte4(0, 0, 0xff, 0), unpack_unorm_8_8_8_8<uint8_t>(0x00'00'ff'00));
+		Assert::AreEqual(ubyte4(0, 0, 0, 0xff), unpack_unorm_8_8_8_8<uint8_t>(0x00'00'00'ff));
+		Assert::AreEqual(ubyte4(0xA1, 0xB2, 0xE3, 0x18), unpack_unorm_8_8_8_8<uint8_t>(0xA1'B2'E3'18));
+
+		Assert::AreEqual(uint4::zero, unpack_unorm_8_8_8_8<uint32_t>(0));
+		Assert::AreEqual(uint4(0xff, 0, 0, 0), unpack_unorm_8_8_8_8<uint32_t>(0xff'00'00'00));
+		Assert::AreEqual(uint4(0, 0xff, 0, 0), unpack_unorm_8_8_8_8<uint32_t>(0x00'ff'00'00));
+		Assert::AreEqual(uint4(0, 0, 0xff, 0), unpack_unorm_8_8_8_8<uint32_t>(0x00'00'ff'00));
+		Assert::AreEqual(uint4(0, 0, 0, 0xff), unpack_unorm_8_8_8_8<uint32_t>(0x00'00'00'ff));
+		Assert::AreEqual(uint4(0xA1, 0xB2, 0xE3, 0x18), unpack_unorm_8_8_8_8<uint32_t>(0xA1'B2'E3'18));
 	}
 
 	TEST_METHOD(pack_unpack_snorm_10_10_10_2)

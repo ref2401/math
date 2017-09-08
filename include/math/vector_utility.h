@@ -3,69 +3,10 @@
 
 #include <cassert>
 #include "math/vector_float.h"
+#include "math/vector_int.h"
 
 
 namespace math {
-
-namespace intrinsic {
-
-#pragma warning(push)
-#pragma warning(disable:4201) // Warning C4201 nonstandard extension used : nameless struct / union
-
-struct int_10_10_10_2 final {
-	int_10_10_10_2() noexcept = default;
-
-	explicit int_10_10_10_2(uint32_t raw) noexcept : raw_data(raw) {}
-
-	explicit int_10_10_10_2(const float4& v) noexcept
-		: x(int(v.x)), y(int(v.y)), z(int(v.z)), w(int(v.w))
-	{}
-
-	int_10_10_10_2(int x, int y, int z, int w) noexcept : x(x), y(y), z(z), w(w) {}
-
-
-	union {
-		struct {
-			int x : 10;
-			int y : 10;
-			int z : 10;
-			int w : 2;
-		};
-
-		uint32_t raw_data;
-	};
-};
-
-struct uint_10_10_10_2 final {
-	uint_10_10_10_2() noexcept = default;
-
-	explicit uint_10_10_10_2(uint32_t raw) noexcept : raw_data(raw) {}
-
-	explicit uint_10_10_10_2(const float4& v) noexcept
-		: x(unsigned int(v.x)),
-		y(unsigned int(v.y)),
-		z(unsigned int(v.z)),
-		w(unsigned int(v.w))
-	{}
-
-
-	union {
-		struct {
-			unsigned int x : 10;
-			unsigned int y : 10;
-			unsigned int z : 10;
-			unsigned int w : 2;
-		};
-
-		uint32_t raw_data;
-	};
-};
-
-#pragma warning(pop)
-
-} // namesace intrinsic
-
-
 
 inline float3 unpack_unorm_8_8_8(uint32_t val) noexcept
 {
@@ -96,37 +37,39 @@ inline float4 unpack_unorm_8_8_8_8(uint32_t val) noexcept
 	);
 }
 
-inline uint32_t pack_snorm_10_10_10_2(const float4& vo) noexcept
+template<typename T>
+inline vec_int_3<T> unpack_unorm_8_8_8(uint32_t val) noexcept
 {
-	const float4 v = float4(511.0f, 511.0f, 511.0f, 1.0f)
-		* clamp(vo, -float4::unit_xyzw, float4::unit_xyzw);
+	static_assert(std::is_same<T, uint8_t>:: value || std::is_same<T, uint32_t>::value,
+		"T may be uint8_t or uint32_t");
 
-	const intrinsic::int_10_10_10_2 packed(round(v));
-	return packed.raw_data;
+	return vec_int_3<T>(
+		T((val >> 16) & 0xFF),
+		T((val >> 8) & 0xFF),
+		T(val & 0xFF));
 }
 
-inline uint32_t pack_unorm_10_10_10_2(const float4& vo) noexcept
+template<typename T>
+inline vec_int_4<T> unpack_unorm_8_8_8_8(uint32_t val) noexcept
 {
-	const float4 v = float4(1023.0f, 1023.0f, 1023.0f, 3.0f)
-		* clamp(vo, float4::zero, float4::unit_xyzw);
+	static_assert(std::is_same<T, uint8_t>::value || std::is_same<T, uint32_t>::value,
+		"T may be uint8_t or uint32_t");
 
-	const intrinsic::uint_10_10_10_2 packed(round(v));
-	return packed.raw_data;
+	return vec_int_4<T>(
+		T((val >> 24) & 0xFF),
+		T((val >> 16) & 0xFF),
+		T((val >> 8) & 0xFF),
+		T(val & 0xFF)
+	);
 }
 
-inline float4 unpack_snorm_10_10_10_2(uint32_t p) noexcept
-{
-	const intrinsic::int_10_10_10_2 packed(p);
-	return float4(1.0f / 511.0f, 1.0f / 511.0f, 1.0f / 511.0f, 1.0f) 
-		* float4(float(packed.x), float(packed.y), float(packed.z), float(packed.w));
-}
+uint32_t pack_snorm_10_10_10_2(const float4& vo) noexcept;
 
-inline float4 unpack_unorm_10_10_10_2(uint32_t p) noexcept
-{
-	const intrinsic::uint_10_10_10_2 packed(p);
-	return float4(1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 3.0f)
-		* float4(float(packed.x), float(packed.y), float(packed.z), float(packed.w));
-}
+uint32_t pack_unorm_10_10_10_2(const float4& vo) noexcept;
+
+float4 unpack_snorm_10_10_10_2(uint32_t p) noexcept;
+
+float4 unpack_unorm_10_10_10_2(uint32_t p) noexcept;
 
 } // namespace math
 

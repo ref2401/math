@@ -143,6 +143,7 @@
     <ClCompile Include="..\src\matrix.cpp" />
     <ClCompile Include="..\src\transform.cpp" />
     <ClCompile Include="..\src\vector_float.cpp" />
+    <ClCompile Include="..\src\vector_utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
