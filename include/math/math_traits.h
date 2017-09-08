@@ -42,38 +42,49 @@ struct vector_traits;
 
 template<>
 struct vector_traits<float2> final {
-	static constexpr size_t component_count = 2;
 	using component_type = float;
+
+	static constexpr size_t component_count = 2;
+	static constexpr size_t byte_count		= sizeof(component_type) * component_count;
 };
 
 template<>
 struct vector_traits<float3> final {
-	static constexpr size_t component_count = 3;
 	using component_type = float;
+
+	static constexpr size_t component_count = 3;
+	static constexpr size_t byte_count		= sizeof(component_type) * component_count;
 };
 
 template<>
 struct vector_traits<float4> final {
-	static constexpr size_t component_count = 4;
 	using component_type = float;
+
+	static constexpr size_t component_count = 4;
+	static constexpr size_t byte_count		= sizeof(component_type) * component_count;
 };
 
 template<typename T>
 struct vector_traits<vec_int_2<T>> final {
-	static constexpr size_t component_count = 2;
 	using component_type = T;
+
+	static constexpr size_t component_count = 2;
+	static constexpr size_t byte_count		= sizeof(component_type) * component_count;
 };
 
 template<typename T>
 struct vector_traits<vec_int_3<T>> final {
-	static constexpr size_t component_count = 3;
 	using component_type = T;
+
+	static constexpr size_t component_count = 3;
+	static constexpr size_t byte_count		= sizeof(component_type) * component_count;
 };
 
 template<typename T>
 struct vector_traits<vec_int_4<T>> final {
-	static constexpr size_t component_count = 4;
 	using component_type = T;
+	static constexpr size_t component_count = 4;
+	static constexpr size_t byte_count		= sizeof(component_type) * component_count;
 };
 
 } // namespace math
