@@ -200,11 +200,11 @@ public:
 		Assert::AreEqual(int3::zero, v);
 	}
 
-	TEST_METHOD(conversion_operators)
+	TEST_METHOD(conversion_operators_xy)
 	{
 		int3 v(1, 2, 3);
 
-		Assert::AreEqual(int2(1, 2), v.xy());
+		Assert::AreEqual(int2(1, 2), xy(v));
 
 		Assert::AreEqual(int2(1, 2), static_cast<int2>(v));
 	}
@@ -360,12 +360,12 @@ public:
 		Assert::AreEqual(int4::zero, v);
 	}
 
-	TEST_METHOD(conversion_operators)
+	TEST_METHOD(conversion_operators_xy_xyz)
 	{
 		int4 v(1, 2, 3, 4);
 
-		Assert::AreEqual(int2(1, 2), v.xy());
-		Assert::AreEqual(int3(1, 2, 3), v.xyz());
+		Assert::AreEqual(int2(1, 2), xy(v));
+		Assert::AreEqual(int3(1, 2, 3), xyz(v));
 
 		Assert::AreEqual(int2(1, 2), static_cast<int2>(v));
 		Assert::AreEqual(int3(1, 2, 3), static_cast<int3>(v));
@@ -662,11 +662,11 @@ public:
 		Assert::AreEqual(uint3::zero, v);
 	}
 
-	TEST_METHOD(conversion_operators)
+	TEST_METHOD(conversion_operators_xy)
 	{
 		uint3 v(1, 2, 3);
 
-		Assert::AreEqual(uint2(1, 2), v.xy());
+		Assert::AreEqual(uint2(1, 2), xy(v));
 
 		Assert::AreEqual(uint2(1, 2), static_cast<uint2>(v));
 	}
@@ -812,12 +812,12 @@ public:
 		Assert::AreEqual(uint4::zero, v);
 	}
 
-	TEST_METHOD(conversion_operators)
+	TEST_METHOD(conversion_operators_xy_xyz)
 	{
 		uint4 v(1, 2, 3, 4);
 
-		Assert::AreEqual(uint2(1, 2), v.xy());
-		Assert::AreEqual(uint3(1, 2, 3), v.xyz());
+		Assert::AreEqual(uint2(1, 2), xy(v));
+		Assert::AreEqual(uint3(1, 2, 3), xyz(v));
 
 		Assert::AreEqual(uint2(1, 2), static_cast<uint2>(v));
 		Assert::AreEqual(uint3(1, 2, 3), static_cast<uint3>(v));

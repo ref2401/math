@@ -181,12 +181,6 @@ struct vec_int_3 final {
 	}
 
 
-	vec_int_2<T> xy() const noexcept
-	{
-		return vec_int_2<T>(x, y);
-	}
-
-
 	T x = 0;
 	T y = 0;
 	T z = 0;
@@ -299,17 +293,6 @@ struct vec_int_4 final {
 	}
 
 	explicit operator vec_int_3<T>() const noexcept
-	{
-		return vec_int_3<T>(x, y, z);
-	}
-
-
-	vec_int_2<T> xy() const noexcept
-	{
-		return vec_int_2<T>(x, y);
-	}
-
-	vec_int_3<T> xyz() const noexcept
 	{
 		return vec_int_3<T>(x, y, z);
 	}
@@ -845,6 +828,24 @@ template<typename T>
 inline T volume(const vec_int_4<T>& v) noexcept
 {
 	return v.x * v.y * v.z;
+}
+
+template<typename T>
+inline vec_int_2<T> xy(const vec_int_3<T>& v) noexcept
+{
+	return vec_int_2<T>(v.x, v.y);
+}
+
+template<typename T>
+inline vec_int_2<T> xy(const vec_int_4<T>& v) noexcept
+{
+	return vec_int_2<T>(v.x, v.y);
+}
+
+template<typename T>
+inline vec_int_3<T> xyz(const vec_int_4<T>& v) noexcept
+{
+	return vec_int_3<T>(v.x, v.y, v.z);
 }
 
 } // namespace math

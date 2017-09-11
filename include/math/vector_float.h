@@ -1010,6 +1010,20 @@ inline float4 round(const float4& v) noexcept
 // Performs spherical-interpolation between unit quaternions (geometrical slerp).
 quat slerp(const quat& q, const quat& r, float factor);
 
+inline float2 xy(const float3& v) noexcept
+{
+	return float2(v.x, v.y);
+}
+
+inline float2 xy(const float4& v) noexcept
+{
+	return float2(v.x, v.y);
+}
+
+inline float3 xyz(const float4& v) noexcept
+{
+	return float3(v.x, v.y, v.z);
+}
 
 } // namespace math
 
