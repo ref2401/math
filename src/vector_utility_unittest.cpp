@@ -28,6 +28,40 @@ namespace unittest {
 TEST_CLASS(math_vector_utility_funcs) {
 public:
 
+	TEST_METHOD(ubyte_to_8_8_8_8_and_back)
+	{
+		using math::pack_into_8_8_8_8;
+		using math::unpack_8_8_8_8_into_ubyte4;
+
+		struct test_data {
+			ubyte4 unpacked;
+			uint32_t packed;
+		};
+
+		constexpr size_t test_data_count = 7;
+		const test_data list[test_data_count] = {
+			{ ubyte4::zero,						0x00'00'00'00 },
+			{ ubyte4(0xff, 0x00, 0x00, 0x00),	0xff'00'00'00 },
+			{ ubyte4(0x00, 0xff, 0x00, 0x00),	0x00'ff'00'00 },
+			{ ubyte4(0x00, 0x00, 0xff, 0x00),	0x00'00'ff'00 },
+			{ ubyte4(0x00, 0x00, 0x00, 0xff),	0x00'00'00'ff },
+			{ ubyte4(0xff, 0xff, 0xff, 0xff),	0xff'ff'ff'ff },
+			{ ubyte4(0xa1, 0xb2, 0xe3, 0xf4),	0xa1'b2'e3'f4 }
+		};
+
+		for (size_t i = 0; i < test_data_count; ++i) {
+			// expected
+			const ubyte4	ue = list[i].unpacked;
+			const uint32_t	pe = list[i].packed;
+			// actual
+			const uint32_t	p = pack_into_8_8_8_8(ue);
+			const ubyte4	u = unpack_8_8_8_8_into_ubyte4(p);
+
+			Assert::AreEqual(pe, p);
+			Assert::AreEqual(ue, u);
+		}
+	}
+
 	TEST_METHOD(unpack_unorm_8_8_8)
 	{
 		using math::unpack_unorm_8_8_8;

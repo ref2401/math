@@ -8,6 +8,25 @@
 
 namespace math {
 
+inline uint32_t pack_into_8_8_8_8(const ubyte4& v)
+{
+	return (uint32_t(v.x) << 24)
+		| (uint32_t(v.y) << 16)
+		| (uint32_t(v.z) << 8)
+		| uint32_t(v.w);
+}
+
+inline ubyte4 unpack_8_8_8_8_into_ubyte4(uint32_t val) noexcept
+{
+	return ubyte4(
+		((val >> 24) & 0xFF),
+		((val >> 16) & 0xFF),
+		((val >> 8) & 0xFF),
+		(val & 0xFF)
+	);
+}
+
+
 inline float3 unpack_unorm_8_8_8(uint32_t val) noexcept
 {
 	// (31 .. 24) bytes are ignored.
