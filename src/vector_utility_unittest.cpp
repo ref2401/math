@@ -96,6 +96,38 @@ public:
 		}
 	}
 
+	TEST_METHOD(unorm_to_8_8_8_and_back) 
+	{
+		using math::pack_unorm_into_8_8_8;
+		using math::unpack_8_8_8_into_unorm;
+
+		struct test_data final {
+			float3 unpacked;
+			uint32_t packed;
+		};
+
+		const size_t test_data_count = 7;
+		const test_data list[test_data_count] = {
+			{ float3::zero,			0x00'00'00'00 },
+			{ float3::unit_x,		0x00'ff'00'00 },
+			{ float3::unit_y,		0x00'00'ff'00 },
+			{ float3::unit_z,		0x00'00'00'ff },
+			{ float3::unit_xyz,		0x00'ff'ff'ff },
+			{ float3(0xa1 / 255.0f, 0xb2 / 255.0f, 0xe3 / 255.0f), 0x00'a1'b2'e3 }
+		};
+
+		for (size_t i = 0; i < test_data_count; ++i) {
+			// expected
+			const float3	ue = list[i].unpacked;
+			const uint32_t	pe = list[i].packed;
+			// actual
+			const uint32_t	p = pack_unorm_into_8_8_8(ue);
+			const float3	u = unpack_8_8_8_into_unorm(p);
+
+			Assert::AreEqual(pe, p);
+			Assert::AreEqual(ue, u);
+		}
+	}
 
 	TEST_METHOD(unpack_unorm_8_8_8)
 	{
