@@ -33,7 +33,7 @@ public:
 		using math::pack_into_8_8_8_8;
 		using math::unpack_8_8_8_8_into_ubyte4;
 
-		struct test_data {
+		struct test_data final {
 			ubyte4 unpacked;
 			uint32_t packed;
 		};
@@ -61,6 +61,41 @@ public:
 			Assert::AreEqual(ue, u);
 		}
 	}
+
+	TEST_METHOD(unorm_to_8_8_8_8_and_back)
+	{
+		using math::pack_unorm_into_8_8_8_8;
+		using math::unpack_8_8_8_8_into_unorm;
+
+		struct test_data final {
+			float4 unpacked;
+			uint32_t packed;
+		};
+
+		const size_t test_data_count = 7;
+		const test_data list[test_data_count] = {
+			{ float4::zero,			0x00'00'00'00},
+			{ float4::unit_x,		0xff'00'00'00 },
+			{ float4::unit_y,		0x00'ff'00'00 },
+			{ float4::unit_z,		0x00'00'ff'00 },
+			{ float4::unit_w,		0x00'00'00'ff },
+			{ float4::unit_xyzw,	0xff'ff'ff'ff },
+			{ float4(0xa1 / 255.0f, 0xb2 / 255.0f, 0xe3 / 255.0f, 0x18 / 255.0f), 0xa1'b2'e3'18 }
+		};
+		
+		for (size_t i = 0; i < test_data_count; ++i) {
+			// expected
+			const float4	ue = list[i].unpacked;
+			const uint32_t	pe = list[i].packed;
+			// actual
+			const uint32_t	p = pack_unorm_into_8_8_8_8(ue);
+			const float4	u = unpack_8_8_8_8_into_unorm(p);
+
+			Assert::AreEqual(pe, p);
+			Assert::AreEqual(ue, u);
+		}
+	}
+
 
 	TEST_METHOD(unpack_unorm_8_8_8)
 	{

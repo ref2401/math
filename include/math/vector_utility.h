@@ -16,6 +16,14 @@ inline uint32_t pack_into_8_8_8_8(const ubyte4& v)
 		| uint32_t(v.w);
 }
 
+inline uint32_t pack_unorm_into_8_8_8_8(const float4& v) noexcept
+{
+	return (uint32_t(v.x * 255.0f) << 24)
+		| (uint32_t(v.y * 255.0f) << 16)
+		| (uint32_t(v.z * 255.0f) << 8)
+		| uint32_t(v.w * 255.0f);
+}
+
 inline ubyte4 unpack_8_8_8_8_into_ubyte4(uint32_t val) noexcept
 {
 	return ubyte4(
@@ -23,6 +31,16 @@ inline ubyte4 unpack_8_8_8_8_into_ubyte4(uint32_t val) noexcept
 		((val >> 16) & 0xFF),
 		((val >> 8) & 0xFF),
 		(val & 0xFF)
+	);
+}
+
+inline float4 unpack_8_8_8_8_into_unorm(uint32_t val) noexcept
+{
+	return float4(
+		((val >> 24) & 0xFF) / 255.0f,
+		((val >> 16) & 0xFF) / 255.0f,
+		((val >> 8) & 0xFF) / 255.0f,
+		(val & 0xFF) / 255.0f
 	);
 }
 
