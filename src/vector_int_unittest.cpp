@@ -51,6 +51,19 @@ public:
 		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y));
 	}
 
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		int2 lo(-5, -7);
+		int2 hi(5, 7);
+		int2 v(2, 3);
+
+		Assert::AreEqual(lo, clamp(int2(-9, -10), lo, hi));
+		Assert::AreEqual(v, clamp(v, lo, hi));
+		Assert::AreEqual(hi, clamp(int2(9, 10), lo, hi));
+	}
+
 	TEST_METHOD(compound_assignment_operators)
 	{
 		int2 v(1, 2);
@@ -176,6 +189,19 @@ public:
 		int3 vm;
 		vm = std::move(v);
 		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y) && (vm.z == v.z));
+	}
+
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		int3 lo(-5, -7, -9);
+		int3 hi(5, 7, 9);
+		int3 v(2, 3, 4);
+
+		Assert::AreEqual(lo, clamp(int3(-9, -10, -11), lo, hi));
+		Assert::AreEqual(v, clamp(v, lo, hi));
+		Assert::AreEqual(hi, clamp(int3(9, 10, 11), lo, hi));
 	}
 
 	TEST_METHOD(compound_assignment_operators)
@@ -336,6 +362,19 @@ public:
 		int4 vm;
 		vm = std::move(v);
 		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y) && (vm.z == v.z) && (vm.w == v.w));
+	}
+
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		int4 lo(-5, -7, -9, -11);
+		int4 hi(5, 7, 9, 11);
+		int4 v(2, 3, 4, 5);
+
+		Assert::AreEqual(lo, clamp(int4(-9, -10, -11, -12), lo, hi));
+		Assert::AreEqual(v, clamp(v, lo, hi));
+		Assert::AreEqual(hi, clamp(int4(9, 10, 11, 12), lo, hi));
 	}
 
 	TEST_METHOD(compound_assignment_operators)
@@ -521,6 +560,19 @@ public:
 		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y));
 	}
 
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		const uint2 lo(1, 2);
+		const uint2 hi(11, 12);
+		const uint2 v(2, 3);
+
+		Assert::AreEqual(lo, clamp(uint2::zero, lo, hi));
+		Assert::AreEqual(v, clamp(v, lo, hi));
+		Assert::AreEqual(hi, clamp(uint2(42), lo, hi));
+	}
+
 	TEST_METHOD(compound_assignment_operators)
 	{
 		uint2 v(1, 2);
@@ -638,6 +690,19 @@ public:
 		uint3 vm;
 		vm = std::move(v);
 		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y) && (vm.z == v.z));
+	}
+
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		const uint3 lo(1, 2, 3);
+		const uint3 hi(11, 12, 13);
+		const uint3 v(2, 3, 4);
+
+		Assert::AreEqual(lo, clamp(uint3::zero, lo, hi));
+		Assert::AreEqual(v, clamp(v, lo, hi));
+		Assert::AreEqual(hi, clamp(uint3(42), lo, hi));
 	}
 
 	TEST_METHOD(compound_assignment_operators)
@@ -788,6 +853,19 @@ public:
 		uint4 vm;
 		vm = std::move(v);
 		Assert::IsTrue((vm.x == v.x) && (vm.y == v.y) && (vm.z == v.z) && (vm.w == v.w));
+	}
+
+	TEST_METHOD(clamp)
+	{
+		using math::clamp;
+
+		const uint4 lo(1, 2, 3, 4);
+		const uint4 hi(11, 12, 13, 14);
+		const uint4 v(2, 3, 4, 5);
+
+		Assert::AreEqual(lo, clamp(uint4::zero, lo, hi));
+		Assert::AreEqual(v, clamp(v, lo, hi));
+		Assert::AreEqual(hi, clamp(uint4(42), lo, hi));
 	}
 
 	TEST_METHOD(compound_assignment_operators)

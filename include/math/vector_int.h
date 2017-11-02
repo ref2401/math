@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <iostream>
 #include <type_traits>
+#include "math/utility.h"
 
 
 namespace math {
@@ -798,6 +799,36 @@ inline float aspect_ratio(const vec_int_2<T>& v) noexcept
 {
 	assert(v.y != 0);
 	return float(v.x) / v.y;
+}
+
+template<typename T>
+inline vec_int_2<T> clamp(const vec_int_2<T>& v, const vec_int_2<T>& lo, 
+	const vec_int_2<T>& hi) noexcept
+{
+	return vec_int_2<T>(clamp(v.x, lo.x, hi.x), clamp(v.y, lo.y, hi.y));
+}
+
+template<typename T>
+inline vec_int_3<T> clamp(const vec_int_3<T>& v, const vec_int_3<T>& lo,
+	const vec_int_3<T>& hi) noexcept
+{
+	return vec_int_3<T>(
+		clamp(v.x, lo.x, hi.x), 
+		clamp(v.y, lo.y, hi.y),
+		clamp(v.z, lo.z, hi.z)
+	);
+}
+
+template<typename T>
+inline vec_int_4<T> clamp(const vec_int_4<T>& v, const vec_int_4<T>& lo,
+	const vec_int_4<T>& hi) noexcept
+{
+	return vec_int_4<T>(
+		clamp(v.x, lo.x, hi.x), 
+		clamp(v.y, lo.y, hi.y),
+		clamp(v.z, lo.z, hi.z),
+		clamp(v.w, lo.w, hi.w)
+	);
 }
 
 template<typename T>
