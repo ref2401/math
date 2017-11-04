@@ -69,7 +69,6 @@ struct float3x3 {
 	float m20 = 0, m21 = 0, m22 = 0;
 };
 
-// Constructor takes ars in row-major order but fields are defined in column-major order.
 struct float4x4 {
 	static const float4x4 identity;
 	static const float4x4 zero;
