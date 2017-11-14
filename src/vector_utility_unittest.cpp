@@ -66,8 +66,8 @@ public:
 	{
 		using math::approx_equal;
 		using math::clamp;
-		using math::pack_snorm_into_10_10_10_2;
-		using math::unpack_snorm_into_10_10_10_2;
+		using math::pack_snorm_10_10_10_2;
+		using math::unpack_snorm_10_10_10_2;
 
 
 		const float4 vectors[4] = {
@@ -80,8 +80,8 @@ public:
 		for (size_t i = 0; i < std::extent<decltype(vectors)>::value; ++i) {
 			const float4 v = vectors[i];
 
-			const uint32_t packed = pack_snorm_into_10_10_10_2(v);
-			const float4 vu = unpack_snorm_into_10_10_10_2(packed);
+			const uint32_t packed = pack_snorm_10_10_10_2(v);
+			const float4 vu = unpack_snorm_10_10_10_2(packed);
 
 			Assert::IsTrue(approx_equal(v, vu, 0.01f));
 		}
@@ -90,8 +90,38 @@ public:
 		// The original vector's components are out of range [-1.0f, 1.0f]
 		const float4 v(-10.0f, 10.0f, 0.0f, 10.0f);
 		const float4 v_expected = clamp(v, -float4::unit_xyzw, float4::unit_xyzw);
-		const uint32_t packed = pack_snorm_into_10_10_10_2(v);
-		const float4 vu = unpack_snorm_into_10_10_10_2(packed);
+		const uint32_t packed = pack_snorm_10_10_10_2(v);
+		const float4 vu = unpack_snorm_10_10_10_2(packed);
+		Assert::IsTrue(approx_equal(v_expected, vu, 0.01f));
+	}
+
+	TEST_METHOD(unorm_to_2_10_10_10_rev_and_back)
+	{
+		using math::approx_equal;
+		using math::clamp;
+		using math::pack_unorm_2_10_10_10_rev;
+		using math::unpack_unorm_2_10_10_10_rev;
+
+		const float4 vectors[4] = {
+			float4::zero,
+			float4::unit_xyzw,
+			float4(0.7f, 0.0f, 0.4f, 1.0f)
+		};
+
+		for (size_t i = 0; i < std::extent<decltype(vectors)>::value; ++i) {
+			const float4 v = vectors[i];
+
+			const uint32_t packed = pack_unorm_2_10_10_10_rev(v);
+			const float4 vu = unpack_unorm_2_10_10_10_rev(packed);
+
+			Assert::IsTrue(approx_equal(v, vu, 0.01f));
+		}
+
+		// The original vector's components are out of range [0.0f, 1.0f]
+		const float4 v(-10.0f, 10.0f, 0.0f, 10.0f);
+		const float4 v_expected = clamp(v, float4::zero, float4::unit_xyzw);
+		const uint32_t packed = pack_unorm_2_10_10_10_rev(v);
+		const float4 vu = unpack_unorm_2_10_10_10_rev(packed);
 		Assert::IsTrue(approx_equal(v_expected, vu, 0.01f));
 	}
 
@@ -99,8 +129,8 @@ public:
 	{
 		using math::approx_equal;
 		using math::clamp;
-		using math::pack_unorm_into_10_10_10_2;
-		using math::unpack_unorm_into_10_10_10_2;
+		using math::pack_unorm_10_10_10_2;
+		using math::unpack_unorm_10_10_10_2;
 
 
 		const float4 vectors[4] = {
@@ -112,8 +142,8 @@ public:
 		for (size_t i = 0; i < std::extent<decltype(vectors)>::value; ++i) {
 			const float4 v = vectors[i];
 
-			const uint32_t packed = pack_unorm_into_10_10_10_2(v);
-			const float4 vu = unpack_unorm_into_10_10_10_2(packed);
+			const uint32_t packed = pack_unorm_10_10_10_2(v);
+			const float4 vu = unpack_unorm_10_10_10_2(packed);
 
 			Assert::IsTrue(approx_equal(v, vu, 0.01f));
 		}
@@ -122,16 +152,16 @@ public:
 		// The original vector's components are out of range [0.0f, 1.0f]
 		const float4 v(-10.0f, 10.0f, 0.0f, 10.0f);
 		const float4 v_expected = clamp(v, float4::zero, float4::unit_xyzw);
-		const uint32_t packed = pack_unorm_into_10_10_10_2(v);
-		const float4 vu = unpack_unorm_into_10_10_10_2(packed);
+		const uint32_t packed = pack_unorm_10_10_10_2(v);
+		const float4 vu = unpack_unorm_10_10_10_2(packed);
 		Assert::IsTrue(approx_equal(v_expected, vu, 0.01f));
 	}
 
 	TEST_METHOD(unorm_to_8_8_8_and_back)
 	{
 		using math::approx_equal;
-		using math::pack_unorm_into_8_8_8;
-		using math::unpack_8_8_8_into_unorm;
+		using math::pack_unorm_8_8_8;
+		using math::unpack_unorm_8_8_8;
 
 		struct test_data final {
 			float3 unpacked;
@@ -153,8 +183,8 @@ public:
 			const float3	ue = list[i].unpacked;
 			const uint32_t	pe = list[i].packed;
 			// actual
-			const uint32_t	p = pack_unorm_into_8_8_8(ue);
-			const float3	u = unpack_8_8_8_into_unorm(p);
+			const uint32_t	p = pack_unorm_8_8_8(ue);
+			const float3	u = unpack_unorm_8_8_8(p);
 
 			Assert::AreEqual(pe, p);
 			Assert::IsTrue(approx_equal(ue, u));
@@ -164,8 +194,8 @@ public:
 	TEST_METHOD(unorm_to_8_8_8_8_and_back)
 	{
 		using math::approx_equal;
-		using math::pack_unorm_into_8_8_8_8;
-		using math::unpack_8_8_8_8_into_unorm;
+		using math::pack_unorm_8_8_8_8;
+		using math::unpack_unorm_8_8_8_8;
 
 		struct test_data final {
 			float4 unpacked;
@@ -188,8 +218,8 @@ public:
 			const float4	ue = list[i].unpacked;
 			const uint32_t	pe = list[i].packed;
 			// actual
-			const uint32_t	p = pack_unorm_into_8_8_8_8(ue);
-			const float4	u = unpack_8_8_8_8_into_unorm(p);
+			const uint32_t	p = pack_unorm_8_8_8_8(ue);
+			const float4	u = unpack_unorm_8_8_8_8(p);
 
 			Assert::AreEqual(pe, p);
 			Assert::IsTrue(approx_equal(ue, u));

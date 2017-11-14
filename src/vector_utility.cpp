@@ -30,6 +30,32 @@ struct int_10_10_10_2 final {
 	};
 };
 
+struct uint_2_10_10_10_rev final {
+	uint_2_10_10_10_rev() noexcept = default;
+
+	explicit uint_2_10_10_10_rev(uint32_t raw) noexcept : raw_data(raw) {}
+
+	explicit uint_2_10_10_10_rev(const math::float4& v) noexcept
+		: w(unsigned int(v.w)),
+		z(unsigned int(v.z)),
+		y(unsigned int(v.y)),
+		x(unsigned int(v.x))
+	{}
+
+
+	union {
+		struct {
+			unsigned int w : 2;
+			unsigned int z : 10;
+			unsigned int y : 10;
+			unsigned int x : 10;
+			
+		};
+
+		uint32_t raw_data;
+	};
+};
+
 struct uint_10_10_10_2 final {
 	uint_10_10_10_2() noexcept = default;
 
@@ -62,7 +88,7 @@ struct uint_10_10_10_2 final {
 
 namespace math {
 
-uint32_t pack_snorm_into_10_10_10_2(const float4& vo) noexcept
+uint32_t pack_snorm_10_10_10_2(const float4& vo) noexcept
 {
 	const float4 v = float4(511.0f, 511.0f, 511.0f, 1.0f)
 		* clamp(vo, -float4::unit_xyzw, float4::unit_xyzw);
@@ -71,7 +97,16 @@ uint32_t pack_snorm_into_10_10_10_2(const float4& vo) noexcept
 	return packed.raw_data;
 }
 
-uint32_t pack_unorm_into_10_10_10_2(const float4& vo) noexcept
+uint32_t pack_unorm_2_10_10_10_rev(const float4& vo) noexcept
+{
+	const float4 v = float4(1023.0f, 1023.0f, 1023.0f, 3.0f)
+		* clamp(vo, float4::zero, float4::unit_xyzw);
+
+	const uint_2_10_10_10_rev packed(round(v));
+	return packed.raw_data;
+}
+
+uint32_t pack_unorm_10_10_10_2(const float4& vo) noexcept
 {
 	const float4 v = float4(1023.0f, 1023.0f, 1023.0f, 3.0f)
 		* clamp(vo, float4::zero, float4::unit_xyzw);
@@ -80,14 +115,21 @@ uint32_t pack_unorm_into_10_10_10_2(const float4& vo) noexcept
 	return packed.raw_data;
 }
 
-float4 unpack_snorm_into_10_10_10_2(uint32_t p) noexcept
+float4 unpack_snorm_10_10_10_2(uint32_t p) noexcept
 {
 	const int_10_10_10_2 packed(p);
 	return float4(1.0f / 511.0f, 1.0f / 511.0f, 1.0f / 511.0f, 1.0f)
 		* float4(float(packed.x), float(packed.y), float(packed.z), float(packed.w));
 }
 
-float4 unpack_unorm_into_10_10_10_2(uint32_t p) noexcept
+float4 unpack_unorm_2_10_10_10_rev(uint32_t p) noexcept
+{
+	const uint_2_10_10_10_rev packed(p);
+	return float4(1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 3.0f)
+		* float4(float(packed.x), float(packed.y), float(packed.z), float(packed.w));
+}
+
+float4 unpack_unorm_10_10_10_2(uint32_t p) noexcept
 {
 	const uint_10_10_10_2 packed(p);
 	return float4(1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 1023.0f, 1.0f / 3.0f)
