@@ -22,10 +22,6 @@ inline uint32_t pack_into_8_8_8_8(const V& v)
 
 uint32_t pack_snorm_10_10_10_2(const float4& vo) noexcept;
 
-uint32_t pack_unorm_2_10_10_10(const float4& vo) noexcept;
-
-uint32_t pack_unorm_2_10_10_10_rev(const float4& vo) noexcept;
-
 uint32_t pack_unorm_10_10_10_2(const float4& vo) noexcept;
 
 inline uint32_t pack_unorm_8_8_8(const float3& v) noexcept
@@ -55,10 +51,6 @@ inline V unpack_8_8_8_8_into(uint32_t val) noexcept
 }
 
 float4 unpack_snorm_10_10_10_2(uint32_t p) noexcept;
-
-float4 unpack_unorm_2_10_10_10(uint32_t p) noexcept;
-
-float4 unpack_unorm_2_10_10_10_rev(uint32_t p) noexcept;
 
 float4 unpack_unorm_10_10_10_2(uint32_t p) noexcept;
 
