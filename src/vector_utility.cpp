@@ -36,10 +36,10 @@ struct uint_10_10_10_2 final {
 	explicit uint_10_10_10_2(uint32_t raw) noexcept : raw_data(raw) {}
 
 	explicit uint_10_10_10_2(const math::float4& v) noexcept
-		: x(unsigned int(v.x)),
-		y(unsigned int(v.y)),
-		z(unsigned int(v.z)),
-		w(unsigned int(v.w))
+		: x((unsigned int)(v.x)),
+		y((unsigned int)(v.y)),
+		z((unsigned int)(v.z)),
+		w((unsigned int)(v.w))
 	{}
 
 
