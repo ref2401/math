@@ -20,9 +20,14 @@ inline uint32_t pack_into_8_8_8_8(const V& v)
 		| uint32_t(v.w);
 }
 
-uint32_t pack_snorm_10_10_10_2(const float4& vo) noexcept;
+uint32_t pack_snorm_10_10_10_2(const float4& v) noexcept;
 
-uint32_t pack_unorm_10_10_10_2(const float4& vo) noexcept;
+uint32_t pack_unorm_10_10_10_2(const float4& v) noexcept;
+
+inline uint32_t pack_unorm_16_16(const float2& v) noexcept
+{
+    return (uint32_t(v.x * 65535.0f) << 16) | uint32_t(v.y * 65535.0f);
+}
 
 inline uint32_t pack_unorm_8_8_8(const float3& v) noexcept
 {
@@ -53,6 +58,14 @@ inline V unpack_8_8_8_8_into(uint32_t val) noexcept
 float4 unpack_snorm_10_10_10_2(uint32_t p) noexcept;
 
 float4 unpack_unorm_10_10_10_2(uint32_t p) noexcept;
+
+inline float2 unpack_unorm_16_16(uint32_t val) noexcept
+{
+	return float2(
+		((val >> 16) & 0xFFFF) / 65535.0f,
+		(val & 0xFFFF) / 65535.0f
+	);
+} 
 
 inline float3 unpack_unorm_8_8_8(uint32_t val) noexcept
 {
