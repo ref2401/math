@@ -24,11 +24,11 @@ struct vec_int_2 final {
 	static const vec_int_2<T> zero;
 
 
-	vec_int_2() noexcept = default;
+	constexpr vec_int_2() noexcept = default;
 
-	explicit vec_int_2(T v) noexcept : x(v), y(v) {}
+	constexpr explicit vec_int_2(T v) noexcept : x(v), y(v) {}
 
-	vec_int_2(T x, T y) noexcept : x(x), y(y) {}
+	constexpr vec_int_2(T x, T y) noexcept : x(x), y(y) {}
 
 
 	vec_int_2<T>& operator+=(T val) noexcept
@@ -105,13 +105,13 @@ struct vec_int_3 final {
 	static const vec_int_3<T> zero;
 
 
-	vec_int_3() noexcept = default;
+	constexpr vec_int_3() noexcept = default;
 
-	explicit vec_int_3(T v) noexcept : x(v), y(v), z(v) {}
+	constexpr explicit vec_int_3(T v) noexcept : x(v), y(v), z(v) {}
 
-	explicit vec_int_3(const vec_int_2<T>& v, T z = 0) noexcept : x(v.x), y(v.y), z(z) {}
+	constexpr explicit vec_int_3(const vec_int_2<T>& v, T z = 0) noexcept : x(v.x), y(v.y), z(z) {}
 
-	vec_int_3(T x, T y, T z) noexcept : x(x), y(y), z(z) {}
+	constexpr vec_int_3(T x, T y, T z) noexcept : x(x), y(y), z(z) {}
 
 
 	vec_int_3<T>& operator+=(T val) noexcept
@@ -203,19 +203,19 @@ struct vec_int_4 final {
 	static const vec_int_4<T> zero;
 
 
-	vec_int_4() noexcept = default;
+	constexpr vec_int_4() noexcept = default;
 
-	explicit vec_int_4(T val) noexcept : x(val), y(val), z(val), w(val) {}
+	constexpr explicit vec_int_4(T val) noexcept : x(val), y(val), z(val), w(val) {}
 
-	explicit vec_int_4(const vec_int_2<T>& v, T z = 0, T w = 1) noexcept 
+	constexpr explicit vec_int_4(const vec_int_2<T>& v, T z = 0, T w = 1) noexcept 
 		: x(v.x), y(v.y), z(z), w(w)
 	{}
 
-	explicit vec_int_4(const vec_int_3<T>& v, T w = 1) noexcept
+	constexpr explicit vec_int_4(const vec_int_3<T>& v, T w = 1) noexcept
 		: x(v.x), y(v.y), z(v.z), w(w)
 	{}
 
-	vec_int_4(T x, T y, T z, T w) noexcept : x(x), y(y), z(z), w(w) {}
+	constexpr vec_int_4(T x, T y, T z, T w) noexcept : x(x), y(y), z(z), w(w) {}
 
 
 	vec_int_4<T>& operator+=(T val) noexcept
