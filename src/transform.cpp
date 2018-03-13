@@ -377,7 +377,7 @@ template<typename M>
 M scale_matrix(const float3& s) noexcept
 {
 	static_assert(is_matrix<M>(), "M must be a matrix.");
-	assert(s > 0);
+	assert(!approx_equal(s, 0));
 
 	M m = M::identity;
 	m.m00 = s.x;

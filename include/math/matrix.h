@@ -11,13 +11,13 @@ struct float3x3 {
 	static const float3x3 identity;
 	static const float3x3 zero;
 
-	float3x3() noexcept
+	constexpr float3x3() noexcept
 		: m00(0), m01(0), m02(0),
 		m10(0), m11(0), m12(0),
 		m20(0), m21(0), m22(0)
 	{}
 
-	float3x3(float m00, float m01, float m02,
+	constexpr float3x3(float m00, float m01, float m02,
 		float m10, float m11, float m12,
 		float m20, float m21, float m22) noexcept
 		: m00(m00), m01(m01), m02(m02),
@@ -74,9 +74,9 @@ struct float4x4 {
 	static const float4x4 zero;
 
 
-	float4x4() noexcept = default;
+	constexpr float4x4() noexcept = default;
 
-	float4x4(float m00, float m01, float m02, float m03,
+	constexpr float4x4(float m00, float m01, float m02, float m03,
 		float m10, float m11, float m12, float m13,
 		float m20, float m21, float m22, float m23,
 		float m30, float m31, float m32, float m33) noexcept

@@ -14,11 +14,11 @@ struct float2 final {
 	static const float2 zero;
 
 
-	float2() noexcept : x(0), y(0) {}
+	constexpr float2() noexcept : x(0), y(0) {}
 
-	explicit float2(float val) noexcept : x(val), y(val) {}
+	constexpr explicit float2(float val) noexcept : x(val), y(val) {}
 
-	float2(float x, float y) noexcept : x(x), y(y) {}
+	constexpr float2(float x, float y) noexcept : x(x), y(y) {}
 
 
 	float2& operator+=(float val) noexcept
@@ -79,13 +79,13 @@ struct float3 final {
 	static const float3 zero;
 
 
-	float3() noexcept : x(0), y(0), z(0) {}
+	constexpr float3() noexcept : x(0), y(0), z(0) {}
 
-	explicit float3(float val) noexcept : x(val), y(val), z(val) {}
+	constexpr explicit float3(float val) noexcept : x(val), y(val), z(val) {}
 
-	float3(const float2& v, float z) : x(v.x), y(v.y), z(z) {}
+	constexpr float3(const float2& v, float z) : x(v.x), y(v.y), z(z) {}
 
-	float3(float x, float y, float z) noexcept : x(x), y(y), z(z) {}
+	constexpr float3(float x, float y, float z) noexcept : x(x), y(y), z(z) {}
 
 
 	float3& operator+=(float val) noexcept
@@ -158,13 +158,13 @@ struct float4 final {
 	static const float4 zero;
 
 
-	float4() noexcept : x(0), y(0), z(0), w(0) {}
+	constexpr float4() noexcept : x(0), y(0), z(0), w(0) {}
 
-	explicit float4(float val) noexcept : x(val), y(val), z(val), w(val) {}
+	constexpr explicit float4(float val) noexcept : x(val), y(val), z(val), w(val) {}
 
-	explicit float4(const float3& v3, float w = 1.f) noexcept : x(v3.x), y(v3.y), z(v3.z), w(w) {}
+	constexpr explicit float4(const float3& v3, float w = 1.f) noexcept : x(v3.x), y(v3.y), z(v3.z), w(w) {}
 
-	float4(float x, float y, float z, float w) noexcept : x(x), y(y), z(z), w(w) {}
+	constexpr float4(float x, float y, float z, float w) noexcept : x(x), y(y), z(z), w(w) {}
 
 
 	float4& operator+=(float val) noexcept
