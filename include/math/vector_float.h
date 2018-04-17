@@ -64,6 +64,16 @@ struct float2 final {
 		y /= val;
 		return *this;
 	}
+ 
+     float2& operator/=(const float2& v) noexcept
+    {
+        assert(!approx_equal(v.x, 0.0f));
+        assert(!approx_equal(v.y, 0.0f));
+        
+        x /= v.x;
+        y /= v.y;
+        return *this;
+    }
 
 
 	float x;
