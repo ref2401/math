@@ -59,6 +59,14 @@ inline Numeric lerp(const Numeric& l, const Numeric& r, const Numeric& factor) n
 	return l + factor * (r - l);
 }
 
+template<typename Numeric>
+inline Numeric sign(const Numeric& s) noexcept
+{
+    static_assert(std::is_arithmetic<Numeric>::value, "Numeric must be an arithmetic value.");
+    return (Numeric(0) < s) - (s < Numeric(0));
+}
+
+
 } // namesace math
 
 #endif // MATH_UTILITY_H_
