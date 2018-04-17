@@ -138,6 +138,18 @@ struct float3 final {
 		return *this;
 	}
 
+	float3& operator/=(const float3& v) noexcept
+    {
+        assert(!approx_equal(v.x, 0.0f));
+        assert(!approx_equal(v.y, 0.0f));
+        assert(!approx_equal(v.z, 0.0f));
+        
+        x /= v.x;
+        y /= v.y;
+        z /= v.z;
+        return *this;
+    }
+
 	explicit operator float2() const noexcept 
 	{
 		return float2(x, y);
@@ -226,6 +238,20 @@ struct float4 final {
 		w /= val;
 		return *this;
 	}
+
+	float4& operator/=(const float4& v) noexcept
+    {
+        assert(!approx_equal(v.x, 0.0f));
+        assert(!approx_equal(v.y, 0.0f));
+        assert(!approx_equal(v.z, 0.0f));
+        assert(!approx_equal(v.w, 0.0f));
+        
+        x /= v.x;
+        y /= v.y;
+        z /= v.z;
+        w /= v.w;
+        return *this;
+    }
 
 	explicit operator float2() const noexcept
 	{
