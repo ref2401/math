@@ -162,6 +162,10 @@ struct float4 final {
 
 	constexpr explicit float4(float val) noexcept : x(val), y(val), z(val), w(val) {}
 
+	constexpr explicit float4(const float2& v2, float z = 0.0f, float w = 1.0f) noexcept 
+		: x(v2.x), y(v2.y), z(z), w(w)
+	{}
+
 	constexpr explicit float4(const float3& v3, float w = 1.f) noexcept : x(v3.x), y(v3.y), z(v3.z), w(w) {}
 
 	constexpr float4(float x, float y, float z, float w) noexcept : x(x), y(y), z(z), w(w) {}

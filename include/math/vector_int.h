@@ -832,49 +832,49 @@ inline vec_int_4<T> clamp(const vec_int_4<T>& v, const vec_int_4<T>& lo,
 }
 
 template<typename T>
-inline T square(const vec_int_2<T>& v) noexcept
+constexpr T square(const vec_int_2<T>& v) noexcept
 {
 	return v.x * v.y;
 }
 
 template<typename T>
-inline T square(const vec_int_3<T>& v) noexcept
+constexpr T square(const vec_int_3<T>& v) noexcept
 {
 	return v.x * v.y;
 }
 
 template<typename T>
-inline T square(const vec_int_4<T>& v) noexcept
+constexpr T square(const vec_int_4<T>& v) noexcept
 {
 	return v.x * v.y;
 }
 
 template<typename T>
-inline T volume(const vec_int_3<T>& v) noexcept
+constexpr T volume(const vec_int_3<T>& v) noexcept
 {
 	return v.x * v.y * v.z;
 }
 
 template<typename T>
-inline T volume(const vec_int_4<T>& v) noexcept
+constexpr T volume(const vec_int_4<T>& v) noexcept
 {
 	return v.x * v.y * v.z;
 }
 
 template<typename T>
-inline vec_int_2<T> xy(const vec_int_3<T>& v) noexcept
+constexpr vec_int_2<T> xy(const vec_int_3<T>& v) noexcept
 {
 	return vec_int_2<T>(v.x, v.y);
 }
 
 template<typename T>
-inline vec_int_2<T> xy(const vec_int_4<T>& v) noexcept
+constexpr vec_int_2<T> xy(const vec_int_4<T>& v) noexcept
 {
 	return vec_int_2<T>(v.x, v.y);
 }
 
 template<typename T>
-inline vec_int_3<T> xyz(const vec_int_4<T>& v) noexcept
+constexpr vec_int_3<T> xyz(const vec_int_4<T>& v) noexcept
 {
 	return vec_int_3<T>(v.x, v.y, v.z);
 }
