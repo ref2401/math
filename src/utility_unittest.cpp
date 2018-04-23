@@ -86,6 +86,16 @@ public:
 		//Assert::AreEqual(0.0, sign(0.0));
 		//Assert::AreEqual(1, sign(24));
 	}
+
+	TEST_METHOD(step)
+	{
+		using math::step;
+
+		Assert::AreEqual(0.0f, step(1.0f, 0.0f));
+		Assert::AreEqual(0.0f, step(1.0f, 0.5f));
+		Assert::AreEqual(1.0f, step(1.0f, 1.0f));
+		Assert::AreEqual(1.0f, step(1.0f, 1.5f));
+	}
 };
 
 } // namespace unittest

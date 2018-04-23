@@ -78,6 +78,12 @@ inline Numeric sign(const Numeric& s) noexcept
     return Numeric((Numeric(0) < s) - (s < Numeric(0)));
 }
 
+template<typename Numeric>
+inline Numeric step(const Numeric& edge, const Numeric& x)
+{
+	return (x >= edge) ? Numeric(1) : Numeric(0);
+}
+
 } // namespace math
 
 #endif // MATH_UTILITY_H_
