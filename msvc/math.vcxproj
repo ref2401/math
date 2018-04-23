@@ -134,6 +134,7 @@
     <ClInclude Include="..\include\math\matrix.h" />
     <ClInclude Include="..\include\math\transform.h" />
     <ClInclude Include="..\include\math\utility.h" />
+    <ClInclude Include="..\include\math\vector_bool.h" />
     <ClInclude Include="..\include\math\vector_float.h" />
     <ClInclude Include="..\include\math\vector_int.h" />
     <ClInclude Include="..\include\math\math_traits.h" />
@@ -142,8 +143,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\matrix.cpp" />
     <ClCompile Include="..\src\transform.cpp" />
-    <ClCompile Include="..\src\vector_float.cpp" />
-    <ClCompile Include="..\src\vector_utility.cpp" />
+    <ClCompile Include="..\src\vector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
