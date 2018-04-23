@@ -15,5 +15,6 @@
     <ClCompile Include="..\src\matrix.cpp" />
     <ClCompile Include="..\src\transform.cpp" />
     <ClCompile Include="..\src\vector.cpp" />
+    <ClCompile Include="..\src\utility.cpp" />
   </ItemGroup>
 </Project>
