@@ -25,6 +25,16 @@ namespace unittest {
 TEST_CLASS(math_vector_float_float2) {
 public:
 
+	TEST_METHOD(abs)
+	{
+		using math::abs;
+
+		const float2 expected_vector(1, 2);
+
+		Assert::AreEqual(expected_vector, abs(float2(-1, -2)));
+		Assert::AreEqual(expected_vector, abs(float2(1, 2)));
+	}
+
 	TEST_METHOD(address_of)
 	{
 		float2 v(5, 6);
@@ -305,6 +315,16 @@ public:
 
 TEST_CLASS(math_vector_float_float3) {
 public:
+
+	TEST_METHOD(abs)
+	{
+		using math::abs;
+
+		const float3 expected_vector(1, 2, 3);
+
+		Assert::AreEqual(expected_vector, abs(float3(-1, -2, -3)));
+		Assert::AreEqual(expected_vector, abs(float3(1, 2, 3)));
+	}
 
 	TEST_METHOD(address_of)
 	{
@@ -657,6 +677,16 @@ public:
 
 TEST_CLASS(math_vector_float_float4) {
 public:
+
+	TEST_METHOD(abs)
+	{
+		using math::abs;
+
+		const float4 expected_vector(1, 2, 3, 4);
+
+		Assert::AreEqual(expected_vector, abs(float4(-1, -2, -3, -4)));
+		Assert::AreEqual(expected_vector, abs(float4(1, 2, 3, 4)));
+	}
 
 	TEST_METHOD(address_of)
 	{

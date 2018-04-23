@@ -761,6 +761,26 @@ std::ostream& operator<<(std::ostream& out, const quat& q);
 
 std::wostream& operator<<(std::wostream& out, const quat& q);
 
+// Returns the absolute value of the specified vactor.
+// The function processes each component of the vector separately.
+inline float2 abs(const float2& v)
+{
+	return float2(std::abs(v.x), std::abs(v.y));
+}
+
+// Returns the absolute value of the specified vactor.
+// The function processes each component of the vector separately.
+inline float3 abs(const float3& v)
+{
+	return float3(std::abs(v.x), std::abs(v.y), std::abs(v.z));
+}
+
+// Returns the absolute value of the specified vactor.
+// The function processes each component of the vector separately.
+inline float4 abs(const float4& v)
+{
+	return float4(std::abs(v.x), std::abs(v.y), std::abs(v.z), std::abs(v.w));
+}
 
 // Returns true if the (abs(l - r) <= max_abs_diff) condition is true for every comopnent of l and r.
 inline bool approx_equal(const float2& l, const float2& r, float max_abs_diff = 1e-5f) noexcept
