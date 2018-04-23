@@ -158,6 +158,15 @@ public:
 		Assert::AreEqual(bool3(true, false, true), not(bool3(false, true, false)));
 		Assert::AreEqual(bool3(true, true, false), not(bool3(false, false, true)));
 	}
+
+	TEST_METHOD(xy)
+	{
+		using math::xy;
+
+		bool3 v(true, false, true);
+
+		Assert::AreEqual(bool2(true, false), xy(v));
+	}
 };
 
 TEST_CLASS(math_vector_bool_bool4) {
@@ -233,6 +242,17 @@ public:
 		Assert::AreEqual(bool4(true, false, true, true), not(bool4(false, true, false, false)));
 		Assert::AreEqual(bool4(true, true, false, true), not(bool4(false, false, true, false)));
 		Assert::AreEqual(bool4(true, true, true, false), not(bool4(false, false, false, true)));
+	}
+
+	TEST_METHOD(xy_xyz)
+	{
+		using math::xy;
+		using math::xyz;
+
+		bool4 v(true, false, true, false);
+
+		Assert::AreEqual(bool2(true, false), xy(v));
+		Assert::AreEqual(bool3(true, false, true), xyz(v));
 	}
 };
 

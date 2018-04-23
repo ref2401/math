@@ -807,8 +807,7 @@ inline float aspect_ratio(const float2& v) noexcept
 //		v = The value to constrain
 //		v_lo =	The lower end of the range into which to constrain v.
 //		v_hi = The upper end of the range into which to constrain v.
-inline float2 clamp(const float2& v, const float2& lo = float2::zero,
-	const float2& hi = float2::unit_xy) noexcept
+inline float2 clamp(const float2& v, const float2& lo, const float2& hi) noexcept
 {
 	return float2(
 		clamp(v.x, lo.x, hi.x),
@@ -822,8 +821,7 @@ inline float2 clamp(const float2& v, const float2& lo = float2::zero,
 //		v = The value to constrain
 //		lo =	The lower end of the range into which to constrain v.
 //		hi = The upper end of the range into which to constrain v.
-inline float3 clamp(const float3& v, const float3& lo = float3::zero,
-	const float3& hi = float3::unit_xyz)  noexcept
+inline float3 clamp(const float3& v, const float3& lo, const float3& hi)  noexcept
 {
 	return float3(
 		clamp(v.x, lo.x, hi.x),
@@ -838,8 +836,7 @@ inline float3 clamp(const float3& v, const float3& lo = float3::zero,
 //		v =		The value to constrain
 //		lo =	The lower end of the range into which to constrain v.
 //		hi =	The upper end of the range into which to constrain v.
-inline float4 clamp(const float4& v, const float4& lo = float4::zero,
-	const float4& hi = float4::unit_xyzw) noexcept
+inline float4 clamp(const float4& v, const float4& lo, const float4& hi) noexcept
 {
 	return float4(
 		clamp(v.x, lo.x, hi.x),
@@ -1045,6 +1042,39 @@ inline quat normalize(const quat& q) noexcept
 inline float4 round(const float4& v) noexcept
 {
 	return float4(std::round(v.x), std::round(v.y), std::round(v.z), std::round(v.w));
+}
+
+// Constrains vector v to lie  within the range of 0 to 1.
+// The function processes each component of the vector separately.
+inline float2 saturate(const float2& v) noexcept
+{
+	return float2(
+		saturate(v.x),
+		saturate(v.y)
+	);
+}
+
+// Constrains vector v to lie  within the range of 0 to 1.
+// The function processes each component of the vector separately.
+inline float3 saturate(const float3& v) noexcept
+{
+	return float3(
+		saturate(v.x),
+		saturate(v.y),
+		saturate(v.z)
+	);
+}
+
+// Constrains vector v to lie  within the range of 0 to 1.
+// The function processes each component of the vector separately.
+inline float4 saturate(const float4& v) noexcept
+{
+	return float4(
+		saturate(v.x),
+		saturate(v.y),
+		saturate(v.z),
+		saturate(v.w)
+	);
 }
 
 // Performs spherical-interpolation between unit quaternions (geometrical slerp).

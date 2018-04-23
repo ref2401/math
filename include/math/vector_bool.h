@@ -144,6 +144,21 @@ constexpr bool4 not(const bool4& v) noexcept
 {
 	return bool4(!v.x, !v.y, !v.z, !v.w);
 }
+
+constexpr bool2 xy(const bool3& v) noexcept
+{
+	return bool2(v.x, v.y);
+}
+
+constexpr bool2 xy(const bool4& v) noexcept
+{
+	return bool2(v.x, v.y);
+}
+
+constexpr bool3 xyz(const bool4& v) noexcept
+{
+	return bool3(v.x, v.y, v.z);
+}
  
 } // namesapce math
 
