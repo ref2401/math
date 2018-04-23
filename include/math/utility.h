@@ -59,14 +59,25 @@ inline Numeric lerp(const Numeric& l, const Numeric& r, const Numeric& factor) n
 	return l + factor * (r - l);
 }
 
+// Clamps v into the [0, 1] bounds.
+template<typename Numeric>
+inline Numeric saturate(const Numeric& val) noexcept
+{
+	static_assert(std::is_integral<Numeric>::value || std::is_floating_point<Numeric>::value,
+		"Numeric type must be an integer or a floating point value.");
+
+	return std::min<Numeric>(1, std::max<Numeric>(0, val));
+}
+
 template<typename Numeric>
 inline Numeric sign(const Numeric& s) noexcept
 {
-    static_assert(std::is_arithmetic<Numeric>::value, "Numeric must be an arithmetic value.");
-    return (Numeric(0) < s) - (s < Numeric(0));
+    static_assert(std::is_signed<Numeric>::value
+			 && std::is_arithmetic<Numeric>::value, "Numeric must be a signed arithmetic value.");
+
+    return Numeric((Numeric(0) < s) - (s < Numeric(0)));
 }
 
-
-} // namesace math
+} // namespace math
 
 #endif // MATH_UTILITY_H_
