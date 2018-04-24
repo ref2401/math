@@ -130,17 +130,17 @@ constexpr bool any(const bool4& v) noexcept
 	return (v.x || v.y || v.z || v.w);
 }
 
-constexpr bool2 not(const bool2& v) noexcept
+constexpr bool2 not_impl(const bool2& v) noexcept
 {
 	return bool2(!v.x, !v.y);
 }
 
-constexpr bool3 not(const bool3& v) noexcept
+constexpr bool3 not_impl(const bool3& v) noexcept
 {
 	return bool3(!v.x, !v.y, !v.z);
 }
 
-constexpr bool4 not(const bool4& v) noexcept
+constexpr bool4 not_impl(const bool4& v) noexcept
 {
 	return bool4(!v.x, !v.y, !v.z, !v.w);
 }

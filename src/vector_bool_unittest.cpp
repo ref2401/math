@@ -76,15 +76,15 @@ public:
 		Assert::AreEqual(v, bool2(true));
 	}
 
-	TEST_METHOD(not)
+	TEST_METHOD(not_impl)
 	{
-		using math::not;
+		using math::not_impl;
 
-		Assert::AreEqual(bool2(true), not(bool2(false)));
-		Assert::AreEqual(bool2(false), not(bool2(true)));
+		Assert::AreEqual(bool2(true), not_impl(bool2(false)));
+		Assert::AreEqual(bool2(false), not_impl(bool2(true)));
 
-		Assert::AreEqual(bool2(false, true), not(bool2(true, false)));
-		Assert::AreEqual(bool2(true, false), not(bool2(false, true)));
+		Assert::AreEqual(bool2(false, true), not_impl(bool2(true, false)));
+		Assert::AreEqual(bool2(true, false), not_impl(bool2(false, true)));
 	}
 };
 
@@ -149,14 +149,14 @@ public:
 
 	TEST_METHOD(not)
 	{
-		using math::not;
+		using math::not_impl;
 
-		Assert::AreEqual(bool3(true), not(bool3(false)));
-		Assert::AreEqual(bool3(false), not(bool3(true)));
+		Assert::AreEqual(bool3(true), not_impl(bool3(false)));
+		Assert::AreEqual(bool3(false), not_impl(bool3(true)));
 
-		Assert::AreEqual(bool3(false, true, true), not(bool3(true, false, false)));
-		Assert::AreEqual(bool3(true, false, true), not(bool3(false, true, false)));
-		Assert::AreEqual(bool3(true, true, false), not(bool3(false, false, true)));
+		Assert::AreEqual(bool3(false, true, true), not_impl(bool3(true, false, false)));
+		Assert::AreEqual(bool3(true, false, true), not_impl(bool3(false, true, false)));
+		Assert::AreEqual(bool3(true, true, false), not_impl(bool3(false, false, true)));
 	}
 
 	TEST_METHOD(xy)
@@ -231,17 +231,17 @@ public:
 		Assert::AreEqual(v, bool4(true));
 	}
 
-	TEST_METHOD(not)
+	TEST_METHOD(not_impl)
 	{
-		using math::not;
+		using math::not_impl;
 
-		Assert::AreEqual(bool4(true), not(bool4(false)));
-		Assert::AreEqual(bool4(false), not(bool4(true)));
+		Assert::AreEqual(bool4(true), not_impl(bool4(false)));
+		Assert::AreEqual(bool4(false), not_impl(bool4(true)));
 
-		Assert::AreEqual(bool4(false, true, true, true), not(bool4(true, false, false, false)));
-		Assert::AreEqual(bool4(true, false, true, true), not(bool4(false, true, false, false)));
-		Assert::AreEqual(bool4(true, true, false, true), not(bool4(false, false, true, false)));
-		Assert::AreEqual(bool4(true, true, true, false), not(bool4(false, false, false, true)));
+		Assert::AreEqual(bool4(false, true, true, true), not_impl(bool4(true, false, false, false)));
+		Assert::AreEqual(bool4(true, false, true, true), not_impl(bool4(false, true, false, false)));
+		Assert::AreEqual(bool4(true, true, false, true), not_impl(bool4(false, false, true, false)));
+		Assert::AreEqual(bool4(true, true, true, false), not_impl(bool4(false, false, false, true)));
 	}
 
 	TEST_METHOD(xy_xyz)
