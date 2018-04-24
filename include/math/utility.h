@@ -46,6 +46,11 @@ Numeric lerp(const Numeric& l, const Numeric& r, const Numeric& factor) noexcept
 template<typename Numeric>
 Numeric saturate(const Numeric& val) noexcept;
 
+// The following formula is used to determine the return value (c) ? b : a;
+// Numeric must be an integer or a floating point type.
+template<typename Numeric>
+Numeric select(const Numeric& a, const Numeric& b, bool c) noexcept;
+
 // Returns -1 if s is less than zero; 0 if s equals zero; and 1 if s is greater than zero.
 // Numeric must be a signed arithmetic type.
 template<typename Numeric>

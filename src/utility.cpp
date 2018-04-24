@@ -74,6 +74,24 @@ template uint32_t saturate<uint32_t>(const uint32_t& val) noexcept;
 template uint64_t saturate<uint64_t>(const uint64_t& val) noexcept;
 
 template<typename Numeric>
+Numeric select(const Numeric& a, const Numeric& b, bool c) noexcept
+{
+	return (c) ? b : a;
+}
+
+template float select<float>(const float& a, const float& b, bool c) noexcept;
+template double select<double>(const double& a, const double& b, bool c) noexcept;
+template long double select<long double>(const long double& a, 
+	const long double& b, bool c) noexcept;
+template int8_t select<int8_t>(const int8_t& a, const int8_t& b, bool c) noexcept;
+template int32_t select<int32_t>(const int32_t& a, const int32_t& b, bool c) noexcept;
+template int64_t select<int64_t>(const int64_t& a, const int64_t& b, bool c) noexcept;
+template uint8_t select<uint8_t>(const uint8_t& a, const uint8_t& b, bool c) noexcept;
+template uint32_t select<uint32_t>(const uint32_t& a, const uint32_t& b, bool c) noexcept;
+template uint64_t select<uint64_t>(const uint64_t& a, const uint64_t& b, bool c) noexcept;
+
+
+template<typename Numeric>
 Numeric sign(const Numeric& s) noexcept
 {
 	static_assert(std::is_signed<Numeric>::value

@@ -78,6 +78,14 @@ public:
 		Assert::AreEqual(1.0, saturate(24.0));
 	}
 
+	TEST_METHOD(select)
+	{
+		using math::select;
+
+		Assert::AreEqual(0, select(0, 24, false));
+		Assert::AreEqual(24, select(0, 24, true));
+	}
+
 	TEST_METHOD(sign)
 	{
 		using math::sign;
