@@ -21,52 +21,46 @@ constexpr float pi_128 = pi / 128.0f;
 
 
 // Determines whether l is approximately equal to r admitting a maximum absolute difference max_abs_diff.
+// Numeric must be a floating point type.
 template<typename Numeric>
-inline bool approx_equal(const Numeric& l, const Numeric& r, const Numeric& max_abs_diff = Numeric(1e-5)) noexcept
-{
-	static_assert(std::is_floating_point<Numeric>::value, "Numeric must be a floating point value.");
-
-	assert(std::isfinite(l));
-	assert(std::isfinite(r));
-	assert(std::isfinite(max_abs_diff));
-
-	return std::abs(l - r) <= max_abs_diff;
-}
+bool approx_equal(const Numeric& l, const Numeric& r, 
+	const Numeric& max_abs_diff = Numeric(1e-5)) noexcept;
 
 // Clamps v into the given bounds [lo, hi].
+// Numeric must be an integer or a floating point type.
 template<typename Numeric>
-inline Numeric clamp(const Numeric& v, const Numeric& lo, const Numeric& hi) noexcept
-{
-	static_assert(std::is_integral<Numeric>::value || std::is_floating_point<Numeric>::value,
-		"Numeric type must be an integer or a floating point value.");
-	assert(lo <= hi);
-
-	return std::min(hi, std::max(lo, v));
-}
+Numeric clamp(const Numeric& v, const Numeric& lo, const Numeric& hi) noexcept;
 
 // Linearly interpolates between two values.
+// Numeric must be an integer or a floating point type.
 // Params:
 // -	l:		The start of the range in which to interpolate.
 // -	rh:		The end of the range in which to interpolate.
 // -	factor:	The value to use to interpolate between lhs & rhs.
 //				Factor has to lie within the range [0 .. 1].
 template<typename Numeric>
-inline Numeric lerp(const Numeric& l, const Numeric& r, const Numeric& factor) noexcept
-{
-	static_assert(std::is_floating_point<Numeric>::value, "Numeric must be a floating point value.");
+Numeric lerp(const Numeric& l, const Numeric& r, const Numeric& factor) noexcept;
 
-	assert(0 <= factor && factor <= 1);
-	return l + factor * (r - l);
-}
-
+// Clamps v into the [0, 1] bounds.
+// Numeric must be an integer or a floating point type.
 template<typename Numeric>
-inline Numeric sign(const Numeric& s) noexcept
-{
-    static_assert(std::is_arithmetic<Numeric>::value, "Numeric must be an arithmetic value.");
-    return (Numeric(0) < s) - (s < Numeric(0));
-}
+Numeric saturate(const Numeric& val) noexcept;
 
+// The following formula is used to determine the return value (c) ? b : a;
+// Numeric must be an integer or a floating point type.
+template<typename Numeric>
+Numeric select(const Numeric& a, const Numeric& b, bool c) noexcept;
 
-} // namesace math
+// Returns -1 if s is less than zero; 0 if s equals zero; and 1 if s is greater than zero.
+// Numeric must be a signed arithmetic type.
+template<typename Numeric>
+Numeric sign(const Numeric& s) noexcept;
+
+// This function uses the following formula: (x >= y) ? 1 : 0.
+// Numeric must be an integer or a floating point type.
+template<typename Numeric>
+Numeric step(const Numeric& edge, const Numeric& x) noexcept;
+
+} // namespace math
 
 #endif // MATH_UTILITY_H_

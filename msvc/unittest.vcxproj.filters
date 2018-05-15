@@ -8,5 +8,6 @@
     <ClCompile Include="..\src\transform_unittest.cpp" />
     <ClCompile Include="..\src\math_traits_unittest.cpp" />
     <ClCompile Include="..\src\vector_utility_unittest.cpp" />
+    <ClCompile Include="..\src\vector_bool_unittest.cpp" />
   </ItemGroup>
 </Project>

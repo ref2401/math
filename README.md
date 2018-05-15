@@ -6,3 +6,4 @@ The ```math_matrix_float4x4::compound_assignment_operators``` test fails fails o
 - Add unittests utility.h sign(N)
 - Add unittests float3/4 operator/=(float3/4)
 - Add vec_int{2/3/4} operator/() unittests
+- Add float{2/3/4} operator{/=, *=, +=, -=}(float{2/3/4}) & unittests

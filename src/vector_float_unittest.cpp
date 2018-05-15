@@ -25,6 +25,16 @@ namespace unittest {
 TEST_CLASS(math_vector_float_float2) {
 public:
 
+	TEST_METHOD(abs)
+	{
+		using math::abs;
+
+		const float2 expected_vector(1, 2);
+
+		Assert::AreEqual(expected_vector, abs(float2(-1, -2)));
+		Assert::AreEqual(expected_vector, abs(float2(1, 2)));
+	}
+
 	TEST_METHOD(address_of)
 	{
 		float2 v(5, 6);
@@ -113,9 +123,9 @@ public:
 		Assert::AreEqual(hi, clamp(float2(9, 10), lo, hi));
 
 		// default lo and hi
-		Assert::AreEqual(float2::zero, clamp(float2(-5)));
-		Assert::AreEqual(float2(0.5), clamp(float2(0.5)));
-		Assert::AreEqual(float2::unit_xy, clamp(float2(5)));
+		Assert::AreEqual(float2::zero, clamp(float2(-5), float2::zero, float2::unit_xy));
+		Assert::AreEqual(float2(0.5), clamp(float2(0.5), float2::zero, float2::unit_xy));
+		Assert::AreEqual(float2::unit_xy, clamp(float2(5), float2::zero, float2::unit_xy));
 	}
 
 	TEST_METHOD(compound_assignment_operators)
@@ -277,6 +287,15 @@ public:
 		Assert::IsTrue(float2(4, 1) >= 1);
 	}
 
+	TEST_METHOD(saturate)
+	{
+		using math::saturate;
+
+		Assert::AreEqual(float2::zero, saturate(float2(-24.0f)));
+		Assert::AreEqual(float2(0.5f), saturate(float2(0.5f)));
+		Assert::AreEqual(float2::unit_xy, saturate(float2(24.0f)));
+	}
+
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(float2(0, 0), float2::zero);
@@ -296,6 +315,16 @@ public:
 
 TEST_CLASS(math_vector_float_float3) {
 public:
+
+	TEST_METHOD(abs)
+	{
+		using math::abs;
+
+		const float3 expected_vector(1, 2, 3);
+
+		Assert::AreEqual(expected_vector, abs(float3(-1, -2, -3)));
+		Assert::AreEqual(expected_vector, abs(float3(1, 2, 3)));
+	}
 
 	TEST_METHOD(address_of)
 	{
@@ -379,9 +408,9 @@ public:
 		Assert::AreEqual(hi, clamp(float3(9, 10, 11), lo, hi));
 
 		// default lo and hi
-		Assert::AreEqual(float3::zero, clamp(float3(-5)));
-		Assert::AreEqual(float3(0.5), clamp(float3(0.5)));
-		Assert::AreEqual(float3::unit_xyz, clamp(float3(5)));
+		Assert::AreEqual(float3::zero, clamp(float3(-5), float3::zero, float3::unit_xyz));
+		Assert::AreEqual(float3(0.5), clamp(float3(0.5), float3::zero, float3::unit_xyz));
+		Assert::AreEqual(float3::unit_xyz, clamp(float3(5), float3::zero, float3::unit_xyz));
 	}
 
 	TEST_METHOD(compound_assignment_operators)
@@ -618,6 +647,15 @@ public:
 		Assert::IsTrue(float3(4, 5, 1) >= 1);
 	}
 
+	TEST_METHOD(saturate)
+	{
+		using math::saturate;
+
+		Assert::AreEqual(float3::zero, saturate(float3(-24.0f)));
+		Assert::AreEqual(float3(0.5f), saturate(float3(0.5f)));
+		Assert::AreEqual(float3::unit_xyz, saturate(float3(24.0f)));
+	}
+
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(float3(0, 0, 0), float3::zero);
@@ -639,6 +677,16 @@ public:
 
 TEST_CLASS(math_vector_float_float4) {
 public:
+
+	TEST_METHOD(abs)
+	{
+		using math::abs;
+
+		const float4 expected_vector(1, 2, 3, 4);
+
+		Assert::AreEqual(expected_vector, abs(float4(-1, -2, -3, -4)));
+		Assert::AreEqual(expected_vector, abs(float4(1, 2, 3, 4)));
+	}
 
 	TEST_METHOD(address_of)
 	{
@@ -725,9 +773,9 @@ public:
 		Assert::AreEqual(hi, clamp(float4(9, 10, 11, 12), lo, hi));
 
 		// default lo and hi
-		Assert::AreEqual(float4::zero, clamp(float4(-5)));
-		Assert::AreEqual(float4(0.5), clamp(float4(0.5)));
-		Assert::AreEqual(float4::unit_xyzw, clamp(float4(5)));
+		Assert::AreEqual(float4::zero, clamp(float4(-5), float4::zero, float4::unit_xyzw));
+		Assert::AreEqual(float4(0.5), clamp(float4(0.5), float4::zero, float4::unit_xyzw));
+		Assert::AreEqual(float4::unit_xyzw, clamp(float4(5), float4::zero, float4::unit_xyzw));
 	}
 
 	TEST_METHOD(compound_assignment_operators)
@@ -932,6 +980,15 @@ public:
 		const float4 v(-2.5f, -1.1f, 1.1f, 2.5f);
 		const float4 v_expected(std::round(v.x), std::round(v.y), std::round(v.z), std::round(v.w));
 		Assert::AreEqual(v_expected, round(v));
+	}
+
+	TEST_METHOD(saturate)
+	{
+		using math::saturate;
+
+		Assert::AreEqual(float4::zero, saturate(float4(-24.0f)));
+		Assert::AreEqual(float4(0.5f), saturate(float4(0.5f)));
+		Assert::AreEqual(float4::unit_xyzw, saturate(float4(24.0f)));
 	}
 
 	TEST_METHOD(static_members)

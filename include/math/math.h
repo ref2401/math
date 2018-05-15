@@ -5,6 +5,7 @@
 #include "math/matrix.h"
 #include "math/transform.h"
 #include "math/utility.h"
+#include "math/vector_bool.h"
 #include "math/vector_float.h"
 #include "math/vector_int.h"
 #include "math/vector_utility.h"

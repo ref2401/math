@@ -9,11 +9,12 @@
     <ClInclude Include="..\include\math\math_traits.h" />
     <ClInclude Include="..\include\math\math.h" />
     <ClInclude Include="..\include\math\vector_utility.h" />
+    <ClInclude Include="..\include\math\vector_bool.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\vector_float.cpp" />
     <ClCompile Include="..\src\matrix.cpp" />
     <ClCompile Include="..\src\transform.cpp" />
-    <ClCompile Include="..\src\vector_utility.cpp" />
+    <ClCompile Include="..\src\vector.cpp" />
+    <ClCompile Include="..\src\utility.cpp" />
   </ItemGroup>
 </Project>

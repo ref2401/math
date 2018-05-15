@@ -67,6 +67,43 @@ public:
 		//Assert::AreEqual(24.0f, lerp(24.0f, 24.0f, 0.4f));
 		//Assert::AreEqual(24.0f, lerp(24.0f, 24.0f, 0.7f));
 	}
+
+	TEST_METHOD(saturate)
+	{
+		using math::saturate;
+
+		Assert::AreEqual(0.0f, saturate(-24.0f));
+		Assert::AreEqual(0, saturate(0));
+		Assert::AreEqual(1u, saturate(1u));
+		Assert::AreEqual(1.0, saturate(24.0));
+	}
+
+	TEST_METHOD(select)
+	{
+		using math::select;
+
+		Assert::AreEqual(0, select(0, 24, false));
+		Assert::AreEqual(24, select(0, 24, true));
+	}
+
+	TEST_METHOD(sign)
+	{
+		using math::sign;
+
+		Assert::AreEqual(-1.0f, sign(-24.0f));
+		//Assert::AreEqual(0.0, sign(0.0));
+		//Assert::AreEqual(1, sign(24));
+	}
+
+	TEST_METHOD(step)
+	{
+		using math::step;
+
+		Assert::AreEqual(0.0f, step(1.0f, 0.0f));
+		Assert::AreEqual(0.0f, step(1.0f, 0.5f));
+		Assert::AreEqual(1.0f, step(1.0f, 1.0f));
+		Assert::AreEqual(1.0f, step(1.0f, 1.5f));
+	}
 };
 
 } // namespace unittest
