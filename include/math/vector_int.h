@@ -594,32 +594,30 @@ inline vec_int_4<T> operator*(T val, const vec_int_4<T>& v) noexcept
 	return vec_int_4<T>(v.x * val, v.y * val, v.z * val, v.w * val);
 }
 
-template<typename T>
-inline vec_int_2<T> operator/(const vec_int_2<T>& v, T val) noexcept
+template<typename T, typename U>
+inline vec_int_2<T> operator/(const vec_int_2<T>& v, U val) noexcept
 {
 	assert(val != 0);
-	return vec_int_2<T>(v.x / val, v.y / val, v.z / val, v.w / val);
+	return vec_int_2<T>(v.x / val, v.y);
 }
 
-template<typename T>
-inline vec_int_2<T> operator/(T val, const vec_int_2<T>& v) noexcept
+template<typename T, typename U>
+inline vec_int_2<T> operator/(U val, const vec_int_2<T>& v) noexcept
 {
 	assert(v.x != 0);
 	assert(v.y != 0);
-	assert(v.z != 0);
-	assert(v.w != 0);
-	return vec_int_2<T>(val / v.x, val / v.y, val / v.z, val / v.w);
+	return vec_int_2<T>(val / v.x, val / v.y);
 }
 
-template<typename T>
-inline vec_int_3<T> operator/(const vec_int_3<T>& v, T val) noexcept
+template<typename T, typename U>
+inline vec_int_3<T> operator/(const vec_int_3<T>& v, U val) noexcept
 {
 	assert(val != 0);
-	return vec_int_3<T>(v.x / val, v.y / val, v.z / val, v.w / val);
+	return vec_int_3<T>(v.x / val, v.y / val, v.z / val);
 }
 
-template<typename T>
-inline vec_int_3<T> operator/(T val, const vec_int_3<T>& v) noexcept
+template<typename T, typename U>
+inline vec_int_3<T> operator/(U val, const vec_int_3<T>& v) noexcept
 {
 	assert(v.x != 0);
 	assert(v.y != 0);
@@ -627,15 +625,15 @@ inline vec_int_3<T> operator/(T val, const vec_int_3<T>& v) noexcept
 	return vec_int_3<T>(val / v.x, val / v.y, val / v.z);
 }
 
-template<typename T>
-inline vec_int_4<T> operator/(const vec_int_4<T>& v, T val) noexcept
+template<typename T, typename U>
+inline vec_int_4<T> operator/(const vec_int_4<T>& v, U val) noexcept
 {
 	assert(val != 0);
 	return vec_int_4<T>(v.x / val, v.y / val, v.z / val, v.w / val);
 }
 
-template<typename T>
-inline vec_int_4<T> operator/(T val, const vec_int_4<T>& v) noexcept
+template<typename T, typename U>
+inline vec_int_4<T> operator/(U val, const vec_int_4<T>& v) noexcept
 {
 	assert(v.x != 0);
 	assert(v.y != 0);
