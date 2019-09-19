@@ -29,6 +29,39 @@ namespace unittest {
 TEST_CLASS(math_vector_int_int2) {
 public:
 
+	TEST_METHOD(area)
+	{
+		using math::area;
+
+		Assert::AreEqual<int32_t>(0, area(int2::zero));
+		Assert::AreEqual<int32_t>(20, area(int2(4, 5)));
+	}
+
+	TEST_METHOD(arithmetic_operators)
+	{
+		int2 v(1, 2);
+		int2 vo(5, 6);
+		Assert::AreEqual(v + 1, int2(2, 3));
+		Assert::AreEqual(1 + v, int2(2, 3));
+		Assert::AreEqual(v + vo, int2(6, 8));
+
+		Assert::AreEqual(v - 1, int2(0, 1));
+		Assert::AreEqual(1 - v, int2(0, -1));
+		Assert::AreEqual(v - vo, int2(-4));
+
+		Assert::AreEqual(v * 2, int2(2, 4));
+		Assert::AreEqual(2 * v, int2(2, 4));
+		Assert::AreEqual(v * vo, int2(5, 12));
+
+		Assert::AreEqual(v * 2, int2(2, 4));
+		Assert::AreEqual(2 * v, int2(2, 4));
+		Assert::AreEqual(v * vo, int2(5, 12));
+
+		Assert::AreEqual(v / 2, int2(0, 1));
+		Assert::AreEqual(10 / v, int2(10, 5));
+		Assert::AreEqual(vo / v, int2(5, 3));
+	}
+
 	TEST_METHOD(aspect_ration)
 	{
 		using math::aspect_ratio;
@@ -148,14 +181,6 @@ public:
 		Assert::IsTrue(int2(4, 1) >= 1);
 	}
 
-	TEST_METHOD(square)
-	{
-		using math::square;
-
-		Assert::AreEqual<int32_t>(0, square(int2::zero));
-		Assert::AreEqual<int32_t>(20, square(int2(4, 5)));
-	}
-
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(int2(1, 0), int2::unit_x);
@@ -175,6 +200,39 @@ public:
 
 TEST_CLASS(math_vector_int_int3) {
 public:
+
+	TEST_METHOD(area)
+	{
+		using math::area;
+
+		Assert::AreEqual<int32_t>(0, area(int3::zero));
+		Assert::AreEqual<int32_t>(20, area(int3(4, 5, 6)));
+	}
+
+	TEST_METHOD(arithmetic_operators)
+	{
+		int3 v(1, 2, 3);
+		int3 vo(5, 6, 7);
+		Assert::AreEqual(v + 1, int3(2, 3, 4));
+		Assert::AreEqual(1 + v, int3(2, 3, 4));
+		Assert::AreEqual(v + vo, int3(6, 8, 10));
+
+		Assert::AreEqual(v - 1, int3(0, 1, 2));
+		Assert::AreEqual(1 - v, int3(0, -1, -2));
+		Assert::AreEqual(v - vo, int3(-4));
+
+		Assert::AreEqual(v * 2, int3(2, 4, 6));
+		Assert::AreEqual(2 * v, int3(2, 4, 6));
+		Assert::AreEqual(v * vo, int3(5, 12, 21));
+
+		Assert::AreEqual(v * 2, int3(2, 4, 6));
+		Assert::AreEqual(2 * v, int3(2, 4, 6));
+		Assert::AreEqual(v * vo, int3(5, 12, 21));
+
+		Assert::AreEqual(v / 2, int3(0, 1, 1));
+		Assert::AreEqual(10 / v, int3(10, 5, 3));
+		Assert::AreEqual(vo / v, int3(5, 3, 2));
+	}
 
 	TEST_METHOD(assignment_operators)
 	{
@@ -310,14 +368,6 @@ public:
 		Assert::IsTrue(int3(4, 5, 6) >= 1);
 	}
 
-	TEST_METHOD(square)
-	{
-		using math::square;
-
-		Assert::AreEqual<int32_t>(0, square(int3::zero));
-		Assert::AreEqual<int32_t>(20, square(int3(4, 5, 6)));
-	}
-
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(int3(1, 0, 0), int3::unit_x);
@@ -348,6 +398,39 @@ public:
 
 TEST_CLASS(math_vector_int_int4) {
 public:
+
+	TEST_METHOD(area)
+	{
+		using math::area;
+
+		Assert::AreEqual<int32_t>(0, area(int4::zero));
+		Assert::AreEqual<int32_t>(20, area(int4(4, 5, 6, 7)));
+	}
+
+	TEST_METHOD(arithmetic_operators)
+	{
+		int4 v(1, 2, 3, 4);
+		int4 vo(5, 6, 7, 8);
+		Assert::AreEqual(v + 1, int4(2, 3, 4, 5));
+		Assert::AreEqual(1 + v, int4(2, 3, 4, 5));
+		Assert::AreEqual(v + vo, int4(6, 8, 10, 12));
+
+		Assert::AreEqual(v - 1, int4(0, 1, 2, 3));
+		Assert::AreEqual(1 - v, int4(0, -1, -2, -3));
+		Assert::AreEqual(v - vo, int4(-4));
+
+		Assert::AreEqual(v * 2, int4(2, 4, 6, 8));
+		Assert::AreEqual(2 * v, int4(2, 4, 6, 8));
+		Assert::AreEqual(v * vo, int4(5, 12, 21, 32));
+
+		Assert::AreEqual(v * 2, int4(2, 4, 6, 8));
+		Assert::AreEqual(2 * v, int4(2, 4, 6, 8));
+		Assert::AreEqual(v * vo, int4(5, 12, 21, 32));
+
+		Assert::AreEqual(v / 2, int4(0, 1, 1, 2));
+		Assert::AreEqual(10 / v, int4(10, 5, 3, 2));
+		Assert::AreEqual(vo / v, int4(5, 3, 2, 2));
+	}
 
 	TEST_METHOD(assignment_operators)
 	{
@@ -498,14 +581,6 @@ public:
 		Assert::IsTrue(int4(4, 5, 6, 1) >= 1);
 	}
 
-	TEST_METHOD(square)
-	{
-		using math::square;
-
-		Assert::AreEqual<int32_t>(0, square(int4::zero));
-		Assert::AreEqual<int32_t>(20, square(int4(4, 5, 6, 7)));
-	}
-
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(int4(1, 0, 0, 0), int4::unit_x);
@@ -537,6 +612,39 @@ public:
 
 TEST_CLASS(math_vector_int_uint2) {
 public:
+
+	TEST_METHOD(area)
+	{
+		using math::area;
+
+		Assert::AreEqual<uint32_t>(0, area(uint2::zero));
+		Assert::AreEqual<uint32_t>(20, area(uint2(4, 5)));
+	}
+
+	TEST_METHOD(arithmetic_operators)
+	{
+		uint2 v(1, 2);
+		uint2 vo(5, 6);
+		Assert::AreEqual(v + 1u, uint2(2, 3));
+		Assert::AreEqual(1u + v, uint2(2, 3));
+		Assert::AreEqual(v + vo, uint2(6, 8));
+
+		Assert::AreEqual(v - 1u, uint2(0, 1));
+		Assert::AreEqual(10u - v, uint2(9, 8));
+		Assert::AreEqual(vo - v, uint2(4));
+
+		Assert::AreEqual(v * 2u, uint2(2, 4));
+		Assert::AreEqual(2u * v, uint2(2, 4));
+		Assert::AreEqual(v * vo, uint2(5, 12));
+
+		Assert::AreEqual(v * 2u, uint2(2, 4));
+		Assert::AreEqual(2u * v, uint2(2, 4));
+		Assert::AreEqual(v * vo, uint2(5, 12));
+
+		Assert::AreEqual(v / 2u, uint2(0, 1));
+		Assert::AreEqual(10u / v, uint2(10, 5));
+		Assert::AreEqual(vo / v, uint2(5, 3));
+	}
 
 	TEST_METHOD(aspect_ration)
 	{
@@ -657,14 +765,6 @@ public:
 		Assert::IsTrue(uint2(4, 1) >= 1);
 	}
 
-	TEST_METHOD(square)
-	{
-		using math::square;
-
-		Assert::AreEqual<uint32_t>(0, square(uint2::zero));
-		Assert::AreEqual<uint32_t>(20, square(uint2(4, 5)));
-	}
-
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(uint2(1, 0), uint2::unit_x);
@@ -676,6 +776,39 @@ public:
 
 TEST_CLASS(math_vector_int_uint3) {
 public:
+
+	TEST_METHOD(area)
+	{
+		using math::area;
+
+		Assert::AreEqual<uint32_t>(0, area(uint3::zero));
+		Assert::AreEqual<uint32_t>(20, area(uint3(4, 5, 6)));
+	}
+
+	TEST_METHOD(arithmetic_operators)
+	{
+		uint3 v(1, 2, 3);
+		uint3 vo(5, 6, 7);
+		Assert::AreEqual(v + 1u, uint3(2, 3, 4));
+		Assert::AreEqual(1u + v, uint3(2, 3, 4));
+		Assert::AreEqual(v + vo, uint3(6, 8, 10));
+
+		Assert::AreEqual(v - 1u, uint3(0, 1, 2));
+		Assert::AreEqual(10u - v, uint3(9, 8, 7));
+		Assert::AreEqual(vo - v, uint3(4));
+
+		Assert::AreEqual(v * 2u, uint3(2, 4, 6));
+		Assert::AreEqual(2u * v, uint3(2, 4, 6));
+		Assert::AreEqual(v * vo, uint3(5, 12, 21));
+
+		Assert::AreEqual(v * 2u, uint3(2, 4, 6));
+		Assert::AreEqual(2u * v, uint3(2, 4, 6));
+		Assert::AreEqual(v * vo, uint3(5, 12, 21));
+
+		Assert::AreEqual(v / 2u, uint3(0, 1, 1));
+		Assert::AreEqual(10u / v, uint3(10, 5, 3));
+		Assert::AreEqual(vo / v, uint3(5, 3, 2));
+	}
 
 	TEST_METHOD(assignment_operators)
 	{
@@ -811,14 +944,6 @@ public:
 		Assert::IsTrue(uint3(4, 5, 1) >= 1);
 	}
 
-	TEST_METHOD(square)
-	{
-		using math::square;
-
-		Assert::AreEqual<uint32_t>(0, square(uint3::zero));
-		Assert::AreEqual<uint32_t>(20, square(uint3(4, 5, 6)));
-	}
-
 	TEST_METHOD(static_members)
 	{
 		Assert::AreEqual(uint3(1, 0, 0), uint3::unit_x);
@@ -839,6 +964,39 @@ public:
 
 TEST_CLASS(math_vector_int_uint4) {
 public:
+
+	TEST_METHOD(area)
+	{
+		using math::area;
+
+		Assert::AreEqual<uint32_t>(0, area(uint4::zero));
+		Assert::AreEqual<uint32_t>(20, area(uint4(4, 5, 6, 7)));
+	}
+
+	TEST_METHOD(arithmetic_operators)
+	{
+		uint4 v(1, 2, 3, 4);
+		uint4 vo(5, 6, 7, 8);
+		Assert::AreEqual(v + 1u, uint4(2, 3, 4, 5));
+		Assert::AreEqual(1u + v, uint4(2, 3, 4, 5));
+		Assert::AreEqual(v + vo, uint4(6, 8, 10, 12));
+
+		Assert::AreEqual(v - 1u, uint4(0, 1, 2, 3));
+		Assert::AreEqual(10u - v, uint4(9, 8, 7, 6));
+		Assert::AreEqual(vo - v, uint4(4));
+
+		Assert::AreEqual(v * 2u, uint4(2, 4, 6, 8));
+		Assert::AreEqual(2u * v, uint4(2, 4, 6, 8));
+		Assert::AreEqual(v * vo, uint4(5, 12, 21, 32));
+
+		Assert::AreEqual(v * 2u, uint4(2, 4, 6, 8));
+		Assert::AreEqual(2u * v, uint4(2, 4, 6, 8));
+		Assert::AreEqual(v * vo, uint4(5, 12, 21, 32));
+
+		Assert::AreEqual(v / 2u, uint4(0, 1, 1, 2));
+		Assert::AreEqual(10u / v, uint4(10, 5, 3, 2));
+		Assert::AreEqual(vo / v, uint4(5, 3, 2, 2));
+	}
 
 	TEST_METHOD(assignment_operators)
 	{
@@ -987,14 +1145,6 @@ public:
 		Assert::IsTrue(uint4(4, 1, 5, 6) >= 1);
 		Assert::IsTrue(uint4(4, 5, 1, 6) >= 1);
 		Assert::IsTrue(uint4(4, 5, 6, 1) >= 1);
-	}
-
-	TEST_METHOD(square)
-	{
-		using math::square;
-
-		Assert::AreEqual<uint32_t>(0, square(uint4::zero));
-		Assert::AreEqual<uint32_t>(20, square(uint4(4, 5, 6, 7)));
 	}
 
 	TEST_METHOD(static_members)

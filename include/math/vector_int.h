@@ -429,7 +429,7 @@ inline vec_int_4<T> operator+(const vec_int_4<T>& l, const vec_int_4<T>& r) noex
 template<typename T>
 inline vec_int_2<T> operator-(const vec_int_2<T>& v, T val) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(v.x >= val);
 		assert(v.y >= val);
 	}
@@ -440,7 +440,7 @@ inline vec_int_2<T> operator-(const vec_int_2<T>& v, T val) noexcept
 template<typename T>
 inline vec_int_2<T> operator-(T val, const vec_int_2<T>& v) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(val >= v.x);
 		assert(val >= v.y);
 	}
@@ -451,7 +451,7 @@ inline vec_int_2<T> operator-(T val, const vec_int_2<T>& v) noexcept
 template<typename T>
 inline vec_int_2<T> operator-(const vec_int_2<T>& l, const vec_int_2<T>& r) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(l.x >= r.x);
 		assert(l.y >= r.y);
 	}
@@ -462,7 +462,7 @@ inline vec_int_2<T> operator-(const vec_int_2<T>& l, const vec_int_2<T>& r) noex
 template<typename T>
 inline vec_int_3<T> operator-(const vec_int_3<T>& v, T val) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(v.x >= val);
 		assert(v.y >= val);
 		assert(v.z >= val);
@@ -474,7 +474,7 @@ inline vec_int_3<T> operator-(const vec_int_3<T>& v, T val) noexcept
 template<typename T>
 inline vec_int_3<T> operator-(T val, const vec_int_3<T>& v) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(val >= v.x);
 		assert(val >= v.y);
 		assert(val >= v.z);
@@ -486,7 +486,7 @@ inline vec_int_3<T> operator-(T val, const vec_int_3<T>& v) noexcept
 template<typename T>
 inline vec_int_3<T> operator-(const vec_int_3<T>& l, const vec_int_3<T>& r) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(l.x >= r.x);
 		assert(l.y >= r.y);
 		assert(l.z >= r.z);
@@ -498,7 +498,7 @@ inline vec_int_3<T> operator-(const vec_int_3<T>& l, const vec_int_3<T>& r) noex
 template<typename T>
 inline vec_int_4<T> operator-(const vec_int_4<T>& v, T val) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(v.x >= val);
 		assert(v.y >= val);
 		assert(v.z >= val);
@@ -511,7 +511,7 @@ inline vec_int_4<T> operator-(const vec_int_4<T>& v, T val) noexcept
 template<typename T>
 inline vec_int_4<T> operator-(T val, const vec_int_4<T>& v) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(val >= v.x);
 		assert(val >= v.y);
 		assert(val >= v.z);
@@ -524,7 +524,7 @@ inline vec_int_4<T> operator-(T val, const vec_int_4<T>& v) noexcept
 template<typename T>
 inline vec_int_4<T> operator-(const vec_int_4<T>& l, const vec_int_4<T>& r) noexcept
 {
-	if (std::is_signed<T>::value) {
+	if (std::is_unsigned<T>::value) {
 		assert(l.x >= r.x);
 		assert(l.y >= r.y);
 		assert(l.z >= r.z);
@@ -571,6 +571,12 @@ inline vec_int_2<T> operator*(T val, const vec_int_2<T>& v) noexcept
 }
 
 template<typename T>
+inline vec_int_2<T> operator*(const vec_int_2<T>& l, const vec_int_2<T>& r) noexcept
+{
+	return vec_int_2<T>(r.x * l.x, r.y * l.y);
+}
+
+template<typename T>
 inline vec_int_3<T> operator*(const vec_int_3<T>& v, T val) noexcept
 {
 	return vec_int_3<T>(v.x * val, v.y * val, v.z * val);
@@ -580,6 +586,12 @@ template<typename T>
 inline vec_int_3<T> operator*(T val, const vec_int_3<T>& v) noexcept
 {
 	return vec_int_3<T>(v.x * val, v.y * val, v.z * val);
+}
+
+template<typename T>
+inline vec_int_3<T> operator*(const vec_int_3<T>& l, const vec_int_3<T>& r) noexcept
+{
+	return vec_int_3<T>(r.x * l.x, r.y * l.y, r.z * l.z);
 }
 
 template<typename T>
@@ -594,30 +606,44 @@ inline vec_int_4<T> operator*(T val, const vec_int_4<T>& v) noexcept
 	return vec_int_4<T>(v.x * val, v.y * val, v.z * val, v.w * val);
 }
 
-template<typename T, typename U>
-inline vec_int_2<T> operator/(const vec_int_2<T>& v, U val) noexcept
+template<typename T>
+inline vec_int_4<T> operator*(const vec_int_4<T>& l, const vec_int_4<T>& r) noexcept
 {
-	assert(val != 0);
-	return vec_int_2<T>(v.x / val, v.y);
+	return vec_int_4<T>(r.x * l.x, r.y * l.y, r.z * l.z, r.w * l.w);
 }
 
-template<typename T, typename U>
-inline vec_int_2<T> operator/(U val, const vec_int_2<T>& v) noexcept
+template<typename T>
+inline vec_int_2<T> operator/(const vec_int_2<T>& v, T val) noexcept
+{
+	assert(val != 0);
+	return vec_int_2<T>(v.x / val, v.y / val);
+}
+
+template<typename T>
+inline vec_int_2<T> operator/(T val, const vec_int_2<T>& v) noexcept
 {
 	assert(v.x != 0);
 	assert(v.y != 0);
 	return vec_int_2<T>(val / v.x, val / v.y);
 }
 
-template<typename T, typename U>
-inline vec_int_3<T> operator/(const vec_int_3<T>& v, U val) noexcept
+template<typename T>
+inline vec_int_2<T> operator/(const vec_int_2<T>& l, const vec_int_2<T>& r) noexcept
+{
+	assert(r.x != 0);
+	assert(r.y != 0);
+	return vec_int_2<T>(l.x / r.x, l.y / r.y);
+}
+
+template<typename T>
+inline vec_int_3<T> operator/(const vec_int_3<T>& v, T val) noexcept
 {
 	assert(val != 0);
 	return vec_int_3<T>(v.x / val, v.y / val, v.z / val);
 }
 
-template<typename T, typename U>
-inline vec_int_3<T> operator/(U val, const vec_int_3<T>& v) noexcept
+template<typename T>
+inline vec_int_3<T> operator/(T val, const vec_int_3<T>& v) noexcept
 {
 	assert(v.x != 0);
 	assert(v.y != 0);
@@ -625,21 +651,40 @@ inline vec_int_3<T> operator/(U val, const vec_int_3<T>& v) noexcept
 	return vec_int_3<T>(val / v.x, val / v.y, val / v.z);
 }
 
-template<typename T, typename U>
-inline vec_int_4<T> operator/(const vec_int_4<T>& v, U val) noexcept
+template<typename T>
+inline vec_int_3<T> operator/(const vec_int_3<T>& l, const vec_int_3<T>& r) noexcept
+{
+	assert(r.x != 0);
+	assert(r.y != 0);
+	assert(r.z != 0);
+	return vec_int_3<T>(l.x / r.x, l.y / r.y, l.z / r.z);
+}
+
+template<typename T>
+inline vec_int_4<T> operator/(const vec_int_4<T>& v, T val) noexcept
 {
 	assert(val != 0);
 	return vec_int_4<T>(v.x / val, v.y / val, v.z / val, v.w / val);
 }
 
-template<typename T, typename U>
-inline vec_int_4<T> operator/(U val, const vec_int_4<T>& v) noexcept
+template<typename T>
+inline vec_int_4<T> operator/(T val, const vec_int_4<T>& v) noexcept
 {
 	assert(v.x != 0);
 	assert(v.y != 0);
 	assert(v.z != 0);
 	assert(v.w != 0);
 	return vec_int_4<T>(val / v.x, val / v.y, val / v.z, val / v.w);
+}
+
+template<typename T>
+inline vec_int_4<T> operator/(const vec_int_4<T>& l, const vec_int_4<T>& r) noexcept
+{
+	assert(r.x != 0);
+	assert(r.y != 0);
+	assert(r.z != 0);
+	assert(r.w != 0);
+	return vec_int_4<T>(l.x / r.x, l.y / r.y, l.z / r.z, l.w / r.w);
 }
 
 template<typename T, typename U>
@@ -830,18 +875,39 @@ inline vec_int_4<T> clamp(const vec_int_4<T>& v, const vec_int_4<T>& lo,
 }
 
 template<typename T>
+constexpr T area(const vec_int_2<T>& v) noexcept
+{
+	return v.x * v.y;
+}
+
+template<typename T>
+constexpr T area(const vec_int_3<T>& v) noexcept
+{
+	return v.x * v.y;
+}
+
+template<typename T>
+constexpr T area(const vec_int_4<T>& v) noexcept
+{
+	return v.x * v.y;
+}
+
+template<typename T>
+[[deprecated("Use math::area() instead. To call the function 'square' was a stupid idea at the first place.")]] 
 constexpr T square(const vec_int_2<T>& v) noexcept
 {
 	return v.x * v.y;
 }
 
 template<typename T>
+[[deprecated("Use math::area() instead. To call the function 'square' was a stupid idea at the first place.")]]
 constexpr T square(const vec_int_3<T>& v) noexcept
 {
 	return v.x * v.y;
 }
 
 template<typename T>
+[[deprecated("Use math::area() instead. To call the function 'square' was a stupid idea at the first place.")]]
 constexpr T square(const vec_int_4<T>& v) noexcept
 {
 	return v.x * v.y;
