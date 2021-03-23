@@ -1,5 +1,5 @@
 #include "math/utility.h"
-
+#include <cstdint>
 
 namespace math {
 
