@@ -95,6 +95,8 @@ public:
 
 
 private:
+	// Generates N-dimensional vector filled with just two numbers - a or b, controlled with bit mask:
+	// for exampe mask 0b000 is {a, a, a}, 0b100 is {b, a, a}
 	template <typename Vec, typename T = typename math::vector_traits<Vec>::component_type, size_t N = math::vector_traits<Vec>::component_count>
 	static Vec generate_vector(std::bitset<N> max_mask, T a, T b)
 	{
@@ -112,15 +114,16 @@ private:
 		return result;
 	}
 
+	// Checks all combinations of vector's components of two types (a or b), generates complementary vector (same as previous, but with inverse components - b insted of a etc), runs check function
 	template <typename Vec, typename CheckFn, typename T = typename math::vector_traits<Vec>::component_type, size_t N = math::vector_traits<Vec>::component_count>
-	static void do_check_fn(T min, T max, CheckFn&& fn_check)
+	static void do_check_fn(T a, T b, CheckFn&& fn_check)
 	{
 		for (size_t mask = 0; mask <= (1 << N); ++mask)
 		{
-			Vec a = generate_vector<Vec>(std::bitset<N>{mask}, min, max),
-				b = generate_vector<Vec>(std::bitset<N>{mask}, max, min);
+			Vec vec1 = generate_vector<Vec>(std::bitset<N>{mask}, a, b),
+				vec2 = generate_vector<Vec>(std::bitset<N>{mask}, b, a);
 
-			fn_check(min, max, a, b);
+			fn_check(a, b, vec1, vec2);
 		}
 	}
 
@@ -138,7 +141,7 @@ private:
 	{
 		do_check_fn<Vec>(v1, v2, [](T v1, T v2, Vec vec_a, Vec vec_b)
 			{
-				Assert::IsTrue(math::max(vec_a, vec_b) == generate_vector<Vec>(std::bitset<N>{ 0xF }, v1, v2));
+				Assert::IsTrue(math::max(vec_a, vec_b) == generate_vector<Vec>(std::bitset<N>{ 0 }, v2, v1));
 			});
 	}
 
