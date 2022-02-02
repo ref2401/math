@@ -95,12 +95,13 @@ constexpr bool is_integral_vector()
 	return false;
 }
 
-// Checks whether Vec is a floating-point vector type.
-template<typename V>
-constexpr bool is_n_vector(size_t component_count)
+// Checks whether Vec is N-dimensional vector known for math library.
+// Bool vectors are not supported because they still don't have vector traits.
+template<typename V, size_t N>
+constexpr bool is_n_vector()
 {
 	if constexpr (is_vector<V>::value)
-		return typename vector_traits<V>::component_count == component_count;
+		return vector_traits<V>::component_count == N;
 
 	return false;
 }
