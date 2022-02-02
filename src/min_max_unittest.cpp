@@ -22,127 +22,178 @@ namespace unittest {
 
 TEST_CLASS(math_vector_utility) {
 public:
-
-	TEST_METHOD(min_vec2)
+	TEST_METHOD(min_vec2_limits)
 	{
-		test_min_impl<math::float2>(0.0f, 1.0f);
-		test_min_impl<math::float2>(-1.0f, 0.0f);
-		test_min_impl<math::float2>(-1.0f, 1.0f);
+		using math::min;
 
-		test_min_impl<math::int2>(0, 1);
-		test_min_impl<math::int2>(-1, 0);
-		test_min_impl<math::int2>(-1, 1);
-
-		// techically bool vectors is not vectors, because have no traits
-		//test_min_impl<math::bool2>(false, true);
-	}
-	
-	TEST_METHOD(min_vec3)
-	{
-		test_min_impl<math::float3>(0.0f, 1.0f);
-		test_min_impl<math::float3>(-1.0f, 0.0f);
-		test_min_impl<math::float3>(-1.0f, 1.0f);
-
-		test_min_impl<math::int3>(0, 1);
-		test_min_impl<math::int3>(-1, 0);
-		test_min_impl<math::int3>(-1, 1);
-	}
-
-	TEST_METHOD(min_vec4)
-	{
-		test_min_impl<math::float4>(0.0f, 1.0f);
-		test_min_impl<math::float4>(-1.0f, 0.0f);
-		test_min_impl<math::float4>(-1.0f, 1.0f);
-
-		test_min_impl<math::int4>(0, 1);
-		test_min_impl<math::int4>(-1, 0);
-		test_min_impl<math::int4>(-1, 1);
-
-	}
-
-	TEST_METHOD(max_vec2)
-	{
-		test_max_impl<math::float2>(0.0f, 1.0f);
-		test_max_impl<math::float2>(-1.0f, 0.0f);
-		test_max_impl<math::float2>(-1.0f, 1.0f);
-
-		test_max_impl<math::int2>(0, 1);
-		test_max_impl<math::int2>(-1, 0);
-		test_max_impl<math::int2>(-1, 1);
-	}
-
-	TEST_METHOD(max_vec3)
-	{
-		test_max_impl<math::float3>(0.0f, 1.0f);
-		test_max_impl<math::float3>(-1.0f, 0.0f);
-		test_max_impl<math::float3>(-1.0f, 1.0f);
-
-		test_max_impl<math::int3>(0, 1);
-		test_max_impl<math::int3>(-1, 0);
-		test_max_impl<math::int3>(-1, 1);
-	}
-
-	TEST_METHOD(max_vec4)
-	{
-		test_max_impl<math::float4>(0.0f, 1.0f);
-		test_max_impl<math::float4>(-1.0f, 0.0f);
-		test_max_impl<math::float4>(-1.0f, 1.0f);
-
-		test_max_impl<math::int4>(0, 1);
-		test_max_impl<math::int4>(-1, 0);
-		test_max_impl<math::int4>(-1, 1);
-	}
-
-
-private:
-	// Generates N-dimensional vector filled with just two numbers - a or b, controlled with bit mask:
-	// for exampe mask 0b000 is {a, a, a}, 0b100 is {b, a, a}
-	template <typename Vec, typename T = typename math::vector_traits<Vec>::component_type, size_t N = math::vector_traits<Vec>::component_count>
-	static Vec generate_vector(std::bitset<N> max_mask, T a, T b)
-	{
-		const auto select_component = [a, b](bool take_b) { return take_b ? b : a; };
-
-		Vec result;
-
-		result.x = select_component(max_mask[0]);
-		result.y = select_component(max_mask[1]);
-		if constexpr (N >= 3)
-			result.z = select_component(max_mask[2]);
-		if constexpr (N == 4)
-			result.w = select_component(max_mask[3]);
-
-		return result;
-	}
-
-	// Checks all combinations of vector's components of two types (a or b), generates complementary vector (same as previous, but with inverse components - b insted of a etc), runs check function
-	template <typename Vec, typename CheckFn, typename T = typename math::vector_traits<Vec>::component_type, size_t N = math::vector_traits<Vec>::component_count>
-	static void do_check_fn(T a, T b, CheckFn&& fn_check)
-	{
-		for (size_t mask = 0; mask <= (1 << N); ++mask)
 		{
-			Vec vec1 = generate_vector<Vec>(std::bitset<N>{mask}, a, b),
-				vec2 = generate_vector<Vec>(std::bitset<N>{mask}, b, a);
+			constexpr auto small = std::numeric_limits<float>::min();
+			constexpr auto big = std::numeric_limits<float>::max();
 
-			fn_check(a, b, vec1, vec2);
+			Assert::IsTrue(min<math::float2>({ small, big}, {big, small}) == math::float2{small, small});
+			Assert::IsTrue(min<math::float2>({ big, small}, {small, big}) == math::float2{small, small});
+
+			Assert::IsTrue(min<math::float2>({ small, small}, {small, small}) == math::float2{small, small});
+			Assert::IsTrue(min<math::float2>({ big, big}, {big, big}) == math::float2{big, big});
+		}
+
+		{
+			constexpr auto small = std::numeric_limits<int>::min();
+			constexpr auto big = std::numeric_limits<int>::max();
+
+			Assert::IsTrue(min<math::int2>({ small, big }, { big, small }) == math::int2{ small, small });
+			Assert::IsTrue(min<math::int2>({ big, small }, { small, big }) == math::int2{ small, small });
+
+			Assert::IsTrue(min<math::int2>({ small, small }, { small, small }) == math::int2{ small, small });
+			Assert::IsTrue(min<math::int2>({ big, big }, { big, big }) == math::int2{ big, big });
 		}
 	}
 
-	template <typename Vec, typename T = typename math::vector_traits<Vec>::component_type, size_t N = math::vector_traits<Vec>::component_count>
-	void test_min_impl(T v1, T v2)
+	TEST_METHOD(min_vec2_usual_values)
 	{
-		do_check_fn<Vec>(v1, v2, [](T v1, T v2, Vec vec_a, Vec vec_b)
-			{
-				Assert::IsTrue(math::min(vec_a, vec_b) == generate_vector<Vec>(std::bitset<N>{ 0 }, v1, v2));
-			});
+		using math::min;
+
+		{
+			constexpr auto small = -5.0f;
+			constexpr auto big = 300.0f;
+
+			Assert::IsTrue(min<math::float2>({ small, big }, { big, small }) == math::float2{ small, small });
+			Assert::IsTrue(min<math::float2>({ big, small }, { small, big }) == math::float2{ small, small });
+
+			Assert::IsTrue(min<math::float2>({ small, small }, { small, small }) == math::float2{ small, small });
+			Assert::IsTrue(min<math::float2>({ big, big }, { big, big }) == math::float2{ big, big });
+		}
+
+		{
+			constexpr auto small = -5;
+			constexpr auto big = 300;
+
+			Assert::IsTrue(min<math::int2>({ small, big }, { big, small }) == math::int2{ small, small });
+			Assert::IsTrue(min<math::int2>({ big, small }, { small, big }) == math::int2{ small, small });
+
+			Assert::IsTrue(min<math::int2>({ small, small }, { small, small }) == math::int2{ small, small });
+			Assert::IsTrue(min<math::int2>({ big, big }, { big, big }) == math::int2{ big, big });
+		}
 	}
 
-	template <typename Vec, typename T = typename math::vector_traits<Vec>::component_type, size_t N = math::vector_traits<Vec>::component_count>
-	void test_max_impl(T v1, T v2)
+	TEST_METHOD(min_vec3_limits)
 	{
-		do_check_fn<Vec>(v1, v2, [](T v1, T v2, Vec vec_a, Vec vec_b)
-			{
-				Assert::IsTrue(math::max(vec_a, vec_b) == generate_vector<Vec>(std::bitset<N>{ 0 }, v2, v1));
-			});
+		using math::min;
+
+		{
+			constexpr auto small = std::numeric_limits<float>::min();
+			constexpr auto big = std::numeric_limits<float>::max();
+
+			Assert::IsTrue(min<math::float3>({ small, big, big }, { big, small, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, small, big }, { small, big, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, big, small }, { small, small, big }) == math::float3{ small, small, small });
+
+			Assert::IsTrue(min<math::float3>({ small, small, small }, { small, small, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, big, big }, { big, big, big }) == math::float3{ big, big, big });
+		}
+
+		{
+			constexpr auto small = std::numeric_limits<int>::min();
+			constexpr auto big = std::numeric_limits<int>::max();
+
+			Assert::IsTrue(min<math::int3>({ small, big, big }, { big, small, small }) == math::int3{ small, small, small });
+			Assert::IsTrue(min<math::int3>({ big, small, big }, { small, big, small }) == math::int3{ small, small, small });
+			Assert::IsTrue(min<math::int3>({ big, big, small }, { small, small, big }) == math::int3{ small, small, small });
+	
+			Assert::IsTrue(min<math::int3>({ small, small, small }, { small, small, small }) == math::int3{ small, small, small });
+			Assert::IsTrue(min<math::int3>({ big, big, big }, { big, big, big }) == math::int3{ big, big, big });
+		}
+	}
+
+	TEST_METHOD(min_vec3_usual_values)
+	{
+		using math::min;
+
+		{
+			constexpr auto small = -5.0f;
+			constexpr auto big = 300.0f;
+
+			Assert::IsTrue(min<math::float3>({ small, big, big }, { big, small, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, small, big }, { small, big, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, big, small }, { small, small, big }) == math::float3{ small, small, small });
+
+			Assert::IsTrue(min<math::float3>({ small, small, small }, { small, small, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, big, big }, { big, big, big }) == math::float3{ big, big, big });
+		}
+
+		{
+			constexpr auto small = -5;
+			constexpr auto big = 300;
+
+			Assert::IsTrue(min<math::float3>({ small, big, big }, { big, small, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, small, big }, { small, big, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, big, small }, { small, small, big }) == math::float3{ small, small, small });
+
+			Assert::IsTrue(min<math::float3>({ small, small, small }, { small, small, small }) == math::float3{ small, small, small });
+			Assert::IsTrue(min<math::float3>({ big, big, big }, { big, big, big }) == math::float3{ big, big, big });
+		}
+	}
+
+	TEST_METHOD(min_vec4_limits)
+	{
+		using math::min;
+
+		{
+			constexpr auto small = std::numeric_limits<float>::min();
+			constexpr auto big = std::numeric_limits<float>::max();
+
+			Assert::IsTrue(min<math::float4>({ small, big, big, big }, { big, small, small, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, small, big, big }, { small, big, small, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, big, small, big }, { small, small, big, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, big, big, small }, { small, small, small, big }) == math::float4{ small, small, small, small });
+
+			Assert::IsTrue(min<math::float4>({ small, small, small, small }, { small, small, small, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, big, big, big }, { big, big, big, big }) == math::float4{ big, big, big, big });
+		}
+
+		{
+			constexpr auto small = std::numeric_limits<int>::min();
+			constexpr auto big = std::numeric_limits<int>::max();
+
+			Assert::IsTrue(min<math::int4>({ small, big, big, big }, { big, small, small, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, small, big, big }, { small, big, small, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, big, small, big }, { small, small, big, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, big, big, small }, { small, small, small, big }) == math::int4{ small, small, small, small });
+
+			Assert::IsTrue(min<math::int4>({ small, small, small, small }, { small, small, small, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, big, big, big }, { big, big, big, big }) == math::int4{ big, big, big, big });
+		}
+	}
+
+	TEST_METHOD(min_vec4_usual_values)
+	{
+		using math::min;
+
+		{
+			constexpr auto small = -5.0f;
+			constexpr auto big = 300.0f;
+
+			Assert::IsTrue(min<math::float4>({ small, big, big, big }, { big, small, small, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, small, big, big }, { small, big, small, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, big, small, big }, { small, small, big, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, big, big, small }, { small, small, small, big }) == math::float4{ small, small, small, small });
+
+			Assert::IsTrue(min<math::float4>({ small, small, small, small }, { small, small, small, small }) == math::float4{ small, small, small, small });
+			Assert::IsTrue(min<math::float4>({ big, big, big, big }, { big, big, big, big }) == math::float4{ big, big, big, big });
+		}
+
+		{
+			constexpr auto small = -5;
+			constexpr auto big = 300;
+
+			Assert::IsTrue(min<math::int4>({ small, big, big, big }, { big, small, small, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, small, big, big }, { small, big, small, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, big, small, big }, { small, small, big, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, big, big, small }, { small, small, small, big }) == math::int4{ small, small, small, small });
+
+			Assert::IsTrue(min<math::int4>({ small, small, small, small }, { small, small, small, small }) == math::int4{ small, small, small, small });
+			Assert::IsTrue(min<math::int4>({ big, big, big, big }, { big, big, big, big }) == math::int4{ big, big, big, big });
+		}
 	}
 
 };
