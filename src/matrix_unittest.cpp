@@ -175,7 +175,7 @@ public:
 		float3x3 n(0, -3, 4, 5, 6, 7, -1, 9, 2);
 
 		Assert::AreEqual(det(m * n), det(m) * det(n));
-		Assert::AreEqual(det(5.f * m), std::pow(5.f, 3)* det(m), L"|aM| = a^3 * |M|");
+		Assert::AreEqual(det(5.f * m), std::pow(5.f, 3.f)* det(m), L"|aM| = a^3 * |M|");
 		Assert::AreEqual(det(m), det(transpose(m)));
 	}
 
@@ -536,7 +536,7 @@ public:
 		float4x4 n(0, -3, 4, 5, 6, 7, -1, 9, 2, -16, 4, 9, -1, 0, 5, 8);
 
 		Assert::AreEqual(det(m * n), det(m) * det(n));
-		Assert::AreEqual(det(5.0f * m), std::pow(5.0f, 4) * det(m), L"|aM| = a^4 * |M|");
+		Assert::AreEqual(det(5.0f * m), std::pow(5.0f, 4.f) * det(m), L"|aM| = a^4 * |M|");
 		Assert::AreEqual(det(m), det(transpose(m)));
 	}
 
