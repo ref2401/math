@@ -2,8 +2,7 @@
 #define MATH_VECTOR_UTILITY_H_
 
 #include <cassert>
-#include "math/vector_float.h"
-#include "math/vector_int.h"
+#include "math/math_traits.h"
 
 
 namespace math {
@@ -86,21 +85,10 @@ inline float4 unpack_unorm_8_8_8_8(uint32_t val) noexcept
 	);
 }
 
-// Poor man's vectors concepts. Better to add restrictions.
-template <typename Vec>
-using is_vector4 = std::is_constructible<Vec, decltype(std::declval<Vec>().x), decltype(std::declval<Vec>().y), decltype(std::declval<Vec>().z), decltype(std::declval<Vec>().w)>;
-
-template <typename Vec>
-using is_vector3 = std::is_constructible<Vec, decltype(std::declval<Vec>().x), decltype(std::declval<Vec>().y), decltype(std::declval<Vec>().z)>;
-
-template <typename Vec>
-using is_vector2 = std::is_constructible<Vec, decltype(std::declval<Vec>().x), decltype(std::declval<Vec>().y)>;
-
-
 // Returns component-wise minimum of two vectors.
 // Params:
 //        a, b = input values
-template <typename Vec2, std::enable_if_t<is_vector2<Vec2>::value, int> = 0>
+template <typename Vec2, std::enable_if_t<is_n_vector<Vec2>(2), int> = 0>
 inline Vec2 min(const Vec2& a, const Vec2& b) noexcept
 {
     return Vec2(
@@ -112,7 +100,7 @@ inline Vec2 min(const Vec2& a, const Vec2& b) noexcept
 // Returns component-wise minimum of two vectors.
 // Params:
 //        a, b = input values
-template <typename Vec3, std::enable_if_t<is_vector3<Vec3>::value, int> = 0>
+template <typename Vec3, std::enable_if_t<is_n_vector<Vec3>(3), int> = 0>
 inline Vec3 min(const Vec3& a, const Vec3& b) noexcept
 {
     return Vec3(
@@ -125,7 +113,7 @@ inline Vec3 min(const Vec3& a, const Vec3& b) noexcept
 // Returns component-wise minimum of two vectors.
 // Params:
 //        a, b = input values
-template <typename Vec4, std::enable_if_t<is_vector4<Vec4>::value, int> = 0>
+template <typename Vec4, std::enable_if_t<is_n_vector<Vec4>(4), int> = 0>
 inline Vec4 min(const Vec4& a, const Vec4& b) noexcept
 {
     return Vec4(
@@ -139,7 +127,7 @@ inline Vec4 min(const Vec4& a, const Vec4& b) noexcept
 // Returns component-wise maximum if two vectors
 // Params:
 //        a, b = input values
-template <typename Vec2, std::enable_if_t<is_vector2<Vec2>::value, int> = 0>
+template <typename Vec2, std::enable_if_t<is_n_vector<Vec2>(2), int> = 0>
 inline Vec2 max(const Vec2& a, const Vec2& b) noexcept
 {
     return Vec2(
@@ -151,7 +139,7 @@ inline Vec2 max(const Vec2& a, const Vec2& b) noexcept
 // Returns component-wise maximum if two vectors
 // Params:
 //        a, b = input values
-template <typename Vec3, std::enable_if_t<is_vector3<Vec3>::value, int> = 0>
+template <typename Vec3, std::enable_if_t<is_n_vector<Vec3>(3), int> = 0>
 inline Vec3 max(const Vec3& a, const Vec3& b) noexcept
 {
     return Vec3(
@@ -164,7 +152,7 @@ inline Vec3 max(const Vec3& a, const Vec3& b) noexcept
 // Returns component-wise maximum if two vectors
 // Params:
 //        a, b = input values
-template <typename Vec4, std::enable_if_t<is_vector4<Vec4>::value, int> = 0>
+template <typename Vec4, std::enable_if_t<is_n_vector<Vec4>(4), int> = 0>
 inline Vec4 max(const Vec4& a, const Vec4& b) noexcept
 {
     return Vec4(
